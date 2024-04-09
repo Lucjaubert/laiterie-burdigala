@@ -1,0 +1,11 @@
+<div *ngIf="(homepageData$ | async) as homepageDataArray">
+  <div *ngFor="let homepageData of homepageDataArray">
+    <h2>{{ homepageData?.title }}</h2>
+    <div [innerHTML]="homepageData?.content"></div>
+    <p>{{ homepageData?.acf_fields?.slogan }}</p>
+    <p>{{ homepageData?.acf_fields?.avis }}</p>
+    <p>{{ homepageData?.acf_fields?.presse }}</p>
+    <div [innerHTML]="homepageData?.acf_fields?.location"></div>
+    <p>{{ homepageData?.acf_fields?.gegege }}</p>
+  </div>
+</div>
