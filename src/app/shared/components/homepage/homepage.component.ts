@@ -27,7 +27,7 @@ export class HomepageComponent implements OnInit {
   homepageData$: Observable<HomepageData[] | null>;
 
   constructor(private wpService: WordpressService) { 
-    this.homepageData$ = this.wpService.getHomepageContent().pipe(
+    this.homepageData$ = this.wpService.getHomepage().pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des données de la page daccueil:', error);
         return of(null); 
@@ -35,7 +35,7 @@ export class HomepageComponent implements OnInit {
     );
     
     // Ajout d'un console.log pour vérifier les données
-    this.homepageData$.subscribe(data => console.log('Données de la page d\'accueil:', data));
+    this.homepageData$.subscribe(data => console.log('Données de la page daccueil:', data));
   }
 
   ngOnInit(): void {
