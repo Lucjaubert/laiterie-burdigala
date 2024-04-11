@@ -6,6 +6,8 @@ import { HomepageComponent } from './app/shared/components/homepage/homepage.com
 
 const routes = [
     { path: '', component: HomepageComponent },
+    { path: 'nos-produits', loadChildren: () => import('./app/shared/components/products/products.module').then(m => m.ProductsModule) },
+    { path: 'finaliser-commande', loadChildren: () => import('./app/shared/components/order/order.module').then(m => m.OrderModule) }
 ];
 
 bootstrapApplication(AppComponent, {
