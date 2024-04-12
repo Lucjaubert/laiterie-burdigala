@@ -1,29 +1,14 @@
 $theme-colors: (
-  "grey": #4f4f4f,
-  "grey-light": #84878d,
-  "green": #c2c9bd,
-  "green-light": #c2c9bda6,
-  "green-dark": #767f70a6,
-  "grey-white": #bdbfc4,
-  "light": #FDFDF8,
-  "yellow": #FBFDD8,
-  "light-pink": #F7E7DE,
-  "blue": #CDDCFF,
-  "white-light": #f5f4f3,
+  "green": #719673,
+  "blue-green": #93acb5,
+  "blue": #96c5f7,
+  "light-blue": #a9d3ff,
+  "light-grey": #f2f4ff,
   "white": #ffffff,
   "accepted": #CDDCFF,
   "refund": orange,
-  "success": #60dab1,
-  "info": #66d1d1,
-  "warning": #ffcc00,
-  "danger": #fa393e,
-  "mat-labe": #7c879c,
-  "first-orange": #819fcd,
-  "second-orange": #889ab5,
-  "third-orange": #5e7393
-
-
 );
+
 $border-size: (
   "1": 1px,
   "2": 2px,
@@ -36,6 +21,7 @@ $border-size: (
   "9": 9px,
   "10": 10px,
 );
+
 $font-size: (
   "10": 0.75rem,
   // 12px
@@ -53,12 +39,10 @@ $font-size: (
 );
 
 $font-weight: (
-  "x-bold": 900,
-  "xx-bold": 700,
-  "bold": 600,
-  "medium": 500,
+  "bold": 700,
   "regular": 400,
 );
+
 @each $name, $value in $font-size {
   .text-fs-#{$name} {
     font-size: $value;

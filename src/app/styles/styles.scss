@@ -1,70 +1,74 @@
 @import "./_variables.scss";
-@import "node_modules/bootstrap/dist/css/bootstrap.min.css";
-@import "node_modules/bootstrap-icons/font/bootstrap-icons.css";
-@import "node_modules/bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css2?family=Cinzel:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import "../../../node_modules/bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Cambay:wght@400;700&display=swap');
 
 body {
-  font-family: "Cinzel", sans-serif;
-  color: map-get($colors, grey);
-  background-color: map-get($theme-colors, background-grey);
+  font-family: 'Cambay', sans-serif;
+  color: map-get($theme-colors, "green");
+  background-color: map-get($theme-colors, "light-grey");
   overflow-x: hidden !important;
+
   main {
     overflow: hidden !important;
     width: 100%;
   }
 }
 
-.btn {
-  font-family: "Raleway", sans-serif;
-  text-transform: none;
-  width: fit-content;
-  background-color: map-get($theme-colors, "grey-light");
-  border: none;
-  color: white;
-  font-weight: bold;
-  border-radius: 0.6rem;
-  font-size: map-get($font-size, m);
-  letter-spacing: 0;
-  &-grey {
-    padding: 0.5rem 1.8rem;
-  }
-  &-light {
-    padding: 0.5rem 2rem;
-  }
+h1, h2, h3, p ul li {
+  font-family: 'Cambay', sans-serif;
 }
 
 h1 {
-  @extend .text-grey;
-  @extend .text-fw-x-bold;
-  @extend .text-fs-70;
-  font-family: "Cinzel", sans-serif;
+  font-weight: map-get($font-weight, "bold");
+  font-size: map-get($font-size, "70");
 }
+
 h2 {
-  @extend .text-grey;
-  @extend .text-fw-xx-bold;
-  @extend .text-fs-60;
-  font-family: "Cinzel", sans-serif;
+  font-weight: map-get($font-weight, "bold");
+  font-size: map-get($font-size, "60");
 }
+
 h3 {
-  @extend .text-grey;
-  @extend .text-fw-bold;
-  @extend .text-fs-50;
-  font-family: "Cinzel", sans-serif;
+  font-weight: map-get($font-weight, "bold");
+  font-size: map-get($font-size, "50");
 }
 
-.small-title {
-  color: map-get($theme-colors, "grey");
-  font-size: map-get($font-size, 40);
-  font-weight: map-get($font-weight, bold);
-  text-transform: uppercase;
-  margin-bottom: 0;
+p {
+  font-size: map-get($font-size, "20");
 }
 
-p ul li {
-  @extend .text-grey;
-  @extend .text-fs-s;
-  font-family: "Cinzel", sans-serif;
+@each $color-name, $color-value in $theme-colors {
+  .text-#{$color-name} {
+    color: $color-value;
+  }
+  .bg-#{$color-name} {
+    background-color: $color-value;
+  }
 }
 
+@each $name, $value in $font-size {
+  .text-fs-#{$name} {
+    font-size: $value;
+  }
+}
+
+
+//.btn {
+//  font-family: "Raleway", sans-serif;
+//  text-transform: none;
+//  width: fit-content;
+//  background-color: map-get($theme-colors, "grey-light");
+//  border: none;
+//  color: white;
+//  font-weight: bold;
+//  border-radius: 0.6rem;
+//  font-size: map-get($font-size, m);
+//  letter-spacing: 0;
+//  &-grey {
+//    padding: 0.5rem 1.8rem;
+//  }
+//  &-light {
+//    padding: 0.5rem 2rem;
+//  }
+//}
 
