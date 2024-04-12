@@ -1,3 +1,9 @@
-<p>
-  workshops works!
-</p>
+<div *ngIf="workshopsData$ | async as workshopsDataArray">
+  <section *ngFor="let workshopData of workshopsDataArray">
+    <h2>{{ workshopData?.title }}</h2>
+    <div *ngIf="workshopData?.acf_fields">
+      <h3>{{ workshopData.acf_fields.title }}</h3>
+      <p [innerHTML]="workshopData.acf_fields.texte"></p>
+    </div>
+  </section>
+</div>

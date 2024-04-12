@@ -1,3 +1,9 @@
-<p>
-  order works!
-</p>
+<div *ngIf="orderData$ | async as orderDataArray">
+  <section *ngFor="let orderData of orderDataArray">
+    <h2>{{ orderData?.title }}</h2>
+    <div *ngIf="orderData?.acf_fields">
+      <h3>{{ orderData.acf_fields.title }}</h3>
+      <p>{{ orderData.acf_fields.subtitle }}</p>
+    </div>
+  </section>
+</div>

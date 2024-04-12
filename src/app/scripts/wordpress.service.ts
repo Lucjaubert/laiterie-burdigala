@@ -18,7 +18,7 @@ export class WordpressService {
     return this.http.get<any>(`${this.apiUrl}/nos-produits`);
   }
 
-  getFinalizeOrders(): Observable<any> {
+  getOrder(): Observable<any> {
     return this.http.get(`${this.apiUrl}/finaliser-commande`);
   }
 
@@ -34,7 +34,7 @@ export class WordpressService {
     return this.http.get(`${this.apiUrl}/nos-fournisseurs`);
   }
 
-  getAboutUS(): Observable<any> {
+  getAboutUs(): Observable<any> {
     return this.http.get(`${this.apiUrl}/a-propos-de-nous`);
   }
 }
