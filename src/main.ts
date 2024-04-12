@@ -8,10 +8,10 @@ const routes = [
     { path: '', component: HomepageComponent },
     { path: 'nos-produits', loadChildren: () => import('./app/shared/components/products/products.module').then(m => m.ProductsModule) },
     { path: 'finaliser-commande', loadChildren: () => import('./app/shared/components/order/order.module').then(m => m.OrderModule) },
-    { path: 'nos-fournisseurs', loadChildren: () => import('./app/shared/components/suppliers/suppliers.module').then(m => m.SuppliersModule) },
-    { path: 'notre-brunch', loadChildren: () => import('./app/shared/components/brunchs/brunchs.module').then(m => m.BrunchsModule) },
     { path: 'nos-ateliers', loadChildren: () => import('./app/shared/components/workshops/workshops.module').then(m => m.WorkshopsModule) },
-    { path: 'à-propos-de-nous', loadChildren: () => import('./app/shared/components/about-us/about-us.module').then(m => m.AboutUsModule) },
+    { path: 'notre-brunch', loadChildren: () => import('./app/shared/components/brunch/brunch.module').then(m => m.BrunchModule) },
+    { path: 'nos-fournisseurs', loadChildren: () => import('./app/shared/components/suppliers/suppliers.module').then(m => m.SuppliersModule) },
+    { path: 'a-propos-de-nous', loadChildren: () => import('./app/shared/components/about-us/about-us.module').then(m => m.AboutUsModule) },
     { path: 'intro', loadChildren: () => import('./app/shared/components/intro/intro.module').then(m => m.IntroModule) },
     { path: 'transition', loadChildren: () => import('./app/shared/components/transition/transition.module').then(m => m.TransitionModule)}
 ];

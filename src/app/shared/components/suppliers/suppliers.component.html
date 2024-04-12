@@ -1,3 +1,14 @@
-<p>
-  suppliers works!
-</p>
+<div *ngIf="suppliersData$ | async as suppliersDataArray">
+  <section *ngFor="let suppliersData of suppliersDataArray">
+    <h2>{{ suppliersData?.title }}</h2>
+    <div *ngIf="suppliersData?.acf_fields">
+      <h3>{{ suppliersData.acf_fields.title }}</h3>
+      <p>{{ suppliersData.acf_fields.subtitle }}</p>
+      <div *ngFor="let supplier of suppliersData.acf_fields.suppliers | keyvalue">
+        <div>
+          <strong>{{ supplier.key }}</strong>: <span [innerHTML]="supplier.value"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

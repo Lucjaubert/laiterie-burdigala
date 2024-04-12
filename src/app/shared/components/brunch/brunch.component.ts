@@ -4,35 +4,35 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/scripts/wordpress.service';
 
-interface OrderData {
+interface BrunchData {
   title: string;
   content: string;
   acf_fields: {
     title: string;
-    subtitle: string;
+    texte: string;
   };
 }
 
 @Component({
-  selector: 'app-order',
-  templateUrl: './order.component.html',
-  styleUrls: ['./order.component.scss'],
+  selector: 'app-brunch',
+  templateUrl: './brunch.component.html',
+  styleUrls: ['./brunch.component.scss'],
   standalone: true,
   imports: [CommonModule],
 })
-export class OrderComponent implements OnInit {
+export class BrunchComponent implements OnInit {
 
-  orderData$: Observable<OrderData[] | null>;
+  brunchData$: Observable<BrunchData[] | null>;
 
   constructor(private wpService: WordpressService) { 
-    this.orderData$ = this.wpService.getOrder().pipe(
+    this.brunchData$ = this.wpService.getBrunchs().pipe(
       catchError(error => {
-        console.error('Erreur lors de la récupération des données de la page de commande:', error);
+        console.error('Erreur lors de la récupération des données de la page brunch:', error);
         return of(null); 
       })
     );
     
-    this.orderData$.subscribe(data => console.log('Données de la page de commande:', data));
+    this.brunchData$.subscribe(data => console.log('Données de la page brunch:', data));
   }
 
   ngOnInit(): void {

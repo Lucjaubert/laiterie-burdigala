@@ -1,5 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { WordpressService } from 'src/app/scripts/wordpress.service';
+
+interface SupplierData {
+  title: string;
+  content: string;
+  acf_fields: {
+    title: string;
+    subtitle: string;
+    suppliers: {
+      [key: string]: string;
+    };
+  };
+}
 
 @Component({
   selector: 'app-suppliers',
@@ -10,9 +25,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuppliersComponent implements OnInit {
 
-  constructor() { }
+  suppliersData$: Observable<SupplierData[] | null>;
 
-  ngOnInit() {
+  constructor(private wpService: WordpressService) { 
+    this.suppliersData$ = this.wpService.getSuppliers().pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération des données de la page fournisseurs:', error);
+        return of(null); 
+      })
+    );
+    
+    this.suppliersData$.subscribe(data => console.log('Données de la page fournisseurs:', data));
+  }
+
+  ngOnInit(): void {
   }
 
 }
