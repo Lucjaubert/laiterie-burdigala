@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WordpressService } from 'src/app/scripts/wordpress.service'; 
+import { WordpressService } from 'src/app/services/wordpress.service'; 
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { HeaderComponent } from '../header/header.component';
 
 interface HomepageData {
   title: string;
@@ -21,7 +22,7 @@ interface HomepageData {
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
   standalone: true, 
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
 })
 export class HomepageComponent implements OnInit {
   homepageData$: Observable<HomepageData[] | null>;
@@ -34,7 +35,6 @@ export class HomepageComponent implements OnInit {
       })
     );
     
-    // Ajout d'un console.log pour vérifier les données
     this.homepageData$.subscribe(data => console.log('Données de la page daccueil:', data));
   }
 

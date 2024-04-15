@@ -27,7 +27,7 @@ export class WordpressService {
   }
 
   getBrunchs(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/nos-brunchs`);
+    return this.http.get(`${this.apiUrl}/notre-brunch`);
   }
 
   getSuppliers(): Observable<any> {
