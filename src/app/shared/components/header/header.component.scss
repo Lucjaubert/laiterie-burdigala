@@ -1,0 +1,81 @@
+@import "../../../styles/_variables.scss";
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 550px;
+  overflow: hidden;
+  transition: width 0.5s ease;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  background-color: white;
+
+  .navbar {
+    .burger-menu {
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .navbar-collapse {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 5s ease;
+    }
+
+    .navbar-collapse.show {
+      display: block;
+    }
+
+    .navbar-brand {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .navbar-nav {
+      width: 100%;
+      .nav-item {
+        text-align: center;
+        opacity: 0; 
+      }
+
+      .nav-link {
+        color: #719673;
+        &:hover {
+          color: darken(#719673, 10%);
+        }
+      }
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin-top: 20px;
+
+      .social-logo {
+        height: 30px;
+        width: auto;
+      }
+
+      a {
+        color: #719673;
+        margin: 0 15px;
+      }
+    }
+  }
+}
+
+.blurred {
+  filter: blur(4px); 
+  opacity: 0.8;     
+  transition: filter 300ms ease, opacity 300ms ease;
+}

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { WordpressService } from 'src/app/scripts/wordpress.service';
+import { WordpressService } from 'src/app/services/wordpress.service';
 
 interface OrderData {
   title: string;
