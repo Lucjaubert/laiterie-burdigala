@@ -1,18 +1,18 @@
+import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
 import { gsap } from 'gsap';
-import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
+import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component'; // Adjust path as necessary
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule, MenuBurgerLogoComponent],
+  imports: [CommonModule, MenuBurgerLogoComponent]
 })
 export class HeaderComponent {
   navbarExpanded: boolean = false;
-  headerContainerWidth: number = 0;
+  headerContainerWidth: number = 550; 
 
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
@@ -24,43 +24,46 @@ export class HeaderComponent {
   }
 
   animateIn() {
-    gsap.to('.header-container', { 
-      left: '0px', 
-      width: '550px',  
-      opacity: 1, 
-      duration: 0.8, 
-      ease: 'power3.out' 
+    gsap.to('.header-container', {
+      left: '0px',
+      opacity: 1,
+      duration: 0.5,
+      ease: 'power3.out'
     });
-    gsap.to('.navbar-nav .nav-item', {
-      opacity: 1, 
-      delay: 0.3,
-      duration: 2,
-      stagger: 0.3,
-      ease: 'power3.inOut'
+    gsap.fromTo('.navbar-nav .nav-item', { opacity: 0 }, {
+      opacity: 1,
+      duration: 0.5,
+      stagger: 0.1,
+      ease: 'power4.inOut'
     });
   }
 
   animateOut() {
-    gsap.to('.header-container', {
-      left: '-100%', 
-      opacity: 0,
-      duration: 1.8, 
-      ease: 'power3.in'
-    });
-  }
-
-  handleNavItemClick(): void {
+    // Animate out nav items first
     gsap.to('.navbar-nav .nav-item', {
       opacity: 0,
-      duration: 1.8, 
-      ease: 'power3.in', 
+      duration: 0.5,
+      ease: 'power4.in',
+      stagger: 0.1,
       onComplete: () => {
-        this.animateOut(); 
+        // Once nav items are invisible, introduce a delay before sliding out the header container
+        gsap.to('.header-container', {
+          left: '-100%',
+          duration: 1.0,  // Increase the duration if needed
+          delay: 0.2,     // Delay before starting the slide out animation
+          ease: 'power4.in'
+        });
       }
     });
+    this.navbarExpanded = false; // Ensure the navbar state is updated
+  }  
+
+  handleNavItemClick(): void {
+    this.animateOut();
   }
 
-  updateHeaderWidth(): void {
-    this.headerContainerWidth = this.navbarExpanded ? 300 : 0;
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event) {
+    this.headerContainerWidth = window.innerWidth < 769 ? 550 : 300;
   }
 }

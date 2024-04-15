@@ -65,3 +65,15 @@
     max-width: 100%;
   }
 }
+
+@media (max-width: 768px) {
+    .fixed-elements {
+      justify-content: center;
+      align-items: flex-start; 
+      padding-left: 30px;
+    }
+
+    .navbar-brand {
+      display: none; 
+  }
+}
