@@ -2,7 +2,7 @@
 
   <app-menu-burger-logo (toggle)="toggleMenu()"></app-menu-burger-logo>
   
-  <header class="header-container pt-18">
+  <header class="header-container pt-19">
     <nav class="navbar">
       <div class="container-fluid justify-content-center">
         <div class="collapse" [ngClass]="{'show': navbarExpanded}" #navbarCollapse>
@@ -37,5 +37,5 @@
   </header>
 </div>
 
-<div [ngClass]="{'blurred': navbarExpanded && headerContainerWidth === 300}" class="main-content">
+<div [ngClass]="{'blurred': navbarExpanded && headerContainerWidth === 550}" class="main-content">
 </div>

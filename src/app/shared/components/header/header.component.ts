@@ -26,7 +26,7 @@ export class HeaderComponent {
   animateIn() {
     gsap.to('.header-container', { 
       left: '0px', 
-      width: '300px',  
+      width: '550px',  
       opacity: 1, 
       duration: 0.8, 
       ease: 'power3.out' 
