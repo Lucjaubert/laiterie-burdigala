@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { gsap } from 'gsap';
 import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
 
@@ -12,10 +12,20 @@ import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.co
 })
 export class HeaderComponent {
   navbarExpanded: boolean = false;
+  @Input() isHomepage: boolean = false;
   headerContainerWidth: number = 0;
 
-  toggleMenu(): void {
-    this.navbarExpanded = !this.navbarExpanded;
+  get headerClass(): string {
+    if (this.isHomepage) {
+      return 'fixed-on-homepage';
+    } else {
+      return '';
+    }
+  }
+
+  toggleMenu(expand: boolean): void {
+    this.navbarExpanded = expand;  
+
     if (this.navbarExpanded) {
       this.animateIn();
     } else {
@@ -26,7 +36,7 @@ export class HeaderComponent {
   animateIn() {
     gsap.to('.header-container', { 
       left: '0px', 
-      width: '300px',  
+      width: '550px',  
       opacity: 1, 
       duration: 0.8, 
       ease: 'power3.out' 

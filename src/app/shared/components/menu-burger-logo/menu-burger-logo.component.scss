@@ -7,9 +7,18 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 300px;
+  max-width: 550px;
   width: 100%;
   z-index: 1050;
+  
+  &.on-homepage {
+    .navbar-brand {
+      padding-top: 8vh; 
+    }
+    .menu-toggle {
+      display: none; 
+    }
+  }
 }
 
 .menu-toggle {
@@ -65,3 +74,4 @@
     max-width: 100%;
   }
 }
+
