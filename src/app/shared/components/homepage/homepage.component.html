@@ -1,11 +1,12 @@
-<app-header></app-header>
-<!--<div *ngIf="(homepageData$ | async) as homepageDataArray">
-  <div *ngFor="let homepageData of homepageDataArray">
-    <div [innerHTML]="homepageData?.content"></div>
-    <p>{{ homepageData?.acf_fields?.slogan }}</p>
-    <p>{{ homepageData?.acf_fields?.avis }}</p>
-    <p>{{ homepageData?.acf_fields?.presse }}</p>
-    <div [innerHTML]="homepageData?.acf_fields?.location"></div>
-    <p>{{ homepageData?.acf_fields?.gegege }}</p>
+<app-header [isHomepage]="true" class="pt-15"></app-header>
+<div class="container">
+  <div *ngIf="(homepageData$ | async) as homepageDataArray">
+    <div *ngFor="let homepageData of homepageDataArray">
+      <div [innerHTML]="homepageData.content"></div>
+      <p class="text-fs-40 d-flex pl-5 pt-6 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></p>
+      <p>{{ homepageData?.acf_fields?.avis }}</p>
+      <p>{{ homepageData?.acf_fields?.presse }}</p>
+      <div [innerHTML]="homepageData?.acf_fields?.location ? homepageData?.acf_fields?.location : ''"></div>
+    </div>
   </div>
-</div>-->
+</div>

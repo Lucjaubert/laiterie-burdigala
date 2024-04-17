@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-menu-burger-logo',
@@ -10,6 +10,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class MenuBurgerLogoComponent {
   @Output() toggle = new EventEmitter<boolean>();
+  @Input() showToggle: boolean = true;
+  isHomepage: boolean = true;
   navbarExpanded: boolean = false;  
 
   toggleMenu(): void {

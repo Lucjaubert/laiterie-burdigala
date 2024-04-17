@@ -1,10 +1,10 @@
 <div class="d-flex flex-column align-items-center">
-  <app-menu-burger-logo (toggle)="toggleMenu()"></app-menu-burger-logo>
-  
-  <header class="header-container pt-19">
+  <app-menu-burger-logo [showToggle]="!isHomepage"></app-menu-burger-logo>
+
+  <header [ngClass]="{'on-homepage': isHomepage, 'fixed-on-homepage': isHomepage}" class="header-container">
     <nav class="navbar">
       <div class="container-fluid justify-content-center">
-        <div class="collapse" [ngClass]="{'show': navbarExpanded}" #navbarCollapse>
+        <div class="collapse show" #navbarCollapse>
           <ul class="navbar-nav mx-auto">
             <li class="nav-item my-5 text-fw-bold text-fs-40" (click)="handleNavItemClick()">
               <a class="nav-link active" aria-current="page" href="/nos-produits">Nos produits</a>
@@ -18,23 +18,23 @@
             <li class="nav-item my-5 text-fw-bold text-fs-40" (click)="handleNavItemClick()">
               <a class="nav-link" href="/nos-fournisseurs">Nos fournisseurs</a>
             </li>
-            <li class="nav-item my-5 text-fw-bold text-fs-40" (click)="handleNavItemClick()">
+            <li class="nav-item mt-5 text-fw-bold text-fs-40" (click)="handleNavItemClick()">
               <a class="nav-link" href="/a-propos-de-nous">À propos de nous</a>
             </li>
+            <li class="social-icons mx-auto" (click)="handleNavItemClick()">
+              <a href="https://www.facebook.com/p/Laiterie-Burdigala-100057113183728/?locale=fr_FR">
+                <img src="assets/img/facebook-green.png" alt="Logo Laiterie Burdigala" class="social-logo">
+              </a>
+              <a href="https://www.instagram.com/laiterieburdigala/">
+                <img src="assets/img/instagram-green.png" alt="Logo Laiterie Burdigala" class="social-logo">
+              </a>
+            </li>
           </ul>
-          <div class="social-icons mx-auto" (click)="handleNavItemClick()">
-            <a href="https://www.facebook.com/p/Laiterie-Burdigala-100057113183728/?locale=fr_FR">
-              <img src="assets/img/facebook-green.png" alt="Logo Laiterie Burdigala" class="social-logo">
-            </a>
-            <a href="https://www.instagram.com/laiterieburdigala/">
-              <img src="assets/img/instagram-green.png" alt="Logo Laiterie Burdigala" class="social-logo">
-            </a>
-          </div>
         </div>
       </div>
     </nav>
   </header>
 </div>
 
-<div [ngClass]="{'blurred': navbarExpanded && headerContainerWidth === 550}" class="main-content">
+<div [ngClass]="{'blurred': navbarExpanded && headerContainerWidth === 300}" class="main-content">
 </div>

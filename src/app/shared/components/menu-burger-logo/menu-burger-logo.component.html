@@ -1,14 +1,14 @@
-<div class="fixed-elements">
-  <div class="menu-toggle mt-8 mb-3" type="button" (click)="toggleMenu()" [ngClass]="{'active': navbarExpanded}">
+<div class="fixed-elements" [ngClass]="{'on-homepage': isHomepage}">
+  <div *ngIf="!isHomepage" class="menu-toggle mt-5 mb-3" type="button" (click)="toggleMenu()" [ngClass]="{'active': navbarExpanded}">
     <div class="animated-icon1" [ngClass]="{'open': navbarExpanded}">
       <div class="menu-line"></div>
       <div class="menu-line"></div>
       <div class="menu-line"></div>
     </div>
   </div>
-  <div class="navbar-brand mx-auto my-5">
+  <div class="navbar-brand mx-auto">
     <a href="/">
       <img src="assets/img/logo-intro.png" alt="Logo Laiterie Burdigala" class="logo">
     </a>
-  </div>
+  </div> 
 </div>

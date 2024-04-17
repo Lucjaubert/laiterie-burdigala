@@ -37,6 +37,11 @@ p {
   font-size: map-get($font-size, "20");
 }
 
+.container {
+  padding-left: 22rem;
+  padding-top: 5rem;
+}
+
 @each $color-name, $color-value in $theme-colors {
   .text-#{$color-name} {
     color: $color-value;
