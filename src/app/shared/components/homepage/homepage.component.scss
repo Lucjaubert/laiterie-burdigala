@@ -1,7 +1,79 @@
 @import "../../../styles/_variables.scss";
 
-
-.hidden-text {
-    opacity: 0;
-  }
+.homepage-container {
+    .hidden-text {
+        opacity: 0;
+    }
   
+    .slogan-container {
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        gap: 20px; 
+      
+        .slogan {
+          margin: 0; 
+        }
+        .logo-slogan {
+          position: absolute;
+          bottom: -10vw;
+          right: 2vw; 
+          transform: rotate(15deg); 
+          width: 30vw;
+          height: auto;
+          opacity: 0.2;
+          z-index: -1;
+        }
+    }
+
+    .opinion-container {
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: map-get($theme-colors, "grey-light-2");
+      }
+      
+      .opinion-frame {
+        width: 80%;
+        max-width: 800px;
+        border-radius: 10px;
+        padding: 20px;
+        display: flex;
+        justify-content: center; 
+        align-items: center; 
+        z-index: -2;
+      }
+      
+      .opinion-carousel {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 25vh;
+        padding: 20px;
+      
+        img {
+          max-width: 650px;
+          height: auto;
+        }
+      }
+
+      .press-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: map-get($theme-colors, "blue-green-2");
+        height: 40vh;
+      }
+      
+      .press-logos {
+        display: flex;
+        align-items: center;
+      }
+      
+      .press-logo {
+        width: 5vw;
+        height: auto;
+        margin-right: 5vw; 
+      }
+}

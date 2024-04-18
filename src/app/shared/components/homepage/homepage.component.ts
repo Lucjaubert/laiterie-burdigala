@@ -6,6 +6,7 @@ import { Observable, of } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { gsap } from 'gsap';
 
 @Component({
@@ -13,13 +14,32 @@ import { gsap } from 'gsap';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
   standalone: true, 
-  imports: [CommonModule, HeaderComponent, MenuBurgerLogoComponent],
+  imports: [CommonModule, HeaderComponent, MenuBurgerLogoComponent, CarouselModule],
 })
 export class HomepageComponent implements OnInit {
+  isHomepage = true;
   initialOpacity: number = 0;  
   homepageData$: Observable<any | null>;
   preparedSlogan: SafeHtml = '';
 
+  opinions = [
+    { img: 'assets/opinions/avis-1.png' },
+    { img: 'assets/opinions/avis-2.png' },
+    { img: 'assets/opinions/avis-3.png' },
+    { img: 'assets/opinions/avis-4.png' },
+    { img: 'assets/opinions/avis-5.png' },
+    { img: 'assets/opinions/avis-6.png' },
+    { img: 'assets/opinions/avis-7.png' },
+    { img: 'assets/opinions/avis-8.png' },
+  ];
+
+  pressLogos = [
+    { img: 'assets/press-logos/france-week-end.png', url: 'https://franceweek-end.com/etablissements/la-douceur-italienne-au-coeur-de-bordeaux-laiterie-burdigala/' },
+    { img: 'assets/press-logos/le-bonbon-vector-logo.png', url: 'https://www.lebonbon.fr/bordeaux/les-tops-food-et-drink/burdigala-la-premiere-laiterie-urbaine-bio-s-est-installee-aux-capus/' },
+    { img: 'assets/press-logos/france-bleu.png', url: 'https://www.radiofrance.fr/francebleu/podcasts/circuits-courts-en-gironde/la-burrata-100-bordeaux-4827655' },
+    { img: 'assets/press-logos/quoi-faire-a-bx.jpg', url: 'https://quoifaireabordeaux.com/blog/burdigala-la-premiere-laiterie-de-bordeaux-fabrique-sa-mozzarella-sur-place/' },
+  ];
+  
   constructor(private wpService: WordpressService, private sanitizer: DomSanitizer) { 
     this.homepageData$ = this.wpService.getHomepage().pipe(
       catchError(error => {
@@ -43,7 +63,7 @@ export class HomepageComponent implements OnInit {
     const sloganElement = document.querySelector('.slogan');
     if (sloganElement) {
       gsap.fromTo(sloganElement, { y: 30, opacity: 0 }, {
-        duration: 2,
+        duration: 3,
         y: 0,
         opacity: 1.5,
         ease: 'power4.out'
