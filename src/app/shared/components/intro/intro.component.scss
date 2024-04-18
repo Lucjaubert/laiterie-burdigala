@@ -6,7 +6,7 @@
   }
   
   .image-fade-in {
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 1.5s ease-out forwards;
   }
 
   .logo-intro {
@@ -16,8 +16,8 @@
   
   .text-appear {
     opacity: 0;
-    transition: opacity 2s ease-in-out;
-    transition-delay: 1s; 
+    transition: opacity 1s ease-in-out;
+    transition-delay: 0.5s; 
   }
   
   .text-visible {

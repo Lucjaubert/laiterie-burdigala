@@ -19,11 +19,10 @@ export class IntroComponent implements OnInit {
       const textElement = this.el.nativeElement.querySelector('#introText');
       this.renderer.addClass(textElement, 'text-visible');
 
-      // Rediriger vers la page 'accueil' après un total de 5 secondes (2 + 3 secondes)
       setTimeout(() => {
         this.router.navigate(['/accueil']);
-      }, 3000);  // Attente supplémentaire de 3 secondes après que le texte devient visible
+      }, 4000);  // Attente supplémentaire de 3 secondes après que le texte devient visible
 
-    }, 2000);  // Attente initiale de 2 secondes pour l'animation du texte
+    }, 1000);  // Attente initiale de 2 secondes pour l'animation du texte
   }
 }
