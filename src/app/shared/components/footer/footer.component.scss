@@ -1,0 +1,47 @@
+@import "../../../styles/_variables.scss";
+
+.footer-item {
+    background-color: #719673; // Adjust color to match your theme
+    color: white;
+    .logo-footer {
+      width: 230px;
+      height: auto;
+    }
+    .footer-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .footer-title {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+      .footer-content {
+        text-align: center;
+      }
+      .social-icons {
+        display: flex;
+        .social-icon {
+          width: 30px;
+          height: 30px;
+          margin-right: 1rem;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+      }
+    }
+    .footer-link {
+      color: white;
+      text-decoration: none;
+      margin-right: 2rem;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    .border-top {
+      border-color: white; // Or any other color you wish to set
+      margin-top: 2rem; // Or adjust as per the layout requirement
+    }
+  }
+  
+
