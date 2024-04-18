@@ -20,7 +20,7 @@
             </carousel>
           </div>
         </div>
-        <div class="press-container py-7 d-flex flex-column">
+        <div class="press-container py-7 d-flex flex-column border-top border-bottom border-green">
           <h4 class="pb-7 text-fw-regular">{{ homepageData?.acf_fields?.presse }}</h4>
           <div class="press-logos px-5 ml-10">
             <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
