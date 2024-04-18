@@ -33,6 +33,16 @@ h3 {
   font-size: map-get($font-size, "50");
 }
 
+h4 {
+  font-weight: map-get($font-weight, "bold");
+  font-size: map-get($font-size, "45");
+}
+
+h5 {
+  font-weight: map-get($font-weight, "bold");
+  font-size: map-get($font-size, "30");
+}
+
 p {
   font-size: map-get($font-size, "20");
 }

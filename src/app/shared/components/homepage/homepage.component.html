@@ -1,12 +1,37 @@
 <app-header [isHomepage]="true" class="pt-15"></app-header>
 <div class="container">
-  <div *ngIf="(homepageData$ | async) as homepageDataArray">
-    <div *ngFor="let homepageData of homepageDataArray">
-      <div [innerHTML]="homepageData.content"></div>
-      <p class="text-fs-40 d-flex pl-5 pt-6 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></p>
-      <p>{{ homepageData?.acf_fields?.avis }}</p>
-      <p>{{ homepageData?.acf_fields?.presse }}</p>
-      <div [innerHTML]="homepageData?.acf_fields?.location ? homepageData?.acf_fields?.location : ''"></div>
+  <div class="homepage-container">
+    <div *ngIf="(homepageData$ | async) as homepageDataArray">
+      <div *ngFor="let homepageData of homepageDataArray">
+        <div [innerHTML]="homepageData.content"></div>
+        <div class="slogan-container d-flex justify-content-center">
+          <h4 class="text-fw-regular text-center d-flex pt-6 pl-10 pr-15 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h4>
+          <img src="assets/img/logo-intro.png" alt="Logo Laiterie Burdigala" class="logo-slogan mt-35">
+        </div>
+        <div class="opinion-container mt- d-flex flex-column">
+          <!--<h5 class="mt-10">{{ homepageData?.acf_fields?.avis }}</h5>-->
+          <div class="opinion-frame">
+            <carousel [interval]="3000"> 
+              <slide *ngFor="let opinion of opinions">
+                <div class="opinion-carousel">
+                  <img [src]="opinion.img" alt="Opinion Image">
+                </div>
+              </slide>
+            </carousel>
+          </div>
+        </div>
+        <div class="press-container py-7 d-flex flex-column">
+          <h4 class="pb-7 text-fw-regular">{{ homepageData?.acf_fields?.presse }}</h4>
+          <div class="press-logos px-5 ml-10">
+            <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
+              <img [src]="pressLogo.img" alt="Press Logo" class="press-logo">
+            </a>
+          </div>
+        </div>
+        <div class="location-container">
+          <div [innerHTML]="homepageData?.acf_fields?.location ? homepageData?.acf_fields?.location : ''"></div>
+        </div>  
+      </div>
     </div>
   </div>
 </div>
