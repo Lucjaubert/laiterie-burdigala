@@ -1,11 +1,11 @@
-<div *ngIf="productsData$ | async as productsDataArray">
+<app-header [isHomepage]="false"></app-header>
+<!--<div *ngIf="productsData$ | async as productsDataArray">
   <section *ngFor="let productData of productsDataArray">
     <h2>{{ productData?.title }}</h2>
     <div *ngIf="productData?.acf_fields">
       <h3>{{ productData.acf_fields.title }}</h3>
       <p>{{ productData.acf_fields.subtitle }}</p>
       
-      <!-- Affichage conditionnel si l'image du produit existe -->
       <img *ngIf="productData.acf_fields.product_image" src="{{ productData.acf_fields.product_image }}" alt="Image du produit">
       
       <h4>{{ productData.acf_fields.product_title }}</h4>
@@ -17,5 +17,5 @@
       </div>
     </div>
   </section>
-</div>
+</div>-->
 
