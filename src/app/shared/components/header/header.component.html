@@ -1,9 +1,6 @@
 <div class="header-container" [ngClass]="{'fixed-header': isHomepage, 'menu-open': navbarExpanded}">
-  <!-- Menu Burger visible seulement si ce n'est PAS la homepage -->
-  <app-menu-burger-logo *ngIf="!isHomepage" (toggle)="toggleMenu()"></app-menu-burger-logo>
-
-  <!-- Elements de navigation, déplacé juste en dessous du menu burger -->
-  <header class="navigation-elements" [class.hidden]="!isHomepage && !navbarExpanded">
+  <app-menu-burger-logo [isHomepage]="isHomepage" (toggle)="toggleMenu()"></app-menu-burger-logo>
+  <header class="navigation-elements" [class.hidden]="!navbarExpanded && !isHomepage">
     <nav class="navbar">
       <div class="container-fluid">
         <div class="collapse" [ngClass]="{'show': navbarExpanded || isHomepage}" #navbarCollapse>

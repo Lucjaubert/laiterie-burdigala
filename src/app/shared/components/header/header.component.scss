@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  width: 100%; // Utiliser 100% pour une largeur complète
+  width: 100%; 
   overflow: hidden;
   transition: padding-top 0.3s ease, width 0.5s ease;
   position: fixed;
@@ -16,6 +16,7 @@
 
   &.fixed-header {
     width: 100%;
+    margin-top: 45px;
   }
 
   &.menu-open {
@@ -29,7 +30,7 @@
   .navigation-elements {
     width: 100%; 
     position: relative;
-    top: 10.75rem; 
+    top: 13.75rem; 
     left: 11.563rem;
     transition: top 0.3s ease;
   }
@@ -38,6 +39,7 @@
     transform: translateY(50px);
   }
 
+  
   .navbar {
     width: 100%;
     display: flex;
@@ -93,3 +95,8 @@
   transition: filter 300ms ease, opacity 300ms ease;
 }
 
+.navigation-elements.animate-out {
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.5s ease, opacity 0.5s ease; // ajustez la durée selon vos besoins
+  }

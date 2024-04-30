@@ -11,7 +11,7 @@ import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.co
   imports: [CommonModule, MenuBurgerLogoComponent]
 })
 export class HeaderComponent {
-  @Input() isHomepage: boolean = false;
+  @Input() isHomepage: boolean = true;
   navbarExpanded: boolean = false;
   headerContainerWidth: number = 550;
   menuItems = [
@@ -30,27 +30,35 @@ export class HeaderComponent {
       this.animateOut();
     }
   }
-  
+
   animateIn() {
-    gsap.to('.header-container', { 
-      left: '0px', 
-      width: this.isHomepage ? '550px' : '100%',
-      opacity: 1, 
-      duration: 0.8, 
-      ease: 'power3.out' 
-    });
-  }
-
-  animateOut() {
-    gsap.to('.header-container', {
-      left: '-100%', 
-      width: this.isHomepage ? '550px' : '100%',
+    gsap.from('.navigation-elements', {
+      x: '-100%',
       opacity: 0,
-      duration: 0.8, 
-      ease: 'power3.in'
+      duration: 0.5,
+      ease: 'power3.out'
+    });
+    gsap.to('.navigation-elements', {
+      x: '0%',
+      opacity: 1,
+      duration: 0.5,
+      ease: 'power3.out',
+      delay: 1 
     });
   }
-
+  
+  animateOut() {
+    gsap.to('.navigation-elements', {
+      x: '-100%',
+      opacity: 0,
+      duration: 0.5,
+      ease: 'power3.inOut',
+      onComplete: () => {
+        this.navbarExpanded = false; // Mettre à jour l'état du menu burger une fois l'animation terminée
+      }
+    });
+  }
+  
   handleNavItemClick(): void {
     this.animateOut();
   }
