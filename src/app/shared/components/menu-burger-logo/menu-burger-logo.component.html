@@ -1,15 +1,16 @@
 <!-- Structure de base avec condition pour afficher le menu burger seulement quand ce n'est pas la page d'accueil -->
-<div class="fixed-elements">
+<div class="fixed-elements mt-5" [ngClass]="{'on-homepage': isHomepage}">
   <!-- Le bouton de menu burger ne s'affiche que si ce n'est PAS la page d'accueil -->
-  <div *ngIf="!isHomepage" class="menu-toggle mt-5 mb-3" (click)="toggleMenu()" [ngClass]="{'active': navbarExpanded}">
+  <div *ngIf="showToggle && !isHomepage" class="menu-toggle mt-5 mb-3" (click)="toggleMenu()" [ngClass]="{'active': navbarExpanded}">
     <div class="animated-icon1" [ngClass]="{'open': navbarExpanded}">
       <div class="menu-line"></div>
       <div class="menu-line"></div>
       <div class="menu-line"></div>
     </div>
   </div>
+  
   <!-- Logo toujours visible, centré dans la barre de navigation -->
-  <div class="navbar-brand mx-auto">
+  <div class="navbar-brand mx-auto mt-4">
     <a href="/">
       <img src="assets/img/logo-intro.png" alt="Logo Laiterie Burdigala" class="logo">
     </a>
