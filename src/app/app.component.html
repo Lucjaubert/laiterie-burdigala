@@ -1,6 +1,5 @@
 <div class="app-container">
-    <app-header (menuItemClicked)="toggleTransition()"></app-header>
-    <app-transition></app-transition>
+    <app-header [isHomepage]="isHomepage" (menuItemClicked)="toggleTransition()"></app-header>
+    <app-transition *ngIf="showTransition && !isHomepage"></app-transition>
     <router-outlet></router-outlet>
 </div>
-  

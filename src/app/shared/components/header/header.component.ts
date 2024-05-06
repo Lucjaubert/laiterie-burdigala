@@ -3,16 +3,13 @@ import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
 import { MenuStateService } from 'src/app/services/menustate.service';
-import { NavigationService } from 'src/app/services/navigation.service';  // Assurez-vous que ce chemin est correct
-import { TransitionService } from 'src/app/services/transition.service'; // Ajout du service de gestion des transitions
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule, MenuBurgerLogoComponent, RouterModule]
+  imports: [CommonModule, MenuBurgerLogoComponent]
 })
 export class HeaderComponent {
   @Input() isHomepage: boolean = true;
@@ -30,11 +27,7 @@ export class HeaderComponent {
     { label: "À propos de nous", link: "/a-propos-de-nous" }
   ];
 
-  constructor(
-    private menuStateService: MenuStateService, 
-    private navigationService: NavigationService,
-    private transitionService: TransitionService  // Injection du service de transition
-  ) {}
+  constructor(private menuStateService: MenuStateService) {}
 
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
@@ -71,26 +64,26 @@ export class HeaderComponent {
     });
   }
 
-  handleNavItemClick(path: string): void {
-    console.log(`Menu item clicked: ${path}`); // Vérifie le chemin cliqué
-    this.navigationService.setCurrentRoute(path);
-    this.transitionService.toggleTransition();
-    console.log('Transition triggered and route set in NavigationService');
+  handleNavItemClick(): void {
+    // Triggering animation to hide menu items and start expanding the header after menu items are hidden.
     gsap.to('.navigation-elements', {
       x: '-100%',
       opacity: 0,
       duration: 0.5,
       ease: 'power3.inOut',
       onComplete: () => {
+        // Start expanding the header after the menu items are hidden.
         console.log("Header expanded");
         this.expandHeader();
       }
     });
+
     this.menuItemClicked.emit();
   }
 
   expandHeader(): void {
     if (this.headerContainer) {
+      // Expand header-container to 100vw
       gsap.to(this.headerContainer.nativeElement, {
         width: '100vw',
         duration: 1,

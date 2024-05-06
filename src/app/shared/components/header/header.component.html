@@ -5,8 +5,8 @@
       <div class="container-fluid">
         <div class="collapse" [ngClass]="{'show': navbarExpanded || isHomepage}" #navbarCollapse>
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item my-5 text-fw-bold text-fs-40" *ngFor="let item of menuItems" (click)="handleNavItemClick(item.link)">
-              <a class="nav-link" [routerLink]="item.link">{{ item.label }}</a>
+            <li class="nav-item my-5 text-fw-bold text-fs-40" *ngFor="let item of menuItems" (click)="handleNavItemClick()">
+              <a class="nav-link" [href]="item.link">{{ item.label }}</a>
             </li>
           </ul>
           <div class="social-links pt-7 d-flex justify-content-center">
@@ -22,4 +22,4 @@
     </nav>
   </header>
 </div>
-<div class="blurred-overlay" *ngIf="navbarExpanded" (click)="toggleMenu()"></div>
+<div class="blurred-overlay" *ngIf="navbarExpanded"></div>
