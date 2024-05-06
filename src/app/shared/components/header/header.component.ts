@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
+import { MenuStateService } from 'src/app/services/menustate.service';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,11 @@ import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.co
 export class HeaderComponent {
   @Input() isHomepage: boolean = true;
   navbarExpanded: boolean = false;
-  headerContainerWidth: number = 550;
+
+  @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
+
+  @ViewChild('headerContainer') headerContainer!: ElementRef<HTMLDivElement>;
+
   menuItems = [
     { label: "Nos produits", link: "/nos-produits" },
     { label: "Nos ateliers", link: "/nos-ateliers" },
@@ -22,8 +27,11 @@ export class HeaderComponent {
     { label: "À propos de nous", link: "/a-propos-de-nous" }
   ];
 
+  constructor(private menuStateService: MenuStateService) {}
+
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
+    this.menuStateService.toggleMenu(this.navbarExpanded);
     if (this.navbarExpanded) {
       this.animateIn();
     } else {
@@ -43,7 +51,7 @@ export class HeaderComponent {
       opacity: 1,
       duration: 0.5,
       ease: 'power3.out',
-      delay: 1 
+      delay: 0.5 
     });
   }
   
@@ -52,14 +60,35 @@ export class HeaderComponent {
       x: '-100%',
       opacity: 0,
       duration: 0.5,
-      ease: 'power3.inOut',
-      onComplete: () => {
-        this.navbarExpanded = false; // Mettre à jour l'état du menu burger une fois l'animation terminée
-      }
+      ease: 'power3.inOut'
     });
   }
-  
+
   handleNavItemClick(): void {
-    this.animateOut();
+    // Triggering animation to hide menu items and start expanding the header after menu items are hidden.
+    gsap.to('.navigation-elements', {
+      x: '-100%',
+      opacity: 0,
+      duration: 0.5,
+      ease: 'power3.inOut',
+      onComplete: () => {
+        // Start expanding the header after the menu items are hidden.
+        console.log("Header expanded");
+        this.expandHeader();
+      }
+    });
+
+    this.menuItemClicked.emit();
   }
+
+  expandHeader(): void {
+    if (this.headerContainer) {
+      // Expand header-container to 100vw
+      gsap.to(this.headerContainer.nativeElement, {
+        width: '100vw',
+        duration: 1,
+        ease: 'power3.inOut'
+      });
+    }
+  }  
 }
