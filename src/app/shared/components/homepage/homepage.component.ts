@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router'; // Importez RouterModule
 import { WordpressService } from 'src/app/services/wordpress.service'; 
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -14,7 +15,7 @@ import { gsap } from 'gsap';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
   standalone: true, 
-  imports: [CommonModule, HeaderComponent, MenuBurgerLogoComponent, CarouselModule],
+  imports: [CommonModule, RouterModule, HeaderComponent, MenuBurgerLogoComponent, CarouselModule],
 })
 export class HomepageComponent implements OnInit {
   isHomepage = true;
@@ -79,4 +80,3 @@ export class HomepageComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }
-

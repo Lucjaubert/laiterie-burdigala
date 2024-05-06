@@ -1,5 +1,5 @@
 <app-header [isHomepage]="false"></app-header>
-<!--<div *ngIf="productsData$ | async as productsDataArray">
+<div class="container" *ngIf="productsData$ | async as productsDataArray">
   <section *ngFor="let productData of productsDataArray">
     <h2>{{ productData?.title }}</h2>
     <div *ngIf="productData?.acf_fields">
@@ -17,5 +17,5 @@
       </div>
     </div>
   </section>
-</div>-->
+</div>
 

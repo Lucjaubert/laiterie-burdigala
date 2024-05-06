@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
 import { HeaderComponent } from '../header/header.component';
+import { RouterModule } from '@angular/router';
 
 interface ProductsData {
   title: string;
@@ -25,7 +26,7 @@ interface ProductsData {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
   standalone: true, 
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, RouterModule],
 })
 export class ProductsComponent implements OnInit {
   isHomepage = false;

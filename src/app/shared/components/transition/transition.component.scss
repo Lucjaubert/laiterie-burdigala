@@ -1,0 +1,23 @@
+@import "../../../styles/_variables.scss";
+
+.transition-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1001; // Make sure it's above the blurred overlay but below the header when expanded
+  }
+  
+  .logo-intro {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .image-fade-in {
+    opacity: 1;
+  }
+  
