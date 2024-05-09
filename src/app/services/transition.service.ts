@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +14,24 @@ export class TransitionService {
 
   constructor() {}
 
-  /**
-   * Active ou désactive la transition.
-   */
   toggleTransition(): void {
     console.log('Toggling transition');
-    const currentState = this.showTransition.value;
-    this.showTransition.next(!currentState);
-    
-    if (!currentState) {
-      this.startTransition();
-    }
+    this.showTransition.next(true);
+    this.startTransition();
   }
   
   startTransition(): void {
     console.log('Starting transition');
-    setTimeout(() => {
+    // Changed setTimeout to timer from rxjs for better handling of async operations
+    timer(3000).subscribe(() => {
       console.log('Transition complete');
       this.transitionDone.next(true);
-    }, 1000); // Assurez-vous que ce délai correspond à la durée de votre animation
+    });
+  }
+  
+  resetTransition(): void {
+    console.log('Resetting transition');
+    this.showTransition.next(false);
+    this.transitionDone.next(false);
   }  
 }

@@ -1,17 +1,20 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
+import { Router, RouterModule } from '@angular/router';
 import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
 import { MenuStateService } from 'src/app/services/menustate.service';
+import { TransitionService } from 'src/app/services/transition.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule, MenuBurgerLogoComponent]
+  imports: [CommonModule, MenuBurgerLogoComponent, RouterModule] 
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
   @Input() isHomepage: boolean = true;
   navbarExpanded: boolean = false;
 
@@ -19,6 +22,7 @@ export class HeaderComponent {
 
   @ViewChild('headerContainer') headerContainer!: ElementRef<HTMLDivElement>;
 
+  private subscription: Subscription = new Subscription();
   menuItems = [
     { label: "Nos produits", link: "/nos-produits" },
     { label: "Nos ateliers", link: "/nos-ateliers" },
@@ -27,7 +31,7 @@ export class HeaderComponent {
     { label: "À propos de nous", link: "/a-propos-de-nous" }
   ];
 
-  constructor(private menuStateService: MenuStateService) {}
+  constructor(private menuStateService: MenuStateService, private transitionService: TransitionService, private router: Router) {}
 
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
@@ -39,7 +43,7 @@ export class HeaderComponent {
     }
   }
 
-  animateIn() {
+  animateIn(): void {
     gsap.from('.navigation-elements', {
       x: '-100%',
       opacity: 0,
@@ -54,8 +58,8 @@ export class HeaderComponent {
       delay: 0.5 
     });
   }
-  
-  animateOut() {
+
+  animateOut(): void {
     gsap.to('.navigation-elements', {
       x: '-100%',
       opacity: 0,
@@ -64,31 +68,37 @@ export class HeaderComponent {
     });
   }
 
-  handleNavItemClick(): void {
-    // Triggering animation to hide menu items and start expanding the header after menu items are hidden.
-    gsap.to('.navigation-elements', {
-      x: '-100%',
-      opacity: 0,
-      duration: 0.5,
-      ease: 'power3.inOut',
-      onComplete: () => {
-        // Start expanding the header after the menu items are hidden.
-        console.log("Header expanded");
-        this.expandHeader();
-      }
-    });
-
-    this.menuItemClicked.emit();
+  handleNavItemClick(event: MouseEvent, item: any): void {
+    event.preventDefault();
+    console.log(`Menu item clicked: ${item.label}`);
+    this.menuStateService.setCurrentRoute(item.link);
+    this.animateOut(); // Hide the header-container
+    this.transitionService.toggleTransition();
+    
+    this.subscription.add(
+        this.transitionService.transitionDone$.subscribe(done => {
+            if (done) {
+                console.log(`Navigation to ${item.link} after transition`);
+                this.router.navigateByUrl(item.link);
+                this.transitionService.resetTransition();
+            }
+        })
+    );
   }
 
   expandHeader(): void {
     if (this.headerContainer) {
-      // Expand header-container to 100vw
       gsap.to(this.headerContainer.nativeElement, {
         width: '100vw',
         duration: 1,
         ease: 'power3.inOut'
       });
     }
-  }  
+  }
+
+  ngOnDestroy(): void {
+    if (this.subscription) {
+        this.subscription.unsubscribe();
+    }
+}
 }

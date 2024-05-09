@@ -4,8 +4,8 @@ import { RouterModule } from '@angular/router'; // Importez RouterModule
 import { WordpressService } from 'src/app/services/wordpress.service'; 
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
-import { HeaderComponent } from '../header/header.component';
-import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
+import { HeaderComponent } from '../../shared/components/header/header.component';
+import { MenuBurgerLogoComponent } from '../../shared/components/menu-burger-logo/menu-burger-logo.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { gsap } from 'gsap';

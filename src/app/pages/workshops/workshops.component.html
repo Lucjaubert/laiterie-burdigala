@@ -1,3 +1,4 @@
+<app-header [isHomepage]="false"></app-header>
 <div *ngIf="workshopsData$ | async as workshopsDataArray">
   <section *ngFor="let workshopData of workshopsDataArray">
     <h2>{{ workshopData?.title }}</h2>
