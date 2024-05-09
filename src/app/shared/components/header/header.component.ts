@@ -19,6 +19,7 @@ export class HeaderComponent implements OnDestroy {
   navbarExpanded: boolean = false;
 
   @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
+  @Output() toggleMenuState: EventEmitter<boolean> = new EventEmitter<boolean>(); // Event emitter for menu state
 
   @ViewChild('headerContainer') headerContainer!: ElementRef<HTMLDivElement>;
 
@@ -36,6 +37,7 @@ export class HeaderComponent implements OnDestroy {
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
     this.menuStateService.toggleMenu(this.navbarExpanded);
+    this.toggleMenuState.emit(this.navbarExpanded); // Emit the menu state
     if (this.navbarExpanded) {
       this.animateIn();
     } else {
@@ -81,6 +83,7 @@ export class HeaderComponent implements OnDestroy {
                 console.log(`Navigation to ${item.link} after transition`);
                 this.router.navigateByUrl(item.link);
                 this.transitionService.resetTransition();
+                this.closeMenu(); 
             }
         })
     );
@@ -96,9 +99,14 @@ export class HeaderComponent implements OnDestroy {
     }
   }
 
+  closeMenu(): void {
+    this.navbarExpanded = false;
+    this.toggleMenuState.emit(this.navbarExpanded); // Emit false when menu closes
+  }
+
   ngOnDestroy(): void {
     if (this.subscription) {
         this.subscription.unsubscribe();
     }
-}
+  }
 }
