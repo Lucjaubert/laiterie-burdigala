@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
+import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 
 interface WorkshopData {
   title: string;
@@ -18,9 +19,10 @@ interface WorkshopData {
   templateUrl: './workshops.component.html',
   styleUrls: ['./workshops.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HeaderComponent],
 })
 export class WorkshopsComponent implements OnInit {
+  isHomepage = false;
 
   workshopsData$: Observable<WorkshopData[] | null>;
 

@@ -3,8 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
-import { HeaderComponent } from '../header/header.component';
-import { RouterModule } from '@angular/router';
+import { HeaderComponent } from '../../shared/components/header/header.component';
 
 interface ProductsData {
   title: string;
@@ -26,7 +25,7 @@ interface ProductsData {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
   standalone: true, 
-  imports: [CommonModule, HeaderComponent, RouterModule],
+  imports: [CommonModule, HeaderComponent],
 })
 export class ProductsComponent implements OnInit {
   isHomepage = false;
