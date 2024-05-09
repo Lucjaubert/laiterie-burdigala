@@ -12,18 +12,12 @@ export class MenuBurgerLogoComponent {
   @Input() isHomepage: boolean = false; 
   @Input() showToggle: boolean = true;
   @Output() toggle = new EventEmitter<boolean>();
-  navbarExpanded: boolean = false;
+  @Input() navbarExpanded: boolean = false; // S'assure que cette propriété est liée à l'état du menu dans HeaderComponent
 
   toggleMenu(): void {
-    // Inverse l'état du menu burger
     this.navbarExpanded = !this.navbarExpanded;
-
-    // Émettre un événement pour le composant parent pour mettre à jour son état
     this.toggle.emit(this.navbarExpanded);
   }
 
-  closeMenu(): void {
-    // Réinitialiser l'état du menu burger lorsque le menu est fermé
-    this.navbarExpanded = false;
-  }
+  // La méthode closeMenu n'est plus nécessaire si navbarExpanded est directement contrôlé par le parent
 }
