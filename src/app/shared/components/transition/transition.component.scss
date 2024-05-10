@@ -17,12 +17,12 @@
 }
 
 .logo-intro {
-  opacity: 1; /* Définir l'opacité initiale à 1 */
+  opacity: 1; 
   width: 40vw;
   height: auto;
-  transition: opacity 0.5s ease-in-out; /* Ajoutez une transition pour une apparition en douceur */
+  transition: opacity 0.5s ease-in-out; 
 }
 
 .transition-container.show-logo + .logo-container .logo-intro {
-  opacity: 1; /* Rendre le logo visible lorsque .transition-container.show-logo est présent */
+  opacity: 1; 
 }

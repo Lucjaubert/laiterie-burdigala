@@ -16,11 +16,10 @@ export class TransitionGuard implements CanActivate {
     return this.transitionService.transitionDone$.pipe(
       map(done => {
         if (done) {
-          return true; // La transition est terminée, la navigation peut continuer
+          return true; 
         } else {
-          // Optionnel : déclencher la transition si ce n'est pas déjà fait
           this.transitionService.toggleTransition();
-          return false; // Attendre que la transition soit terminée
+          return false; 
         }
       })
     );

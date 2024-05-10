@@ -16,15 +16,14 @@ export class IntroComponent implements OnInit {
   constructor(private router: Router, private el: ElementRef, private renderer: Renderer2) { }
 
   ngOnInit() {
-    // Rendre le texte visible après 2 secondes
     setTimeout(() => {
       const textElement = this.el.nativeElement.querySelector('#introText');
       this.renderer.addClass(textElement, 'text-visible');
 
       setTimeout(() => {
         this.router.navigate(['/accueil']);
-      }, 4000);  // Attente supplémentaire de 3 secondes après que le texte devient visible
+      }, 4000);  
 
-    }, 1000);  // Attente initiale de 2 secondes pour l'animation du texte
+    }, 1000);  
   }
 }

@@ -6,10 +6,10 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MenuStateService {
   private menuOpen = new BehaviorSubject<boolean>(false);
-  private currentRoute = new BehaviorSubject<string>('/'); // Défaut ou page d'accueil
+  private currentRoute = new BehaviorSubject<string>('/'); 
 
   menuOpen$ = this.menuOpen.asObservable();
-  currentRoute$ = this.currentRoute.asObservable(); // Observable pour la route actuelle
+  currentRoute$ = this.currentRoute.asObservable(); 
 
   toggleMenu(open?: boolean): void {
     this.menuOpen.next(open !== undefined ? open : !this.menuOpen.value);
