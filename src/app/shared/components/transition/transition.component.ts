@@ -32,13 +32,13 @@ export class TransitionComponent implements OnInit, OnDestroy {
   animateIn(): void {
     console.log('Starting in-animation');
     gsap.to('.transition-container', { x: '0%', duration: 3, ease: 'power2.out' });
-    gsap.to('.logo-intro', { opacity: 1, duration: 2, ease: 'power2.out' }); // Montrer le logo en même temps que l'ouverture
+    gsap.to('.logo-intro', { opacity: 1, duration: 2, ease: 'power2.out' }); 
   }
   
   animateOut(): void {
     console.log('Starting out-animation');
     gsap.to('.transition-container', { x: '-100%', duration: 3, ease: 'power2.in' });
-    gsap.to('.logo-intro', { opacity: 0, duration: 2, ease: 'power2.in' }); // Cacher le logo en même temps que la fermeture
+    gsap.to('.logo-intro', { opacity: 0, duration: 2, ease: 'power2.in' });
   }  
   
   ngOnDestroy(): void {

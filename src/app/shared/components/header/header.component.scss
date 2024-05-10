@@ -57,7 +57,7 @@
     }
 
     .social-icon {
-        margin-right: 20px; /* Ajustez selon vos besoins */
+        margin-right: 20px; 
     }
 
     .navbar-nav {
@@ -93,12 +93,12 @@
 .blurred-overlay {
     position: fixed;
     top: 0;
-    left: 30vw;  // Commence là où se termine le header-container
-    width: 70vw; // Couvre le reste de la largeur de l'écran
-    height: 100vh; // Hauteur complète de la vue
-    backdrop-filter: blur(3px); // Applique un flou sur tout ce qui est en arrière-plan de cette div
-    z-index: 995; // Assurez-vous qu'il est correctement positionné entre le contenu et le header
-    background: rgba(255, 255, 255, 0.5); // Légère couleur pour renforcer l'effet visuel, ajustable
+    left: 30vw;  
+    width: 70vw; 
+    height: 100vh; 
+    backdrop-filter: blur(3px); 
+    z-index: 995; 
+    background: rgba(255, 255, 255, 0.5); 
   }
   
   

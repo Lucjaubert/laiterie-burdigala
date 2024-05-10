@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router'; // Importez RouterModule
+import { RouterModule } from '@angular/router';
 import { WordpressService } from 'src/app/services/wordpress.service'; 
 import { catchError } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';

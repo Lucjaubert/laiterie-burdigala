@@ -22,7 +22,6 @@ export class TransitionService {
   
   startTransition(): void {
     console.log('Starting transition');
-    // Changed setTimeout to timer from rxjs for better handling of async operations
     timer(3000).subscribe(() => {
       console.log('Transition complete');
       this.transitionDone.next(true);
