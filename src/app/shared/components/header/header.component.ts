@@ -34,6 +34,10 @@ export class HeaderComponent implements OnDestroy {
 
   constructor(private menuStateService: MenuStateService, private transitionService: TransitionService, private router: Router) {}
 
+  get showHeader(): boolean {
+    return this.router.url !== '/';
+  }
+
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
     this.menuStateService.toggleMenu(this.navbarExpanded);
@@ -72,22 +76,23 @@ export class HeaderComponent implements OnDestroy {
 
   handleNavItemClick(event: MouseEvent, item: any): void {
     event.preventDefault();
-    console.log(`Menu item clicked: ${item.label}`);
-    this.menuStateService.setCurrentRoute(item.link);
-    this.animateOut(); 
-    this.transitionService.toggleTransition();
-    
-    this.subscription.add(
+    if (this.router.url !== item.link) { 
+      this.menuStateService.setCurrentRoute(item.link);
+      this.animateOut(); 
+      this.transitionService.toggleTransition();
+  
+      this.subscription.add(
         this.transitionService.transitionDone$.subscribe(done => {
-            if (done) {
-                console.log(`Navigation to ${item.link} after transition`);
-                this.router.navigateByUrl(item.link);
-                this.transitionService.resetTransition();
-                this.closeMenu(); 
-            }
+          if (done) {
+            this.router.navigateByUrl(item.link);
+            this.transitionService.resetTransition();
+            this.closeMenu(); 
+          }
         })
-    );
+      );
+    }
   }
+  
 
   expandHeader(): void {
     if (this.headerContainer) {
