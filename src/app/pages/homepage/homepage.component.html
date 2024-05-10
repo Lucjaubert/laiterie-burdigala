@@ -4,8 +4,8 @@
     <div *ngIf="(homepageData$ | async) as homepageDataArray">
       <div *ngFor="let homepageData of homepageDataArray">
         <div [innerHTML]="homepageData.content"></div>
-        <div class="slogan-container d-flex justify-content-center">
-          <h4 class="text-fw-regular text-center d-flex pt-6 pl-10 pr-15 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h4>
+        <div class="slogan-container d-flex justify-content-center pt-3">
+          <h3 class="text-fw-regular text-center d-flex pt-8 pl-10 pr-15 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h3>
           <img src="assets/img/logo-intro.png" alt="Logo Laiterie Burdigala" class="logo-slogan mt-35">
         </div>
         <div class="opinion-container mt- d-flex flex-column">
