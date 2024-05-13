@@ -1,10 +1,11 @@
 import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
-import { Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.component';
 import { MenuStateService } from 'src/app/services/menustate.service';
 import { TransitionService } from 'src/app/services/transition.service';
+import { filter } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -17,6 +18,7 @@ import { Subscription } from 'rxjs';
 export class HeaderComponent implements OnDestroy {
   @Input() isHomepage: boolean = true;
   navbarExpanded: boolean = false;
+  showHeader: boolean = false;
 
   @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleMenuState: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -33,6 +35,14 @@ export class HeaderComponent implements OnDestroy {
   ];
 
   constructor(private menuStateService: MenuStateService, private transitionService: TransitionService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.showHeader = this.router.url !== '/';
+    });
+  }
 
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
@@ -72,22 +82,22 @@ export class HeaderComponent implements OnDestroy {
 
   handleNavItemClick(event: MouseEvent, item: any): void {
     event.preventDefault();
-    console.log(`Menu item clicked: ${item.label}`);
-    this.menuStateService.setCurrentRoute(item.link);
-    this.animateOut(); 
-    this.transitionService.toggleTransition();
-    
-    this.subscription.add(
+    if (this.router.url !== item.link) {
+      this.menuStateService.setCurrentRoute(item.link);
+      this.animateOut(); 
+      this.transitionService.startTransition(); // Utilisez startTransition au lieu de toggleTransition
+  
+      this.subscription.add(
         this.transitionService.transitionDone$.subscribe(done => {
-            if (done) {
-                console.log(`Navigation to ${item.link} after transition`);
-                this.router.navigateByUrl(item.link);
-                this.transitionService.resetTransition();
-                this.closeMenu(); 
-            }
+          if (done) {
+            this.router.navigateByUrl(item.link);
+            // this.transitionService.resetTransition(); // Déjà appelé après le timer si nécessaire
+            this.closeMenu(); 
+          }
         })
-    );
-  }
+      );
+    }
+  }  
 
   expandHeader(): void {
     if (this.headerContainer) {

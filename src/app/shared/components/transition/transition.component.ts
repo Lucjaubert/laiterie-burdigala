@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { TransitionService } from 'src/app/services/transition.service';
 import { gsap } from 'gsap';
 import { CommonModule } from '@angular/common'; 
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-transition',
@@ -15,9 +15,19 @@ import { RouterModule } from '@angular/router';
 export class TransitionComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
 
-  constructor(private transitionService: TransitionService) {}
+  constructor(private transitionService: TransitionService, private router: Router) {}
 
   ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        if (this.router.url !== '/' && this.router.url !== '/accueil') {
+          this.transitionService.startTransition();
+        } else {
+          this.transitionService.resetTransition();
+        }
+      }
+    });
+
     this.subscription.add(
       this.transitionService.showTransition$.subscribe(show => {
         if (show) {
@@ -28,7 +38,7 @@ export class TransitionComponent implements OnInit, OnDestroy {
       })
     );
   }
-  
+
   animateIn(): void {
     console.log('Starting in-animation');
     gsap.to('.transition-container', { x: '0%', duration: 3, ease: 'power2.out' });
