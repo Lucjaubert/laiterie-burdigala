@@ -14,13 +14,15 @@ import { RouterModule, Router, NavigationEnd } from '@angular/router';
 })
 export class TransitionComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
+  shouldRender = true; // Contrôle le rendu du contenu du composant
 
   constructor(private transitionService: TransitionService, private router: Router) {}
 
   ngOnInit(): void {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        if (this.router.url !== '/' && this.router.url !== '/accueil') {
+        this.shouldRender = this.router.url !== '/' && this.router.url !== '/accueil';
+        if (this.shouldRender) {
           this.transitionService.startTransition();
         } else {
           this.transitionService.resetTransition();
@@ -30,7 +32,7 @@ export class TransitionComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.transitionService.showTransition$.subscribe(show => {
-        if (show) {
+        if (show && this.shouldRender) {
           this.animateIn();
         } else {
           this.animateOut();
