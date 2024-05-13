@@ -1,7 +1,9 @@
-<div class="logo-container">
-  <img src="assets/img/logo-intro.png" class="logo-intro" alt="Laiterie Burdigala Logo">
-</div>
-<div class="transition-container show-logo">
+<div *ngIf="shouldRender">
+  <div class="logo-container">
+    <img src="assets/img/logo-intro.png" class="logo-intro" alt="Laiterie Burdigala Logo">
+  </div>
+  <div class="transition-container show-logo">
+  </div>
 </div>
 
 
