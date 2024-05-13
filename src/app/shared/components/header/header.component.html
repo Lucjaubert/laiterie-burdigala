@@ -1,4 +1,4 @@
-<div class="header-container" *ngIf="showHeader"[ngClass]="{'fixed-header': isHomepage, 'menu-open': navbarExpanded}">
+<div class="header-container" *ngIf="showHeader" [ngClass]="{'fixed-header': isHomepage, 'menu-open': navbarExpanded}">
   <app-menu-burger-logo [isHomepage]="isHomepage" [navbarExpanded]="navbarExpanded" (toggle)="toggleMenu()"></app-menu-burger-logo>
   <header class="navigation-elements" [class.hidden]="!navbarExpanded && !isHomepage">
     <nav class="navbar">

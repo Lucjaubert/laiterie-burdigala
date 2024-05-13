@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { timer } from 'rxjs';
+import { BehaviorSubject, timer } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +13,16 @@ export class TransitionService {
 
   constructor() {}
 
-  toggleTransition(): void {
-    console.log('Toggling transition');
-    this.showTransition.next(true);
-    this.startTransition();
-  }
-  
   startTransition(): void {
-    console.log('Starting transition');
-    timer(3000).subscribe(() => {
-      console.log('Transition complete');
-      this.transitionDone.next(true);
-    });
+    if (!this.showTransition.value) {
+      console.log('Starting transition');
+      this.showTransition.next(true);
+      timer(3000).subscribe(() => {
+        console.log('Transition complete');
+        this.transitionDone.next(true);
+        this.resetTransition();
+      });
+    }
   }
   
   resetTransition(): void {
