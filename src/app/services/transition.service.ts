@@ -15,10 +15,8 @@ export class TransitionService {
 
   startTransition(): void {
     if (!this.showTransition.value) {
-      console.log('Starting transition');
       this.showTransition.next(true);
       timer(3000).subscribe(() => {
-        console.log('Transition complete');
         this.transitionDone.next(true);
         this.resetTransition();
       });
@@ -26,7 +24,6 @@ export class TransitionService {
   }
   
   resetTransition(): void {
-    console.log('Resetting transition');
     this.showTransition.next(false);
     this.transitionDone.next(false);
   }  
