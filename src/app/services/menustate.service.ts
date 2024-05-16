@@ -16,7 +16,6 @@ export class MenuStateService {
   }
 
   setCurrentRoute(route: string): void {
-    console.log(`Setting current route to: ${route}`);
     this.currentRoute.next(route);
   }
 

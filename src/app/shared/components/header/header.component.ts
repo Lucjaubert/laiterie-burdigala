@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -13,9 +13,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [CommonModule, MenuBurgerLogoComponent, RouterModule] 
+  imports: [CommonModule, MenuBurgerLogoComponent, RouterModule]
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
   @Input() isHomepage: boolean = true;
   navbarExpanded: boolean = false;
   showHeader: boolean = false;
@@ -34,7 +34,11 @@ export class HeaderComponent implements OnDestroy {
     { label: "À propos de nous", link: "/a-propos-de-nous" }
   ];
 
-  constructor(private menuStateService: MenuStateService, private transitionService: TransitionService, private router: Router) {}
+  constructor(
+    private menuStateService: MenuStateService,
+    private transitionService: TransitionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.router.events.pipe(
@@ -42,12 +46,21 @@ export class HeaderComponent implements OnDestroy {
     ).subscribe(() => {
       this.showHeader = this.router.url !== '/';
     });
+
+    // Abonnez-vous à la fin de la transition
+    this.subscription.add(
+      this.transitionService.transitionDone$.subscribe(done => {
+        if (done) {
+          this.closeMenu();
+        }
+      })
+    );
   }
 
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
     this.menuStateService.toggleMenu(this.navbarExpanded);
-    this.toggleMenuState.emit(this.navbarExpanded); 
+    this.toggleMenuState.emit(this.navbarExpanded);
     if (this.navbarExpanded) {
       this.animateIn();
     } else {
@@ -67,37 +80,34 @@ export class HeaderComponent implements OnDestroy {
       opacity: 1,
       duration: 0.5,
       ease: 'power3.out',
-      delay: 0.5 
+      delay: 0.5
     });
   }
 
-  animateOut(): void {
-    gsap.to('.navigation-elements', {
-      x: '-100%',
-      opacity: 0,
-      duration: 0.5,
-      ease: 'power3.inOut'
+  animateOut(): Promise<void> {
+    return new Promise<void>((resolve) => {
+      gsap.to('.navigation-elements', {
+        x: '-100%',
+        opacity: 0,
+        duration: 0.5,
+        ease: 'power3.inOut',
+        onComplete: () => resolve()
+      });
     });
   }
 
-  handleNavItemClick(event: MouseEvent, item: any): void {
+  async handleNavItemClick(event: MouseEvent, item: any): Promise<void> {
     event.preventDefault();
     if (this.router.url !== item.link) {
       this.menuStateService.setCurrentRoute(item.link);
-      this.animateOut(); 
-      this.transitionService.startTransition(); // Utilisez startTransition au lieu de toggleTransition
-  
-      this.subscription.add(
-        this.transitionService.transitionDone$.subscribe(done => {
-          if (done) {
-            this.router.navigateByUrl(item.link);
-            // this.transitionService.resetTransition(); // Déjà appelé après le timer si nécessaire
-            this.closeMenu(); 
-          }
-        })
-      );
+      await this.animateOut(); // Attendre que l'animation de fermeture se termine
+      this.transitionService.startTransition();
+
+      this.router.navigateByUrl(item.link).then(() => {
+        // Nous n'appelons plus closeMenu ici car il sera appelé après la transition
+      });
     }
-  }  
+  }
 
   expandHeader(): void {
     if (this.headerContainer) {
@@ -111,12 +121,12 @@ export class HeaderComponent implements OnDestroy {
 
   closeMenu(): void {
     this.navbarExpanded = false;
-    this.toggleMenuState.emit(this.navbarExpanded); 
+    this.toggleMenuState.emit(this.navbarExpanded);
   }
 
   ngOnDestroy(): void {
     if (this.subscription) {
-        this.subscription.unsubscribe();
+      this.subscription.unsubscribe();
     }
   }
 }

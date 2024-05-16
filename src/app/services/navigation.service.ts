@@ -11,7 +11,6 @@ export class NavigationService {
   constructor() {}
 
   setCurrentRoute(url: string): void {
-    console.log(`Setting current route to: ${url}`);
     this.currentRoute.next(url);
   }  
 }
