@@ -1,4 +1,4 @@
-@import "../../styles/_variables.scss";
+@import "../../styles/_variables.scss"; // Assurez-vous que ce fichier contient toutes vos variables de couleur et de bordure
 
 .container-products {
   position: relative;
@@ -8,12 +8,16 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    border: map-get($border-size, "1") solid map-get($theme-colors, "green-light");
+    padding: 1rem;
   }
 
   .product-image {
     object-fit: cover;
     height: 280px;
     width: 100%;
+    border-bottom: map-get($border-size, "1") solid map-get($theme-colors, "green-light");
+    padding-bottom: 1rem;
   }
 
   .card-body {
@@ -24,38 +28,43 @@
 
   .product-details {
     margin-top: auto;
+    .quantity-selector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      button, input {
+        background-color: #ddd;
+        border: none;
+        padding: 5px;
+        cursor: pointer;
+        width: 50px; 
+        text-align: center;
+      }
+    }
+    .btn-success {
+      background-color: map-get($theme-colors, "green-light");
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 0.375rem;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      margin-top: 1rem;
+      z-index: 2;
+
+      &:hover {
+        background-color: darken(map-get($theme-colors, "green-light"), 20%);
+      }
+
+      i {
+        margin-left: 0.5rem;
+      }
+    }
   }
 
-  .quantity-selector {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .quantity-selector button {
-    background-color: #ddd;
-    border: none;
-    padding: 5px;
-    cursor: pointer;
-  }
-
-  .quantity-selector input {
-    width: 50px;
-    text-align: center;
-  }
-
-  .btn {
-    margin-top: auto;
-  }
-
-  .card-title,
-  .card-text,
-  .product-details p {
+  .card-title, .card-text, .product-details p {
     margin-bottom: 0.5rem;
-  }
-
-  .card-text {
-    flex-grow: 1;
   }
 
   .logo {
@@ -66,75 +75,12 @@
     opacity: 0.2;
   }
 
-  .logo-1 {
-    top: 7vh;
-    right: -10vw;
-    transform: rotate(15deg);
-    width: 50vw;
-    height: 50vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
-
-  .logo-2 {
-    top: 115vh;
-    left: 8vw;
-    transform: rotate(-20deg);
-    width: 35vw;
-    height: 35vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
-
-  .logo-3 {
-    top: 250vh;
-    right: -8vw;
-    transform: rotate(10deg);
-    width: 40vw;
-    height: 40vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
-
-  .logo-4 {
-    top: 369vh;
-    left: 8vw;
-    transform: rotate(-25deg);
-    width: 30vw;
-    height: 30vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
-
-  .logo-5 {
-    top: 490vh;
-    right: -10vw;
-    transform: rotate(15deg);
-    width: 50vw;
-    height: 50vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
-
-  .logo-6 {
-    top: 610vh;
-    left: 8vw;
-    transform: rotate(-20deg);
-    width: 35vw;
-    height: 35vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
-
-  .logo-7 {
-    top: 730vh;
-    right: -8vw;
-    transform: rotate(10deg);
-    width: 40vw;
-    height: 40vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
-
-  .logo-8 {
-    top: 850vh;
-    left: 8vw;
-    transform: rotate(-25deg);
-    width: 30vw;
-    height: 30vw;
-    background-image: url("/assets/img/logo-intro.png");
-  }
+  .logo-1 { top: 7vh; right: -10vw; transform: rotate(15deg); width: 50vw; height: 50vw; background-image: url("/assets/img/logo-intro.png"); }
+  .logo-2 { top: 115vh; left: 5vw; transform: rotate(-20deg); width: 35vw; height: 35vw; background-image: url("/assets/img/logo-intro.png"); }
+  .logo-3 { top: 250vh; right: -8vw; transform: rotate(10deg); width: 40vw; height: 40vw; background-image: url("/assets/img/logo-intro.png"); }
+  .logo-4 { top: 369vh; left: 8vw; transform: rotate(-25deg); width: 30vw; height: 30vw; background-image: url("/assets/img/logo-intro.png"); }
+  .logo-5 { top: 490vh; right: -10vw; transform: rotate(15deg); width: 50vw; height: 50vw; background-image: url("/assets/img/logo-intro.png"); }
+  .logo-6 { top: 610vh; left: 8vw; transform: rotate(-20deg); width: 35vw; height: 35vw; background-image: url("/assets/img/logo-intro.png"); }
+  .logo-7 { top: 730vh; right: -8vw; transform: rotate(10deg); width: 40vw; height: 40vw; background-image: url("/assets/img/logo-intro.png"); }
+  .logo-8 { top: 850vh; left: 8vw; transform: rotate(-25deg); width: 30vw; height: 30vw; background-image: url("/assets/img/logo-intro.png"); }
 }

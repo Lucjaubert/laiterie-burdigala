@@ -1,5 +1,6 @@
 $theme-colors: (
   "green": #719673,
+  "green-light": #b4cab5,
   "blue-green": #93acb5,
   "blue-green-2": #eef0f1,
   "grey": #858585,
@@ -169,3 +170,7 @@ $icon-sizes: (
     font-size: $value;
   }
 } ;
+
+// Dimensions des cartes et images
+$card-height: 100%;
+$product-image-dimensions: (height: 280px, width: 100%);
