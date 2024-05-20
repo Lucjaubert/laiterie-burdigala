@@ -64,7 +64,7 @@ export class HomepageComponent implements OnInit {
     const sloganElement = document.querySelector('.slogan');
     if (sloganElement) {
       gsap.fromTo(sloganElement, { y: 30, opacity: 0 }, {
-        duration: 3,
+        duration: 4,
         y: 0,
         opacity: 1.5,
         ease: 'power4.out'

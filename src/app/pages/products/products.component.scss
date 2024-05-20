@@ -1,52 +1,140 @@
-.card {
+@import "../../styles/_variables.scss";
+
+.container-products {
+  position: relative;
+  z-index: 1;
+
+  .card {
     display: flex;
     flex-direction: column;
     height: 100%;
   }
-  
+
   .product-image {
     object-fit: cover;
-    height: 250px; /* Adjust as needed */
+    height: 280px;
     width: 100%;
   }
-  
+
   .card-body {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
   }
-  
+
   .product-details {
     margin-top: auto;
   }
-  
+
   .quantity-selector {
     display: flex;
     align-items: center;
     justify-content: center;
   }
-  
+
   .quantity-selector button {
     background-color: #ddd;
     border: none;
     padding: 5px;
     cursor: pointer;
   }
-  
+
   .quantity-selector input {
     width: 50px;
     text-align: center;
   }
-  
+
   .btn {
     margin-top: auto;
   }
-  
-  .card-title, .card-text, .product-details p {
-    margin-bottom: 0.5rem; /* Adjust as needed */
+
+  .card-title,
+  .card-text,
+  .product-details p {
+    margin-bottom: 0.5rem;
   }
-  
+
   .card-text {
     flex-grow: 1;
   }
-  
+
+  .logo {
+    position: absolute;
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: -1;
+    opacity: 0.2;
+  }
+
+  .logo-1 {
+    top: 7vh;
+    right: -10vw;
+    transform: rotate(15deg);
+    width: 50vw;
+    height: 50vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+
+  .logo-2 {
+    top: 115vh;
+    left: 8vw;
+    transform: rotate(-20deg);
+    width: 35vw;
+    height: 35vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+
+  .logo-3 {
+    top: 250vh;
+    right: -8vw;
+    transform: rotate(10deg);
+    width: 40vw;
+    height: 40vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+
+  .logo-4 {
+    top: 369vh;
+    left: 8vw;
+    transform: rotate(-25deg);
+    width: 30vw;
+    height: 30vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+
+  .logo-5 {
+    top: 490vh;
+    right: -10vw;
+    transform: rotate(15deg);
+    width: 50vw;
+    height: 50vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+
+  .logo-6 {
+    top: 610vh;
+    left: 8vw;
+    transform: rotate(-20deg);
+    width: 35vw;
+    height: 35vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+
+  .logo-7 {
+    top: 730vh;
+    right: -8vw;
+    transform: rotate(10deg);
+    width: 40vw;
+    height: 40vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+
+  .logo-8 {
+    top: 850vh;
+    left: 8vw;
+    transform: rotate(-25deg);
+    width: 30vw;
+    height: 30vw;
+    background-image: url("/assets/img/logo-intro.png");
+  }
+}

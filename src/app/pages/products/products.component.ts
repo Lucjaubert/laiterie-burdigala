@@ -6,6 +6,11 @@ import { WordpressService } from 'src/app/services/wordpress.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { FormsModule } from '@angular/forms';
 
+interface ProductCategory {
+  term_id: number;
+  name: string;
+}
+
 interface ProductData {
   acf_fields: {
     product_title: string;
@@ -14,9 +19,10 @@ interface ProductData {
     price: string;
     weight: string;
     default_quantity: number;
-    product_category: string;
-  }
+    product_category: ProductCategory[];
+  };
 }
+
 interface CategoryGroup {
   category: string;
   products: ProductData[];
@@ -38,30 +44,46 @@ export class ProductsComponent implements OnInit {
     this.productsData$ = this.wpService.getProducts().pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des données des produits:', error);
-        return of(null); // Fallback to null in case of error
+        return of(null);
       })
     );
 
     this.productsByCategory$ = this.productsData$.pipe(
-      map(products => this.groupProductsByCategory(products))
+      map(products => {
+        return this.groupProductsByCategory(products);
+      })
     );
   }
 
   ngOnInit(): void {}
 
   private groupProductsByCategory(products: ProductData[] | null): CategoryGroup[] {
+    if (!products) {
+      return [];
+    }
+
     const categoryGroups: { [key: string]: ProductData[] } = {};
-    products?.forEach(product => {
-      const category = product.acf_fields.product_category || 'Other';
-      if (!categoryGroups[category]) {
-        categoryGroups[category] = [];
+    products.forEach(product => {
+      if (product.acf_fields.product_category && product.acf_fields.product_category.length > 0) {
+        product.acf_fields.product_category.forEach(category => {
+          if (!categoryGroups[category.name]) {
+            categoryGroups[category.name] = [];
+          }
+          categoryGroups[category.name].push(product);
+        });
+      } else {
+        console.log('Produit sans catégories :', product);
       }
-      categoryGroups[category].push(product);
     });
+
+    Object.keys(categoryGroups).forEach(key => {
+      categoryGroups[key] = categoryGroups[key].reverse();
+    });
+    
     return Object.keys(categoryGroups).map(key => ({
       category: key,
       products: categoryGroups[key]
-    }));
+    })).reverse();
   }
 
   decreaseQuantity(product: ProductData): void {
