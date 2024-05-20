@@ -37,4 +37,8 @@ export class WordpressService {
   getAboutUs(): Observable<any> {
     return this.http.get(`${this.apiUrl}/a-propos-de-nous`);
   }
+
+  getPageContent(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/pages/62`); 
+  }
 }

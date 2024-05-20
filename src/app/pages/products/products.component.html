@@ -1,21 +1,42 @@
 <app-header [isHomepage]="false"></app-header>
-<div class="container" *ngIf="productsData$ | async as productsDataArray">
-  <section *ngFor="let productData of productsDataArray">
-    <h2>{{ productData?.title }}</h2>
-    <div *ngIf="productData?.acf_fields">
-      <h3>{{ productData.acf_fields.title }}</h3>
-      <p>{{ productData.acf_fields.subtitle }}</p>
-      
-      <img *ngIf="productData.acf_fields.product_image" src="{{ productData.acf_fields.product_image }}" alt="Image du produit">
-      
-      <h4>{{ productData.acf_fields.product_title }}</h4>
-      <p>{{ productData.acf_fields.description }}</p>
-      <div class="product-details">
-        <span>Prix : {{ productData.acf_fields.price }}</span>
-        <span>Poids : {{ productData.acf_fields.weight }}g</span>
-        <span>Quantité par défaut : {{ productData.acf_fields.default_quantity }}</span>
+<div class="container container-products" *ngIf="productsByCategory$ | async as categoryGroups">
+  <h3 class="mt-10">Nos produits sont bio et locaux</h3>
+  <p>Faites votre commande en ligne de vos différents produits Burdigala puis venez la chercher directement à la laiterie. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place le jour de votre passage.</p>
+
+  <div *ngIf="categoryGroups.length === 0">Aucun produit disponible</div>
+
+  <div *ngFor="let group of categoryGroups; let i = index">
+    <h4 class="mt-10">{{ group.category }}</h4>
+    <div class="row mt-8">
+      <div class="col-12 col-md-6 col-lg-4 mb-4" *ngFor="let product of group.products">
+        <div class="card h-100">
+          <img *ngIf="product.acf_fields.product_image" [src]="product.acf_fields.product_image" class="card-img-top product-image" alt="Image du produit">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ product.acf_fields.product_title }}</h5>
+            <p class="card-text">{{ product.acf_fields.description }}</p>
+            <div class="product-details mt-auto">
+              <p>Prix : {{ product.acf_fields.price }} €</p>
+              <p>Poids : {{ product.acf_fields.weight }} g</p>
+              <p>Quantité par défaut : {{ product.acf_fields.default_quantity }}</p>
+              <div class="quantity-selector mb-2">
+                <button (click)="decreaseQuantity(product)">-</button>
+                <input type="number" [(ngModel)]="product.acf_fields.default_quantity" min="1">
+                <button (click)="increaseQuantity(product)">+</button>
+              </div>
+              <button class="btn btn-success w-100" (click)="addToOrder(product)">Ajouter <i class="fa fa-shopping-cart"></i></button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </section>
-</div>
 
+    <div *ngIf="i === 0" class="logo logo-1"></div>
+    <div *ngIf="i === 1" class="logo logo-2"></div>
+    <div *ngIf="i === 2" class="logo logo-3"></div>
+    <div *ngIf="i === 3" class="logo logo-4"></div>
+    <div *ngIf="i === 4" class="logo logo-5"></div>
+    <div *ngIf="i === 5" class="logo logo-6"></div>
+    <div *ngIf="i === 6" class="logo logo-7"></div>
+    <div *ngIf="i === 7" class="logo logo-8"></div>
+  </div>
+</div>
