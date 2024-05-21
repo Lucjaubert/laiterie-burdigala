@@ -55,13 +55,13 @@ export class TransitionComponent implements OnInit, OnDestroy {
     // Animer le conteneur de transition pour qu'il se déplace de gauche à droite
     gsap.to('.transition-container', {
       x: '0%',            // Termine entièrement visible à droite
-      duration: 2,
+      duration: 0.5,
       ease: 'power2.out', // Utilisez un effet d'easing pour un mouvement plus naturel
       onComplete: () => {
         // Commencer à animer le logo après que le conteneur est en place
         gsap.to('.logo-intro', {
           opacity: 1,
-          duration: 1,
+          duration: 0.5,
           ease: 'power2.out'
         });
       }
