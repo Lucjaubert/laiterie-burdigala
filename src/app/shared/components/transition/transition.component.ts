@@ -27,7 +27,6 @@ export class TransitionComponent implements OnInit, OnDestroy {
         this.transitionService.startTransition();
       }
       if (event instanceof NavigationEnd) {
-        // Keep the component rendered unless the navigation ends at home or 'accueil'
         this.shouldRender = this.router.url !== '/' && this.router.url !== '/accueil';
         if (!this.shouldRender) {
           this.transitionService.resetTransition();
@@ -35,7 +34,6 @@ export class TransitionComponent implements OnInit, OnDestroy {
       }
     });
 
-    // Subscribe to transition service to handle show/hide transitions
     this.subscription.add(
       this.transitionService.showTransition$.subscribe(show => {
         if (show && this.shouldRender) {
@@ -48,17 +46,14 @@ export class TransitionComponent implements OnInit, OnDestroy {
   }
 
   animateIn(): void {
-    // S'assurer que le conteneur de transition et le logo sont prêts pour l'animation
-    gsap.set('.transition-container', { x: '-100%' }); // Commence caché à gauche
-    gsap.set('.logo-intro', { opacity: 0 });           // Commence totalement transparent
+    gsap.set('.transition-container', { x: '-100%' });
+    gsap.set('.logo-intro', { opacity: 0 });          
   
-    // Animer le conteneur de transition pour qu'il se déplace de gauche à droite
     gsap.to('.transition-container', {
-      x: '0%',            // Termine entièrement visible à droite
+      x: '0%',            
       duration: 0.5,
-      ease: 'power2.out', // Utilisez un effet d'easing pour un mouvement plus naturel
+      ease: 'power2.out', 
       onComplete: () => {
-        // Commencer à animer le logo après que le conteneur est en place
         gsap.to('.logo-intro', {
           opacity: 1,
           duration: 0.5,
@@ -69,15 +64,14 @@ export class TransitionComponent implements OnInit, OnDestroy {
   }  
 
   animateOut(): void {
-    // Animate the transition container to move left to right and the logo to fade out
     gsap.to('.transition-container', {
       x: '-100%',
       duration: 2,
       ease: 'power2.in',
       onComplete: () => {
         setTimeout(() => {
-          this.shouldRender = false;  // Hide the container after animation
-        }, 100);  // Delay hiding to ensure animation completes
+          this.shouldRender = false; 
+        }, 100); 
       }
     });
     gsap.to('.logo-intro', {
@@ -88,7 +82,6 @@ export class TransitionComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Unsubscribe to prevent memory leaks
     this.subscription.unsubscribe();
   }
 }
