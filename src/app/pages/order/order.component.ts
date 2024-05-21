@@ -1,17 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
-
-interface OrderData {
-  title: string;
-  content: string;
-  acf_fields: {
-    title: string;
-    subtitle: string;
-  };
-}
+import { CartService } from 'src/app/services/cart.service';
+import { ProductData } from '../../models/product.model';
 
 @Component({
   selector: 'app-order',
@@ -22,20 +14,12 @@ interface OrderData {
 })
 export class OrderComponent implements OnInit {
 
-  orderData$: Observable<OrderData[] | null>;
+  orderItems$: Observable<ProductData[]>;
 
-  constructor(private wpService: WordpressService) { 
-    this.orderData$ = this.wpService.getOrder().pipe(
-      catchError(error => {
-        console.error('Erreur lors de la récupération des données de la page de commande:', error);
-        return of(null); 
-      })
-    );
-    
-    this.orderData$.subscribe(data => console.log('Données de la page de commande:', data));
+  constructor(private wpService: WordpressService, private cartService: CartService) {
+    this.orderItems$ = this.cartService.getItems(); 
   }
 
   ngOnInit(): void {
   }
-
 }

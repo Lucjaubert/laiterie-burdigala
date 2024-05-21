@@ -1,9 +1,14 @@
-<div *ngIf="orderData$ | async as orderDataArray">
-  <section *ngFor="let orderData of orderDataArray">
-    <h2>{{ orderData?.title }}</h2>
-    <div *ngIf="orderData?.acf_fields">
-      <h3>{{ orderData.acf_fields.title }}</h3>
-      <p>{{ orderData.acf_fields.subtitle }}</p>
+<div *ngIf="orderItems$ | async as items" class="order-summary">
+  <section *ngFor="let item of items">
+    <h2>{{ item.acf_fields.product_title }}</h2>
+    <img [src]="item.acf_fields.product_image" alt="{{ item.acf_fields.product_title }}">
+    <p>Description: {{ item.acf_fields.description }}</p>
+    <p>Poids: {{ item.acf_fields.weight }}</p>
+    <p>Prix: {{ item.acf_fields.price }} €</p>
+    <p>Quantité: {{ item.acf_fields.default_quantity }}</p>
+    <div *ngFor="let category of item.acf_fields.product_category">
+      <span>{{ category.name }}</span>
     </div>
   </section>
 </div>
+

@@ -1,9 +1,14 @@
+
+.hidden {
+  display: none !important;
+}
+
 .logo-container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 1; 
+  z-index: 1001; 
 }
 
 .transition-container {
@@ -17,12 +22,8 @@
 }
 
 .logo-intro {
-  opacity: 1; 
+  opacity: 1;
   width: 40vw;
   height: auto;
-  transition: opacity 0.5s ease-in-out; 
-}
-
-.transition-container.show-logo + .logo-container .logo-intro {
-  opacity: 1; 
+  transition: opacity 0.5s ease-in-out;
 }
