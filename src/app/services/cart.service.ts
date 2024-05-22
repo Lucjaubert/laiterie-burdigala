@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { ProductData } from '../models/product.model'; 
+import { ProductData } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CartService {
-  private itemsInCartSubject: BehaviorSubject<ProductData[]> = new BehaviorSubject<ProductData[]>([]); 
+  private itemsInCartSubject: BehaviorSubject<ProductData[]> = new BehaviorSubject<ProductData[]>([]);
   private itemsInCart: ProductData[] = [];
 
   constructor() {
@@ -14,7 +14,13 @@ export class CartService {
   }
 
   public addToCart(item: ProductData): void {
-    this.itemsInCart.push(item);
+    const existingItem = this.itemsInCart.find(cartItem => cartItem.acf_fields.product_title === item.acf_fields.product_title);
+    if (existingItem) {
+        existingItem.quantity = (existingItem.quantity ?? 0) + item.acf_fields.default_quantity;
+    } else {
+      const cartItem = { ...item, quantity: item.acf_fields.default_quantity }; 
+      this.itemsInCart.push(cartItem);
+    }
     this.itemsInCartSubject.next(this.itemsInCart);
   }
 

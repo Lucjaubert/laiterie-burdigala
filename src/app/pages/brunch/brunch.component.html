@@ -1,6 +1,6 @@
 <div class="container" *ngIf="brunchData$ | async as brunchDataArray">
   <section *ngFor="let brunchData of brunchDataArray">
-    <h2 class="mt-10">{{ brunchData?.title }}</h2>
+    <h2 class="mt-8">{{ brunchData?.title }}</h2>
     <div *ngIf="brunchData?.acf_fields">
       <h3>{{ brunchData.acf_fields.title }}</h3>
       <p [innerHTML]="brunchData.acf_fields.texte"></p>

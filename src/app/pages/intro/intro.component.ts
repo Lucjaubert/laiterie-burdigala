@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 
 @Component({
@@ -8,7 +8,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
   templateUrl: './intro.component.html',
   styleUrls: ['./intro.component.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, RouterModule]
 })
 export class IntroComponent implements OnInit {
   isHomepage = false;

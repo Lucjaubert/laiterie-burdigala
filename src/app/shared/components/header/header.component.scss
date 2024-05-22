@@ -1,5 +1,20 @@
 @import "../../../styles/_variables.scss";
 
+.full-width-container {
+  position: relative;
+  width: 100%; 
+  height: 50px; 
+  z-index: 999; 
+}
+
+.cart-icon {
+  position: absolute;
+  right: 120px; 
+  top: 35px; 
+  font-size: 24px; 
+  color: map-get($theme-colors, "green");
+}
+
 .header-container {
   display: flex;
   flex-direction: column;
@@ -23,6 +38,14 @@
     padding-top: 0;
     background-color: white; 
     transition: padding-top 0.3s ease, width 0.5s ease, background-color 1.2s ease;
+  }
+
+  .header-top {
+    display: flex;
+    justify-content: space-between; /* Cela positionne un élément à gauche et un à droite */
+    align-items: center; /* Cela les centre verticalement */
+    width: 100%; /* Prend toute la largeur du conteneur parent */
+    padding: 0 15px; /* Ajoutez un peu de padding de chaque côté */
   }
 
   .hidden {
@@ -89,14 +112,12 @@
 }
 
 .blurred-overlay {
-    position: fixed;
-    top: 0;
-    left: 30vw;  
-    width: 70vw; 
-    height: 100vh; 
-    backdrop-filter: blur(3px); 
-    z-index: 995; 
-    background: rgba(255, 255, 255, 0.5); 
-  }
-  
-  
+  position: fixed;
+  top: 0;
+  left: 30vw;  
+  width: 70vw; 
+  height: 100vh; 
+  backdrop-filter: blur(3px); 
+  z-index: 995; 
+  background: rgba(255, 255, 255, 0.5); 
+}

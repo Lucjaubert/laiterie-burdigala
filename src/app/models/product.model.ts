@@ -1,8 +1,8 @@
 export interface ProductCategory {
     term_id: number;
     name: string;
-  }
-  
+}
+
 export interface ProductData {
     acf_fields: {
         product_title: string;
@@ -13,4 +13,5 @@ export interface ProductData {
         default_quantity: number;
         product_category: ProductCategory[];
     };
+    quantity?: number; 
 }

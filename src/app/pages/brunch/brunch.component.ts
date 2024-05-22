@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
@@ -18,7 +19,7 @@ interface BrunchData {
   templateUrl: './brunch.component.html',
   styleUrls: ['./brunch.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule]
 })
 export class BrunchComponent implements OnInit {
 
