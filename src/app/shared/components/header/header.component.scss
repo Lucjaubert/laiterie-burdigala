@@ -42,10 +42,10 @@
 
   .header-top {
     display: flex;
-    justify-content: space-between; /* Cela positionne un élément à gauche et un à droite */
-    align-items: center; /* Cela les centre verticalement */
-    width: 100%; /* Prend toute la largeur du conteneur parent */
-    padding: 0 15px; /* Ajoutez un peu de padding de chaque côté */
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%; 
+    padding: 0 15px; 
   }
 
   .hidden {
@@ -64,7 +64,7 @@
   }
 
   .navbar {
-    width: 100%;
+    width: 30vw;
     display: flex;
     flex-direction: column;
     align-items: center;

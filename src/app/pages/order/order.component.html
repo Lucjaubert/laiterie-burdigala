@@ -1,18 +1,21 @@
-<div *ngIf="orderItems$ | async as items" class="order-summary">
-  <section *ngFor="let item of items">
-    <h2>{{ item.acf_fields.product_title }}</h2>
-    <img [src]="item.acf_fields.product_image" alt="{{ item.acf_fields.product_title }}">
-    <p>Description: {{ item.acf_fields.description }}</p>
-    <p>Poids: {{ item.acf_fields.weight }} g</p>
-    <p>Prix: {{ item.acf_fields.price }} €</p>
-    <p>Quantité: {{ item.quantity }}</p>
-    <div *ngFor="let category of item.acf_fields.product_category">
-      <span>{{ category.name }}</span>
+<div class="container container-order">
+  <div *ngIf="orderItems$ | async as items" class="order-summary">
+    <section *ngFor="let item of items">
+      <h2>{{ item.acf_fields.product_title }}</h2>
+      <img [src]="item.acf_fields.product_image" alt="{{ item.acf_fields.product_title }}">
+      <p>Description: {{ item.acf_fields.description }}</p>
+      <p>Poids: {{ item.acf_fields.weight }} g</p>
+      <p>Prix: {{ item.acf_fields.price }} €</p>
+      <p>Quantité: {{ item.quantity }}</p>
+      <div *ngFor="let category of item.acf_fields.product_category">
+        <span>{{ category.name }}</span>
+      </div>
+    </section>
+    <div>
+      <p>Total: {{ getTotalPrice(items) }} €</p>
+      <button (click)="clearCart()">Vider le panier</button>
     </div>
-  </section>
-  <div>
-    <p>Total: {{ getTotalPrice(items) }} €</p>
-    <button (click)="clearCart()">Vider le panier</button>
   </div>
-</div>
+</div> 
+  
 
