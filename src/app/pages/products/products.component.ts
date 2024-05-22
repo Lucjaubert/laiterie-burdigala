@@ -5,23 +5,9 @@ import { catchError, map } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { FormsModule } from '@angular/forms';
-
-interface ProductCategory {
-  term_id: number;
-  name: string;
-}
-
-interface ProductData {
-  acf_fields: {
-    product_title: string;
-    product_image: string;
-    description: string;
-    price: string;
-    weight: string;
-    default_quantity: number;
-    product_category: ProductCategory[];
-  };
-}
+import { CartService } from 'src/app/services/cart.service';
+import { ProductData } from '../../models/product.model';
+import { RouterModule } from '@angular/router';
 
 interface CategoryGroup {
   category: string;
@@ -33,14 +19,14 @@ interface CategoryGroup {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FormsModule],
+  imports: [CommonModule, HeaderComponent, FormsModule, RouterModule],
 })
 export class ProductsComponent implements OnInit {
   isHomepage = false;
   productsData$: Observable<ProductData[] | null>;
   productsByCategory$: Observable<CategoryGroup[]>;
 
-  constructor(private wpService: WordpressService) {
+  constructor(private wpService: WordpressService, private cartService: CartService) {
     this.productsData$ = this.wpService.getProducts().pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des données des produits:', error);
@@ -97,6 +83,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addToOrder(product: ProductData): void {
-    console.log('Ajouter à la commande:', product);
+    this.cartService.addToCart(product);
+    console.log('Added to cart:', product);
   }
 }

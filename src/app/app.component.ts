@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { Router, NavigationEnd, RouterModule } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { TransitionComponent } from './shared/components/transition/transition.component';
 import { HttpClientModule } from '@angular/common/http';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
 @Component({
     selector: 'app-root',

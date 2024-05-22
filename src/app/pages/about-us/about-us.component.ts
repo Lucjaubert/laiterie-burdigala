@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
@@ -20,7 +21,7 @@ interface AboutUsData {
   templateUrl: './about-us.component.html',
   styleUrls: ['./about-us.component.scss'],
   standalone: true,
-  imports: [CommonModule]
+  imports: [CommonModule, RouterModule]
 })
 export class AboutUsComponent implements OnInit {
   aboutUsData$: Observable<AboutUsData[]>;

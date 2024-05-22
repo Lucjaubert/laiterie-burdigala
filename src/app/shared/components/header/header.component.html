@@ -1,25 +1,31 @@
-<div class="header-container" *ngIf="showHeader" [ngClass]="{'fixed-header': isHomepage, 'menu-open': navbarExpanded}">
-  <app-menu-burger-logo [isHomepage]="isHomepage" [navbarExpanded]="navbarExpanded" (toggle)="toggleMenu()"></app-menu-burger-logo>
-  <header class="navigation-elements d-flex justify-content-center align-items-center" [class.hidden]="!navbarExpanded && !isHomepage">
-    <nav class="navbar ">
-      <div class="container-fluid d-flex justify-content-center align-items-center">
-        <div class="collapse" [ngClass]="{'show': navbarExpanded || isHomepage}" #navbarCollapse>
-          <ul class="navbar-nav">
-            <li class="nav-item my-4 text-fs-40" *ngFor="let item of menuItems" (click)="handleNavItemClick($event, item)">
-              <a class="nav-link" [routerLink]="item.link">{{ item.label }}</a>
-            </li>
-          </ul>
-          <div class="social-links pt-5 d-flex justify-content-center">
-            <a href="https://www.facebook.com" target="_blank" class="social-icon">
-              <img src="assets/img/facebook-green.png" alt="Facebook" style="height: 30px;">
-            </a>
-            <a href="https://www.instagram.com" target="_blank">
-              <img src="assets/img/instagram-green.png" alt="Instagram" style="height: 30px;">
-            </a>
-          </div>          
+<div class="full-width-container">
+    <a routerLink="/finaliser-commande" class="cart-icon">
+      <span class="material-symbols-outlined">shopping_cart</span>
+    </a>
+  <div class="header-container" *ngIf="showHeader" [ngClass]="{'fixed-header': isHomepage, 'menu-open': navbarExpanded}">
+    <div class="header-top">
+      <app-menu-burger-logo [isHomepage]="isHomepage" [navbarExpanded]="navbarExpanded" (toggle)="toggleMenu()"></app-menu-burger-logo>
+    </div>
+    <header class="navigation-elements d-flex justify-content-center align-items-center" [class.hidden]="!navbarExpanded && !isHomepage">
+      <nav class="navbar">
+        <div class="container-fluid d-flex justify-content-center align-items-center">
+          <div class="collapse" [ngClass]="{'show': navbarExpanded || isHomepage}" #navbarCollapse>
+            <ul class="navbar-nav">
+              <li class="nav-item my-4 text-fs-40" *ngFor="let item of menuItems" (click)="handleNavItemClick($event, item)">
+                <a class="nav-link" [routerLink]="item.link">{{ item.label }}</a>
+              </li>
+            </ul>
+            <div class="social-links pt-5 d-flex justify-content-center">
+              <a href="https://www.facebook.com" target="_blank" class="social-icon">
+                <img src="assets/img/facebook-green.png" alt="Facebook" style="height: 30px;">
+              </a>
+              <a href="https://www.instagram.com" target="_blank">
+                <img src="assets/img/instagram-green.png" alt="Instagram" style="height: 30px;">
+              </a>
+            </div>          
+          </div>
         </div>
-      </div>
-    </nav>
-  </header>
-</div>
-<div class="blurred-overlay" *ngIf="navbarExpanded"></div>
+      </nav>
+    </header>
+  </div>
+  <div class="blurred-overlay" *ngIf="navbarExpanded"></div>

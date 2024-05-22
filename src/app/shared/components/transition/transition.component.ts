@@ -14,13 +14,15 @@ import { RouterModule, Router, NavigationEnd, NavigationStart } from '@angular/r
 })
 export class TransitionComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
-  shouldRender = true; 
+  shouldRender = true;
 
   constructor(private transitionService: TransitionService, private router: Router) {}
 
   ngOnInit(): void {
+    // Subscribe to router events to manage the visibility of the transition component
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
+        // Set shouldRender to true at the start of navigation
         this.shouldRender = true;
         this.transitionService.startTransition();
       }
@@ -44,13 +46,39 @@ export class TransitionComponent implements OnInit, OnDestroy {
   }
 
   animateIn(): void {
-    gsap.to('.transition-container', { x: '0%', duration: 2, ease: 'power2.out' });
-    gsap.to('.logo-intro', { opacity: 1, duration: 1, ease: 'power2.out' });
-  }
+    gsap.set('.transition-container', { x: '-100%' });
+    gsap.set('.logo-intro', { opacity: 0 });          
+  
+    gsap.to('.transition-container', {
+      x: '0%',            
+      duration: 0.5,
+      ease: 'power2.out', 
+      onComplete: () => {
+        gsap.to('.logo-intro', {
+          opacity: 1,
+          duration: 0.5,
+          ease: 'power2.out'
+        });
+      }
+    });
+  }  
 
   animateOut(): void {
-    gsap.to('.transition-container', { x: '-100%', duration: 2, ease: 'power2.in' });
-    gsap.to('.logo-intro', { opacity: 0, duration: 1, ease: 'power2.in' });
+    gsap.to('.transition-container', {
+      x: '-100%',
+      duration: 2,
+      ease: 'power2.in',
+      onComplete: () => {
+        setTimeout(() => {
+          this.shouldRender = false; 
+        }, 100); 
+      }
+    });
+    gsap.to('.logo-intro', {
+      opacity: 0,
+      duration: 1,
+      ease: 'power2.in'
+    });
   }
 
   ngOnDestroy(): void {

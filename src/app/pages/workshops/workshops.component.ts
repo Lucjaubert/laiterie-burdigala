@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
@@ -19,7 +20,7 @@ interface WorkshopData {
   templateUrl: './workshops.component.html',
   styleUrls: ['./workshops.component.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent],
+  imports: [CommonModule, HeaderComponent, RouterModule],
 })
 export class WorkshopsComponent implements OnInit {
   isHomepage = false;

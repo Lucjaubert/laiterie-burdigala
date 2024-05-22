@@ -1,6 +1,5 @@
-<app-header [isHomepage]="false"></app-header>
 <div class="container container-products" *ngIf="productsByCategory$ | async as categoryGroups">
-  <h3 class="mt-10">Nos produits sont bio et locaux</h3>
+  <h3>Nos produits sont bio et locaux</h3>
   <p>Faites votre commande en ligne de vos différents produits Burdigala puis venez la chercher directement à la laiterie. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place le jour de votre passage.</p>
 
   <div *ngIf="categoryGroups.length === 0">Aucun produit disponible</div>

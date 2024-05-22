@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { WordpressService } from 'src/app/services/wordpress.service';
@@ -21,7 +22,7 @@ interface SupplierData {
   templateUrl: './suppliers.component.html',
   styleUrls: ['./suppliers.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule]
 })
 export class SuppliersComponent implements OnInit {
 
