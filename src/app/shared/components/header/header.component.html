@@ -1,6 +1,7 @@
 <div class="full-width-container">
   <a routerLink="/finaliser-commande" class="cart-icon" *ngIf="showCartIcon">
     <span class="material-symbols-outlined">shopping_cart</span>
+    <span *ngIf="totalItemCount$ | async as totalCount" class="cart-notification">{{ totalCount }}</span>
   </a>  
   <div class="header-container" *ngIf="showHeader" [ngClass]="{'fixed-header': isHomepage, 'menu-open': navbarExpanded}">
     <div class="header-top">
@@ -27,3 +28,4 @@
     </header>
   </div>
   <div class="blurred-overlay" *ngIf="navbarExpanded"></div>
+</div>

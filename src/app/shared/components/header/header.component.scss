@@ -13,6 +13,21 @@
   top: 35px; 
   font-size: 24px; 
   color: map-get($theme-colors, "green");
+
+  .material-symbols-outlined {
+    font-size: 24px;
+  }
+
+  .cart-notification {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+  }
 }
 
 .header-container {

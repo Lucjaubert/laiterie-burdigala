@@ -1,21 +1,38 @@
-<div class="container container-order">
-  <div *ngIf="orderItems$ | async as items" class="order-summary">
-    <section *ngFor="let item of items">
-      <h2>{{ item.acf_fields.product_title }}</h2>
-      <img [src]="item.acf_fields.product_image" alt="{{ item.acf_fields.product_title }}">
-      <p>Description: {{ item.acf_fields.description }}</p>
-      <p>Poids: {{ item.acf_fields.weight }} g</p>
-      <p>Prix: {{ item.acf_fields.price }} €</p>
-      <p>Quantité: {{ item.quantity }}</p>
-      <div *ngFor="let category of item.acf_fields.product_category">
-        <span>{{ category.name }}</span>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Récapitulatif de votre commande</h3>
+      <p>Voici un dernier aperçu de votre commande. Vous n’avez plus qu’à renseigner vos coordonnées puis le jour et l’heure du retrait de votre commande. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place.</p>
+      <div class="order-items" *ngIf="orderItems$ | async as items">
+        <div class="order-item" *ngFor="let item of items">
+          <span class="product-name">{{ item.acf_fields.product_title }}</span>
+          <span class="product-detail">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
+          <input type="number" class="quantity" [(ngModel)]="item.quantity" min="1">
+          <span class="total-price">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
+        </div>
       </div>
-    </section>
-    <div>
-      <p>Total: {{ getTotalPrice(items) }} €</p>
-      <button (click)="clearCart()">Vider le panier</button>
+    </div>
+    <div class="col-md-4">
+      <div class="order-summary">
+        <span>{{ items.length }} articles</span>
+        <span>{{ getTotalPrice() }} €</span>
+        <hr>
+        <span>TOTAL (TTC)</span>
+        <span>{{ getTotalPrice() }} €</span>
+      </div>
+      <form class="order-form">
+        <input type="text" placeholder="Prénom" class="form-control mb-3">
+        <input type="text" placeholder="Nom" class="form-control mb-3">
+        <input type="text" placeholder="Numéro de téléphone" class="form-control mb-3">
+        <input type="email" placeholder="Email" class="form-control mb-3">
+        <input type="text" placeholder="Jour de retrait" class="form-control mb-3">
+        <input type="text" placeholder="Heure de retrait" class="form-control mb-3">
+        <button type="submit" class="btn btn-success w-100">COMMANDER</button>
+      </form>
     </div>
   </div>
-</div> 
-  
-
+  <div class="social-media text-center mt-5">
+    <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
+    <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
+  </div>
+</div>

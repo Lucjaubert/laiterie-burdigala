@@ -6,7 +6,8 @@ import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.co
 import { MenuStateService } from 'src/app/services/menustate.service';
 import { TransitionService } from 'src/app/services/transition.service';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   navbarExpanded: boolean = false;
   showHeader: boolean = false;
   showCartIcon: boolean = false;
+  totalItemCount$: Observable<number>;
 
   @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleMenuState: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -38,8 +40,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private menuStateService: MenuStateService,
     private transitionService: TransitionService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private cartService: CartService
+  ) {
+    this.totalItemCount$ = this.cartService.getTotalItemCount();
+  }
 
   ngOnInit(): void {
     this.router.events.pipe(
