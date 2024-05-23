@@ -9,6 +9,9 @@
 
 .cart-icon {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   right: 120px; 
   top: 35px; 
   font-size: 24px; 

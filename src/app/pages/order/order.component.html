@@ -3,7 +3,7 @@
     <div class="col-md-8">
       <h3>Récapitulatif de votre commande</h3>
       <p>Voici un dernier aperçu de votre commande. Vous n’avez plus qu’à renseigner vos coordonnées puis le jour et l’heure du retrait de votre commande. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place.</p>
-      <div class="order-items" *ngIf="orderItems$ | async as items">
+      <div class="order-items p" *ngIf="orderItems$ | async as items">
         <div class="order-item" *ngFor="let item of items">
           <span class="product-name">{{ item.acf_fields.product_title }}</span>
           <span class="product-detail">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
