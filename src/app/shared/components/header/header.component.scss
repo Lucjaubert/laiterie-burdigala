@@ -9,10 +9,28 @@
 
 .cart-icon {
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   right: 120px; 
   top: 35px; 
   font-size: 24px; 
   color: map-get($theme-colors, "green");
+
+  .material-symbols-outlined {
+    font-size: 24px;
+  }
+
+  .cart-notification {
+    position: absolute;
+    top: -17px;
+    right: -14px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 3px 8px;
+    font-size: 14px;
+  }
 }
 
 .header-container {
@@ -42,10 +60,10 @@
 
   .header-top {
     display: flex;
-    justify-content: space-between; /* Cela positionne un élément à gauche et un à droite */
-    align-items: center; /* Cela les centre verticalement */
-    width: 100%; /* Prend toute la largeur du conteneur parent */
-    padding: 0 15px; /* Ajoutez un peu de padding de chaque côté */
+    justify-content: space-between;
+    align-items: center; 
+    width: 100%; 
+    padding: 0 15px; 
   }
 
   .hidden {
@@ -64,7 +82,7 @@
   }
 
   .navbar {
-    width: 100%;
+    width: 30vw;
     display: flex;
     flex-direction: column;
     align-items: center;

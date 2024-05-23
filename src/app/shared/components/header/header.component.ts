@@ -6,7 +6,8 @@ import { MenuBurgerLogoComponent } from '../menu-burger-logo/menu-burger-logo.co
 import { MenuStateService } from 'src/app/services/menustate.service';
 import { TransitionService } from 'src/app/services/transition.service';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-header',
@@ -19,6 +20,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Input() isHomepage: boolean = true;
   navbarExpanded: boolean = false;
   showHeader: boolean = false;
+  showCartIcon: boolean = false;
+  totalItemCount$: Observable<number>;
 
   @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleMenuState: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -37,17 +40,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(
     private menuStateService: MenuStateService,
     private transitionService: TransitionService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private cartService: CartService
+  ) {
+    this.totalItemCount$ = this.cartService.getTotalItemCount();
+  }
 
   ngOnInit(): void {
     this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe(event => {
       this.showHeader = this.router.url !== '/';
+      const cartVisibleUrls = [
+        '/accueil', '/nos-produits', '/finaliser-commande', '/nos-ateliers',
+        '/notre-brunch', '/nos-fournisseurs', '/a-propos-de-nous'
+      ];
+      this.showCartIcon = cartVisibleUrls.includes(event.url);
     });
 
-    // Abonnez-vous à la fin de la transition
     this.subscription.add(
       this.transitionService.transitionDone$.subscribe(done => {
         if (done) {
@@ -100,11 +110,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     event.preventDefault();
     if (this.router.url !== item.link) {
       this.menuStateService.setCurrentRoute(item.link);
-      await this.animateOut(); // Attendre que l'animation de fermeture se termine
+      await this.animateOut(); 
       this.transitionService.startTransition();
 
       this.router.navigateByUrl(item.link).then(() => {
-        // Nous n'appelons plus closeMenu ici car il sera appelé après la transition
       });
     }
   }

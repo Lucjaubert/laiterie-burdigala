@@ -1,0 +1,109 @@
+.order-items {
+    margin-bottom: 30px;
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+  
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #e0e0e0;
+  
+      &:last-child {
+        border-bottom: none;
+      }
+  
+      .product-name {
+        flex: 2;
+        font-size: 16px;
+        color: #4a4a4a;
+      }
+  
+      .product-detail {
+        flex: 3;
+        font-size: 14px;
+        color: #9b9b9b;
+      }
+  
+      .quantity {
+        flex: 1;
+        max-width: 50px;
+        text-align: center;
+      }
+  
+      .total-price {
+        flex: 2;
+        text-align: right;
+        font-size: 16px;
+        color: #4a4a4a;
+      }
+    }
+  }
+  
+  .order-summary {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    margin-bottom: 30px;
+  
+    span {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #4a4a4a;
+  
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  
+    hr {
+      border: none;
+      border-top: 1px solid #e0e0e0;
+      margin: 20px 0;
+    }
+  
+    span.total {
+      font-size: 18px;
+      font-weight: bold;
+      color: #4a4a4a;
+    }
+  }
+  
+  .order-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+  
+    input, button {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 14px;
+    }
+  
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+  
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  }
+  
+  .social-media {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  
+    img {
+      width: 30px;
+    }
+  }

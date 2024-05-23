@@ -28,6 +28,7 @@
 
   .product-details {
     margin-top: auto;
+
     .quantity-selector {
       display: flex;
       align-items: center;
@@ -41,6 +42,7 @@
         text-align: center;
       }
     }
+
     .btn-success {
       background-color: map-get($theme-colors, "green-light");
       color: white;
@@ -83,4 +85,19 @@
   .logo-6 { top: 610vh; left: 8vw; transform: rotate(-20deg); width: 35vw; height: 35vw; background-image: url("/assets/img/logo-intro.png"); }
   .logo-7 { top: 730vh; right: -8vw; transform: rotate(10deg); width: 40vw; height: 40vw; background-image: url("/assets/img/logo-intro.png"); }
   .logo-8 { top: 850vh; left: 8vw; transform: rotate(-25deg); width: 30vw; height: 30vw; background-image: url("/assets/img/logo-intro.png"); }
+}
+
+#cart-animation {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: red;
+  color: white;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  z-index: 1000;
+  transition: transform 1s ease, opacity 1s ease;
 }
