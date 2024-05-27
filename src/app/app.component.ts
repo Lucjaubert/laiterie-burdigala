@@ -4,22 +4,16 @@ import { filter } from 'rxjs/operators';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { TransitionComponent } from './shared/components/transition/transition.component';
-import { HttpClientModule } from '@angular/common/http';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 
-@Component({
-    selector: 'app-root',
+@Component({ selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: true,
-    imports: [
-        CommonModule,
+    standalone: true, imports: [CommonModule,
         RouterModule,
         FooterComponent,
         HeaderComponent,
-        TransitionComponent,
-        HttpClientModule
-    ]
+        TransitionComponent], 
 })
 export class AppComponent {
     title = 'laiterie-burdigala';

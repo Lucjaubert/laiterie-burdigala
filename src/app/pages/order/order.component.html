@@ -1,8 +1,8 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-8">
-      <h3>Récapitulatif de votre commande</h3>
-      <p>Voici un dernier aperçu de votre commande. Vous n’avez plus qu’à renseigner vos coordonnées puis le jour et l’heure du retrait de votre commande. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place.</p>
+<div class="container container-order">
+    <h3>Récapitulatif de votre commande</h3>
+    <p>Voici un dernier aperçu de votre commande. Vous n’avez plus qu’à renseigner vos coordonnées puis le jour et l’heure du retrait de votre commande. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place.</p>
+  <div class="row d-flex justify-content-center">  
+    <div class="col-md-8">  
       <div class="order-items p" *ngIf="orderItems$ | async as items">
         <div class="order-item" *ngFor="let item of items">
           <span class="product-name">{{ item.acf_fields.product_title }}</span>
@@ -10,6 +10,19 @@
           <input type="number" class="quantity" [(ngModel)]="item.quantity" min="1">
           <span class="total-price">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
         </div>
+      </div>
+      <div class="social-media d-flex flex-column align-items-center">
+        <p>
+          Suivez nos nouveautés sur les réseaux sociaux
+        </p>
+        <div class="social-links d-flex justify-content-center">
+        <a href="https://www.facebook.com" target="_blank" class="social-icon mx-3">
+          <img src="assets/img/facebook-green.png" alt="Facebook">
+        </a>
+        <a href="https://www.instagram.com" target="_blank" class="social-icon mx-3">
+          <img src="assets/img/instagram-green.png" alt="Instagram">
+        </a>
+      </div>  
       </div>
     </div>
     <div class="col-md-4">
@@ -20,19 +33,15 @@
         <span>TOTAL (TTC)</span>
         <span>{{ getTotalPrice() }} €</span>
       </div>
-      <form class="order-form">
-        <input type="text" placeholder="Prénom" class="form-control mb-3">
-        <input type="text" placeholder="Nom" class="form-control mb-3">
-        <input type="text" placeholder="Numéro de téléphone" class="form-control mb-3">
-        <input type="email" placeholder="Email" class="form-control mb-3">
-        <input type="text" placeholder="Jour de retrait" class="form-control mb-3">
-        <input type="text" placeholder="Heure de retrait" class="form-control mb-3">
+      <form (ngSubmit)="submitOrder()">
+        <input type="text" [(ngModel)]="customerInfo.firstName" name="firstName" placeholder="Prénom" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.lastName" name="lastName" placeholder="Nom" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.phone" name="phone" placeholder="Numéro de téléphone" class="form-control mb-3">
+        <input type="email" [(ngModel)]="customerInfo.email" name="email" placeholder="Email" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.pickupDay" name="pickupDay" placeholder="Jour de retrait" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.pickupTime" name="pickupTime" placeholder="Heure de retrait" class="form-control mb-3">
         <button type="submit" class="btn btn-success w-100">COMMANDER</button>
       </form>
     </div>
-  </div>
-  <div class="social-media text-center mt-5">
-    <a href="#"><img src="facebook-icon.png" alt="Facebook"></a>
-    <a href="#"><img src="instagram-icon.png" alt="Instagram"></a>
   </div>
 </div>

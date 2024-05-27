@@ -17,12 +17,20 @@
               <p>Prix : {{ product.acf_fields.price }} €</p>
               <p>Poids : {{ product.acf_fields.weight }} g</p>
               <p>Quantité par défaut : {{ product.acf_fields.default_quantity }}</p>
-              <div class="quantity-selector mb-2">
-                <button (click)="decreaseQuantity(product)">-</button>
-                <input type="number" [(ngModel)]="product.acf_fields.default_quantity" min="1">
-                <button (click)="increaseQuantity(product)">+</button>
+                           
+              <div class="d-flex flex-column align-items-center">
+                <div class="quantity-selector mb-2 mt-5">
+                <button class="btn decrease-btn" (click)="decreaseQuantity(product)">
+                  <i class="material-icons">-</i>
+                </button>
+                <input type="number" class="quantity-input" [(ngModel)]="product.acf_fields.default_quantity" min="1">
+                <button class="btn increase-btn" (click)="increaseQuantity(product)">
+                  <i class="material-icons">+</i>
+                </button>
+              </div> 
+                <button class="btn btn-success w-100 mt-3" (click)="addToOrder(product)">Ajouter <i class="fa fa-shopping-cart"></i></button>
+                <button routerLink="/finaliser-commande" class="btn cart-btn mt-5 text-fs-20">Voir le panier</button>
               </div>
-              <button class="btn btn-success w-100 mt-3" (click)="addToOrder(product)">Ajouter <i class="fa fa-shopping-cart"></i></button>
             </div>
           </div>
         </div>
@@ -37,5 +45,4 @@
     <div *ngIf="i === 6" class="logo logo-7"></div>
     <div *ngIf="i === 7" class="logo logo-8"></div>
   </div>
-  <button routerLink="/order" class="btn btn-primary mt-3">Voir le panier</button>
 </div>

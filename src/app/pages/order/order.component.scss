@@ -1,4 +1,7 @@
-.order-items {
+@import "../../styles/_variables.scss";
+
+.container-order {
+  .order-items {
     margin-bottom: 30px;
     background: #f9f9f9;
     border: 1px solid #e0e0e0;
@@ -8,7 +11,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
+      padding: 20px 0;
       border-bottom: 1px solid #e0e0e0;
   
       &:last-child {
@@ -29,8 +32,14 @@
   
       .quantity {
         flex: 1;
-        max-width: 50px;
+        max-width: 40px;
         text-align: center;
+      }
+
+      .quantity::-webkit-inner-spin-button,
+      .quantity::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
       }
   
       .total-price {
@@ -43,7 +52,7 @@
   }
   
   .order-summary {
-    background: #f9f9f9;
+    background-color: map-get($theme-colors, "green-light");
     border: 1px solid #e0e0e0;
     padding: 20px;
     margin-bottom: 30px;
@@ -52,7 +61,7 @@
       display: block;
       margin-bottom: 10px;
       font-size: 16px;
-      color: #4a4a4a;
+      color: #ffffff;
   
       &:last-child {
         margin-bottom: 0;
@@ -61,7 +70,7 @@
   
     hr {
       border: none;
-      border-top: 1px solid #e0e0e0;
+      border-top: 1px solid #ffffff;
       margin: 20px 0;
     }
   
@@ -86,13 +95,13 @@
     }
   
     button {
-      background-color: #28a745;
+      background-color: map-get($theme-colors, "green-light");
       color: white;
       border: none;
       cursor: pointer;
   
       &:hover {
-        background-color: #218838;
+        background-color: darken(map-get($theme-colors, "green-light"), 20%);
       }
     }
   }
@@ -100,10 +109,11 @@
   .social-media {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 5px;
     margin-top: 20px;
-  
+
     img {
       width: 30px;
     }
   }
+}

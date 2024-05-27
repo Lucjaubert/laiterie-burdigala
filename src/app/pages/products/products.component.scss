@@ -33,14 +33,43 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      button, input {
-        background-color: #ddd;
-        border: none;
-        padding: 5px;
+      border-radius: 5px;
+      width: 120px;
+
+      .btn {
+        background-color: #f4f4f4;
+        border: 1px solid #ccc;
+        color: #333;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1px 8px;
         cursor: pointer;
-        width: 50px; 
-        text-align: center;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+
+        &:focus {
+          outline: none;
+        }
       }
+
+      .quantity-input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        margin: 0 5px;
+      }
+    }
+
+    .quantity-input::-webkit-inner-spin-button,
+    .quantity-input::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
 
     .btn-success {
@@ -63,6 +92,11 @@
         margin-left: 0.5rem;
       }
     }
+  }
+
+  .btn.cart-btn:focus {
+    outline: none; 
+    box-shadow: map-get($theme-colors, "green-light") 0 0 0 0.1rem; 
   }
 
   .card-title, .card-text, .product-details p {
@@ -101,3 +135,5 @@
   z-index: 1000;
   transition: transform 1s ease, opacity 1s ease;
 }
+
+

@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductData } from '../../models/product.model';
 import { RouterModule } from '@angular/router';
+import { MatIconModule } from '@angular/material/icon';
 
 interface CategoryGroup {
   category: string;
@@ -19,7 +20,7 @@ interface CategoryGroup {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.scss'],
   standalone: true,
-  imports: [CommonModule, HeaderComponent, FormsModule, RouterModule],
+  imports: [CommonModule, HeaderComponent, FormsModule, RouterModule, MatIconModule ],
 })
 export class ProductsComponent implements OnInit {
   isHomepage = false;
@@ -84,6 +85,5 @@ export class ProductsComponent implements OnInit {
 
   addToOrder(product: ProductData): void {
     this.cartService.addToCart(product);
-    console.log('Added to cart:', product);
   }
 }
