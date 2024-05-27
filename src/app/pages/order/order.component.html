@@ -33,13 +33,13 @@
         <span>TOTAL (TTC)</span>
         <span>{{ getTotalPrice() }} €</span>
       </div>
-      <form class="order-form">
-        <input type="text" placeholder="Prénom" class="form-control mb-3">
-        <input type="text" placeholder="Nom" class="form-control mb-3">
-        <input type="text" placeholder="Numéro de téléphone" class="form-control mb-3">
-        <input type="email" placeholder="Email" class="form-control mb-3">
-        <input type="text" placeholder="Jour de retrait" class="form-control mb-3">
-        <input type="text" placeholder="Heure de retrait" class="form-control mb-3">
+      <form (ngSubmit)="submitOrder()">
+        <input type="text" [(ngModel)]="customerInfo.firstName" name="firstName" placeholder="Prénom" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.lastName" name="lastName" placeholder="Nom" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.phone" name="phone" placeholder="Numéro de téléphone" class="form-control mb-3">
+        <input type="email" [(ngModel)]="customerInfo.email" name="email" placeholder="Email" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.pickupDay" name="pickupDay" placeholder="Jour de retrait" class="form-control mb-3">
+        <input type="text" [(ngModel)]="customerInfo.pickupTime" name="pickupTime" placeholder="Heure de retrait" class="form-control mb-3">
         <button type="submit" class="btn btn-success w-100">COMMANDER</button>
       </form>
     </div>

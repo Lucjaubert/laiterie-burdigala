@@ -22,6 +22,10 @@ export class WordpressService {
     return this.http.get(`${this.apiUrl}/finaliser-commande`);
   }
 
+  sendOrderDetails(orderDetails: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-order`, orderDetails);
+  }
+
   getWorkshop(): Observable<any> {
     return this.http.get(`${this.apiUrl}/nos-ateliers`);
   }
