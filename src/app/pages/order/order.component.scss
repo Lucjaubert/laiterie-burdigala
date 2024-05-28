@@ -51,35 +51,46 @@
     }
   }
   
-  .order-summary {
-    background-color: map-get($theme-colors, "green-light");
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    margin-bottom: 30px;
-  
-    span {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #ffffff;
-  
-      &:last-child {
-        margin-bottom: 0;
+  .order-box {
+    .order-summary {
+      background-color: map-get($theme-colors, "green-light");
+      border: 1px solid #e0e0e0;
+      padding: 20px;
+      margin-bottom: 30px;
+    
+        span {
+          display: block;
+          margin-bottom: 10px;
+          font-size: 16px;
+          color: #ffffff;
+      
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+    
+        hr {
+          border: none;
+          border-top: 1px solid #ffffff;
+          margin: 20px 0;
+        }
+    
+      span.total {
+        font-size: 18px;
+        font-weight: bold;
+        color: #4a4a4a;
       }
     }
-  
-    hr {
-      border: none;
-      border-top: 1px solid #ffffff;
-      margin: 20px 0;
-    }
-  
-    span.total {
-      font-size: 18px;
-      font-weight: bold;
-      color: #4a4a4a;
-    }
+    .btn-success {
+      background-color: map-get($theme-colors, "green-light") !important;
+      color: white !important;
+    
+      &:hover {
+        background-color: darken(map-get($theme-colors, "green-light"), 20%) !important;
+      }
+    }  
   }
+  
   
   .order-form {
     display: grid;
@@ -92,18 +103,7 @@
       border: 1px solid #ccc;
       border-radius: 5px;
       font-size: 14px;
-    }
-  
-    button {
-      background-color: map-get($theme-colors, "green-light");
-      color: white;
-      border: none;
-      cursor: pointer;
-  
-      &:hover {
-        background-color: darken(map-get($theme-colors, "green-light"), 20%);
-      }
-    }
+    }  
   }
   
   .social-media {

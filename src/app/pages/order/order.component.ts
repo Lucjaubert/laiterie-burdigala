@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductData } from '../../models/product.model';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +27,11 @@ export class OrderComponent implements OnInit {
     pickupTime: ''
   };
 
-  constructor(private cartService: CartService, private http: HttpClient) {
+  constructor(
+    private cartService: CartService, 
+    private http: HttpClient,
+    private snackBar: MatSnackBar
+  ) {
     this.orderItems$ = this.cartService.getItems();
   }
 
@@ -38,6 +43,10 @@ export class OrderComponent implements OnInit {
     return this.items.reduce((total, item) => total + (parseFloat(item.acf_fields.price) * (item.quantity ?? 0)), 0);
   }
 
+  getTotalPriceHT(): number {
+    return this.items.reduce((total, item) => total + (parseFloat(item.acf_fields.price) * (item.quantity ?? 0)), 0);
+  }
+
   clearCart(): void {
     this.cartService.clearCart();
   }
@@ -46,7 +55,21 @@ export class OrderComponent implements OnInit {
     return parseFloat(value);
   }
 
+  calculateTVA(): number {
+    const totalPriceHT = this.getTotalPriceHT();
+    return totalPriceHT * 0.055;
+  }
+
   submitOrder() {
+    if (!this.customerInfo.firstName || !this.customerInfo.lastName || !this.customerInfo.email) {
+      this.snackBar.open('Veuillez remplir tous les champs requis.', 'Merci', {
+        duration: 3000,
+        horizontalPosition: 'right',
+        verticalPosition: 'top'
+      });
+      return;
+    }
+
     const orderDetails = {
       customerInfo: this.customerInfo,
       items: this.items.map(item => ({
@@ -57,8 +80,21 @@ export class OrderComponent implements OnInit {
     };
 
     this.http.post('https://laiterieburdigala.fr/wp-json/laiterie-burdigala/v1/send-order', orderDetails).subscribe({
-      next: response => console.log('Order sent successfully', response),
-      error: error => console.error('Failed to send order', error)
+      next: (response) => {
+        this.snackBar.open('Votre commande a été envoyée avec succès', 'merci', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+        this.clearCart();
+      },
+      error: (error) => {
+        this.snackBar.open('Erreur lors de l\'envoi de la commande', 'Fermer', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top'
+        });
+      }
     });
-  }
+  }  
 }
