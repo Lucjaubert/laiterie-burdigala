@@ -81,7 +81,7 @@ export class TransitionComponent implements OnInit, OnDestroy {
         onComplete: () => {
           setTimeout(() => {
             this.shouldRender = false;
-            this.cdr.detectChanges(); // Force Angular à détecter les changements
+            this.cdr.detectChanges(); 
           }, 100); 
         }
       });

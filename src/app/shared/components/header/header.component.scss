@@ -14,11 +14,16 @@
   justify-content: center;
   right: 120px; 
   top: 35px; 
-  font-size: 24px; 
-  color: map-get($theme-colors, "green");
+  font-size: 24px;
 
   .material-symbols-outlined {
     font-size: 24px;
+    &.homepage-cart {
+      color: map-get($theme-colors, "white-yellow");
+    }
+    &.other-page-cart {
+      color: map-get($theme-colors, "green");
+    }
   }
 
   .cart-notification {
@@ -48,7 +53,6 @@
   background-color: transparent;
 
   &.fixed-header {
-    width: 100%;
     margin-top: 45px;
   }
 
@@ -113,16 +117,32 @@
           display: flex;
           justify-content: center;
           align-items: center;
-          color: #719673;
+          color: map-get($theme-colors, "green");
 
+          &.homepage-link {
+            color: map-get($theme-colors, "white-yellow");
+            transition: transform 0.5s ease, color 0.3s ease; 
+            &:hover {
+                color: darken(map-get($theme-colors, "light-grey"), 30%);
+                transform: scale(1.2); 
+            }
+          }
+          
+          &.other-page-link {
+              color: map-get($theme-colors, "green");
+              transition: transform 0.5s ease, color 0.3s ease; 
+              &:hover {
+                  color: darken(map-get($theme-colors, "green"), 10%);
+                  transform: scale(1.2); 
+              }
+          }
+        
           img {
             height: 30px;
             margin-right: 8px;
           }
 
-          &:hover {
-            color: darken(#719673, 10%);
-          }
+          
         }
       }
     }

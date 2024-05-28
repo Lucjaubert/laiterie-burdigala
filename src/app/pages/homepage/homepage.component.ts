@@ -24,7 +24,6 @@ export class HomepageComponent implements OnInit {
   preparedSlogan: SafeHtml = '';
 
   opinions = [
-    { img: 'assets/opinions/avis-1.png' },
     { img: 'assets/opinions/avis-2.png' },
     { img: 'assets/opinions/avis-3.png' },
     { img: 'assets/opinions/avis-4.png' },
@@ -35,10 +34,10 @@ export class HomepageComponent implements OnInit {
   ];
 
   pressLogos = [
-    { img: 'assets/press-logos/france-week-end.png', url: 'https://franceweek-end.com/etablissements/la-douceur-italienne-au-coeur-de-bordeaux-laiterie-burdigala/' },
-    { img: 'assets/press-logos/le-bonbon-vector-logo.png', url: 'https://www.lebonbon.fr/bordeaux/les-tops-food-et-drink/burdigala-la-premiere-laiterie-urbaine-bio-s-est-installee-aux-capus/' },
-    { img: 'assets/press-logos/france-bleu.png', url: 'https://www.radiofrance.fr/francebleu/podcasts/circuits-courts-en-gironde/la-burrata-100-bordeaux-4827655' },
-    { img: 'assets/press-logos/quoi-faire-a-bx.jpg', url: 'https://quoifaireabordeaux.com/blog/burdigala-la-premiere-laiterie-de-bordeaux-fabrique-sa-mozzarella-sur-place/' },
+    { img: 'assets/press-logos/france-bleu-logo.png', url: 'https://www.radiofrance.fr/francebleu/podcasts/circuits-courts-en-gironde/la-burrata-100-bordeaux-4827655' },
+    { img: 'assets/press-logos/le-bonbon-logo.png', url: 'https://www.lebonbon.fr/bordeaux/les-tops-food-et-drink/burdigala-la-premiere-laiterie-urbaine-bio-s-est-installee-aux-capus/' },
+    { img: 'assets/press-logos/france-week-end-logo.png', url: 'https://franceweek-end.com/etablissements/la-douceur-italienne-au-coeur-de-bordeaux-laiterie-burdigala/' },
+    { img: 'assets/press-logos/qfabx-logo.png', url: 'https://quoifaireabordeaux.com/blog/burdigala-la-premiere-laiterie-de-bordeaux-fabrique-sa-mozzarella-sur-place/' },
   ];
   
   constructor(private wpService: WordpressService, private sanitizer: DomSanitizer) { 
@@ -51,6 +50,7 @@ export class HomepageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.pressLogos); 
     this.homepageData$.subscribe((data) => {
       if (data && data.length > 0) {
         this.preparedSlogan = this.prepareSlogan(data[0].acf_fields.slogan);
@@ -58,15 +58,16 @@ export class HomepageComponent implements OnInit {
       }
     });
   }
+  
 
   animateSlogan(): void {
     this.initialOpacity = 1;  
     const sloganElement = document.querySelector('.slogan');
     if (sloganElement) {
       gsap.fromTo(sloganElement, { y: 30, opacity: 0 }, {
-        duration: 4,
+        duration: 6,
         y: 0,
-        opacity: 1.5,
+        opacity: 1,
         ease: 'power4.out'
       });
     }

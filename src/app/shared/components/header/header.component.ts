@@ -51,6 +51,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe(event => {
       this.showHeader = this.router.url !== '/';
+      this.isHomepage = this.router.url === '/accueil';
       const cartVisibleUrls = [
         '/accueil', '/nos-produits', '/finaliser-commande', '/nos-ateliers',
         '/notre-brunch', '/nos-fournisseurs', '/a-propos-de-nous'
@@ -122,7 +123,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     if (this.headerContainer) {
       gsap.to(this.headerContainer.nativeElement, {
         width: '100vw',
-        duration: 1,
+        duration: 1.5,
         ease: 'power3.inOut'
       });
     }

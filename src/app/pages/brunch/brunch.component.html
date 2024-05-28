@@ -6,4 +6,11 @@
       <p [innerHTML]="brunchData.acf_fields.texte"></p>
     </div>
   </section>
+  <div class="press-container py-7 d-flex flex-column">
+    <div class="press-logos px-5 ml-10">
+      <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
+        <img [src]="pressLogo.img" alt="Press Logo" class="press-logo">
+      </a>
+    </div>
+  </div>
 </div>
