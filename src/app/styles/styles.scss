@@ -75,3 +75,13 @@ p {
     'opsz' 24;
   font-family: 'Material Symbols Outlined';
 }
+
+.mat-mdc-snack-bar-container {
+  position: fixed !important;
+}
+
+.mdc-snackbar__label {
+  padding-left: 26px !important;
+  padding-right: 18px !important;
+}
+
