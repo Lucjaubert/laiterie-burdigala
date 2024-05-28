@@ -53,8 +53,18 @@ export class TransitionComponent implements OnInit, OnDestroy {
   }
 
   animateIn(): void {
-    if (document.querySelector('.transition-container')) {
-      gsap.fromTo('.transition-container', {
+    const transitionContainer = document.querySelector('.transition-container') as HTMLElement;
+    const backgroundBlur = document.querySelector('.background-blur') as HTMLElement;
+    
+    if (transitionContainer) {
+      // Fait apparaître le flou dès que commence l'animation
+      gsap.to(backgroundBlur, {
+        opacity: 1,
+        duration: 0.5,
+        ease: 'power1.inOut'
+      });
+  
+      gsap.fromTo(transitionContainer, {
         x: '-100%'
       }, {
         x: '0%',
@@ -63,14 +73,21 @@ export class TransitionComponent implements OnInit, OnDestroy {
         onComplete: () => {
           gsap.fromTo('.logo-intro', { opacity: 0 }, {
             opacity: 1,
-            duration: 1, // Contrôle le temps entre l'opacité de 0 à 1
-            //delay: 0.5, 
-            ease: 'power2.out' // Ralentit à la fin de l'animation d'opacité
+            duration: 1,
+            ease: 'power2.out'
+          });
+  
+          // Fait disparaître le flou à la fin de l'animation
+          gsap.to(backgroundBlur, {
+            opacity: 0,
+            duration: 0.5,
+            delay: 1.5,  // Commence à disparaître juste après que l'animation soit terminée
           });
         }
       });
     }
-  }  
+  }
+   
 
   animateOut(): void {
     if (document.querySelector('.transition-container') && document.querySelector('.logo-intro')) {
