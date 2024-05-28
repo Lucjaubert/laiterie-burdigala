@@ -1,78 +1,86 @@
 @import "../../styles/_variables.scss";
 
 .homepage-container {
-    .hidden-text {
-        opacity: 0;
-    }
-  
+  .video-background {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw; 
+    height: 100vh; 
+    z-index: -1000; 
+    object-fit: cover;
+  }
+
+  .homepage-content {
+
     .slogan-container {
-        display: flex;
-        align-items: center; 
-        justify-content: center; 
-        gap: 20px; 
-      
-        .slogan {
-          margin: 0; 
-        }
-        .logo-slogan {
-          position: absolute;
-          bottom: -10vw;
-          right: 5vw; 
-          transform: rotate(15deg); 
-          width: 30vw;
-          height: auto;
-          opacity: 0.2;
-          z-index: -1;
-        }
+      display: flex;
+      align-items: center; 
+      justify-content: center; 
+      gap: 20px; 
+      color: map-get($theme-colors, "white-yellow");
+
+      .slogan {
+        line-height: 1.5; 
+      }
     }
 
     .opinion-container {
-        height: 40vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: map-get($theme-colors, "grey-light-2");
-      }
+      height: 40vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: map-get($theme-colors, "grey-light-2");
+    }
+    
+    .opinion-frame {
+      width: 80%;
+      max-width: 800px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center; 
+      align-items: center; 
       
-      .opinion-frame {
-        width: 80%;
-        max-width: 800px;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center; 
-        align-items: center; 
-        z-index: -2;
-      }
-      
-      .opinion-carousel {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 25vh;
-        padding: 20px;
-      
-        img {
-          max-width: 650px;
-          height: auto;
+        .opinion-carousel {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 25vh;
+          padding: 20px;
+        
+            img {
+              max-width: 650px;
+              height: auto;
+            }
         }
-      }
+    }
 
-      .press-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: map-get($theme-colors, "blue-green-2");
-        height: 40vh;
+    .press-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: map-get($theme-colors, "white-yellow") solid 1px;
+      height: 30vh;
+      z-index: 5000;
+
+      .press-text {
+        color: map-get($theme-colors, "white-yellow");
       }
       
       .press-logos {
         display: flex;
         align-items: center;
       }
-      
+    
       .press-logo {
         width: 5vw;
         height: auto;
         margin-right: 5vw; 
       }
+    }
+  }
+
+  .location-container {
+      color: map-get($theme-colors, "white-yellow");
+  }
 }

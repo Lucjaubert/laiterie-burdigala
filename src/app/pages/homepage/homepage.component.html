@@ -1,36 +1,40 @@
 <div class="container">
   <div class="homepage-container">
-    <div *ngIf="(homepageData$ | async) as homepageDataArray">
-      <div *ngFor="let homepageData of homepageDataArray">
-        <div [innerHTML]="homepageData.content"></div>
-        <div class="slogan-container d-flex justify-content-center">
-          <h3 class="text-fw-regular text-center d-flex pt-6 pl-10 pr-15 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h3>
-          <img src="assets/img/logo-intro.png" alt="Logo Laiterie Burdigala" class="logo-slogan mt-35">
-        </div>
-        <div class="opinion-container mt- d-flex flex-column">
-          <!--<h5 class="mt-10">{{ homepageData?.acf_fields?.avis }}</h5>-->
-          <div class="opinion-frame">
-            <carousel [interval]="3000"> 
-              <slide *ngFor="let opinion of opinions">
-                <div class="opinion-carousel">
-                  <img [src]="opinion.img" alt="Opinion Image">
-                </div>
-              </slide>
-            </carousel>
+    <video autoplay muted loop class="video-background">
+      <source src="assets/video/homepage-video.mov" type="video/mp4">
+    </video>
+    <div class="homepage-content pt-17">
+      <div *ngIf="(homepageData$ | async) as homepageDataArray">
+        <div *ngFor="let homepageData of homepageDataArray">
+          <!--<div [innerHTML]="homepageData.content"></div>-->
+          <div class="slogan-container d-flex justify-content-center">
+            <h3 class="text-fw-regular text-center text-fs-60 d-flex pt-6 px-12 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h3>
           </div>
-        </div>
-        <div class="press-container py-7 d-flex flex-column border-top border-bottom border-green">
-          <h4 class="pb-7 text-fw-regular">{{ homepageData?.acf_fields?.presse }}</h4>
-          <div class="press-logos px-5 ml-10">
-            <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
-              <img [src]="pressLogo.img" alt="Press Logo" class="press-logo">
-            </a>
+          <div class="opinion-container mt-17 d-flex flex-column">
+            <!--<h5 class="mt-10">{{ homepageData?.acf_fields?.avis }}</h5>-->
+            <div class="opinion-frame pb-10 pt-6">
+              <carousel [interval]="3000" [itemsPerSlide]="1" [singleSlideOffset]="false" [noWrap]="false">
+                <slide *ngFor="let opinion of opinions">
+                  <div class="opinion-carousel">
+                    <img [src]="opinion.img" alt="Opinion Image">
+                  </div>
+                </slide>
+              </carousel>
+            </div>
           </div>
+          <div class="press-container py-7 d-flex flex-column">
+            <h4 class="press-text pb-4 text-fw-regular">{{ homepageData?.acf_fields?.presse }}</h4>
+            <div class="press-logos px-5 ml-10">
+              <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
+                <img [src]="pressLogo.img" alt="Press Logo" class="press-logo">
+              </a>
+            </div>
+          </div>
+          <div class="location-container pl-11 py-13 d-flex">
+            <div [innerHTML]="homepageData?.acf_fields?.location ? homepageData?.acf_fields?.location : ''"></div>
+            <div class="map"></div>
+          </div>  
         </div>
-        <div class="location-container pl-11 py-10 d-flex">
-          <div [innerHTML]="homepageData?.acf_fields?.location ? homepageData?.acf_fields?.location : ''"></div>
-          <div class="map"></div>
-        </div>  
       </div>
     </div>
   </div>
