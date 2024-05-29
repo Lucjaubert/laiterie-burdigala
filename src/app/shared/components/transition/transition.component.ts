@@ -26,12 +26,12 @@ export class TransitionComponent implements OnInit, OnDestroy {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.shouldRender = true;
-        this.cdr.detectChanges(); // Assurez-vous que le DOM est mis à jour
+        this.cdr.detectChanges();
         this.transitionService.startTransition();
       }
       if (event instanceof NavigationEnd) {
         this.shouldRender = this.router.url !== '/' && this.router.url !== '/accueil';
-        this.cdr.detectChanges(); // Assurez-vous que le DOM est mis à jour
+        this.cdr.detectChanges(); 
         if (!this.shouldRender) {
           this.transitionService.resetTransition();
         }
@@ -40,21 +40,30 @@ export class TransitionComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.transitionService.showTransition$.subscribe(show => {
-        this.cdr.detectChanges(); // Force Angular à détecter les changements
-        setTimeout(() => { // Ajoutez un délai pour laisser le DOM se stabiliser
+        this.cdr.detectChanges(); 
+        setTimeout(() => { 
           if (show && this.shouldRender) {
             this.animateIn();
           } else {
             this.animateOut();
           }
-        }, 100); // Délai ajustable selon le besoin
+        }, 100); 
       })
     );
   }
 
   animateIn(): void {
-    if (document.querySelector('.transition-container')) {
-      gsap.fromTo('.transition-container', {
+    const transitionContainer = document.querySelector('.transition-container') as HTMLElement;
+    const backgroundBlur = document.querySelector('.background-blur') as HTMLElement;
+    
+    if (transitionContainer && backgroundBlur) {
+      gsap.to(backgroundBlur, {
+        opacity: 1,
+        display: 'block', // Assurez-vous que le flou est visible
+        duration: 0.5,
+        ease: 'power1.inOut'
+      });
+      gsap.fromTo(transitionContainer, {
         x: '-100%'
       }, {
         x: '0%',
@@ -63,17 +72,32 @@ export class TransitionComponent implements OnInit, OnDestroy {
         onComplete: () => {
           gsap.fromTo('.logo-intro', { opacity: 0 }, {
             opacity: 1,
-            duration: 1, // Contrôle le temps entre l'opacité de 0 à 1
-            //delay: 0.5, 
-            ease: 'power2.out' // Ralentit à la fin de l'animation d'opacité
+            duration: 1,
+            ease: 'power2.out'
+          });
+          gsap.to(backgroundBlur, {
+            opacity: 0,
+            duration: 0.5,
+            delay: 1.5,
+            onComplete: () => {
+              backgroundBlur.style.display = 'none';
+            }
           });
         }
       });
     }
-  }  
-
+  }
+  
   animateOut(): void {
-    if (document.querySelector('.transition-container') && document.querySelector('.logo-intro')) {
+    const transitionContainer = document.querySelector('.transition-container') as HTMLElement;
+    const backgroundBlur = document.querySelector('.background-blur') as HTMLElement;
+  
+    if (transitionContainer && backgroundBlur) {
+      backgroundBlur.style.display = 'block';
+      gsap.to(backgroundBlur, {
+        opacity: 1,
+        duration: 0.5
+      });
       gsap.to('.transition-container', {
         x: '-100%',
         duration: 2,
@@ -81,8 +105,9 @@ export class TransitionComponent implements OnInit, OnDestroy {
         onComplete: () => {
           setTimeout(() => {
             this.shouldRender = false;
-            this.cdr.detectChanges(); 
-          }, 100); 
+            this.cdr.detectChanges();
+            backgroundBlur.style.display = 'none';
+          }, 100);
         }
       });
       gsap.to('.logo-intro', {
@@ -93,7 +118,7 @@ export class TransitionComponent implements OnInit, OnDestroy {
     } else {
       console.warn('GSAP targets not found');
     }
-  }
+  }  
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
