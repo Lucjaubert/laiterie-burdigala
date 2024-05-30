@@ -1,0 +1,185 @@
+@import "../../styles/_variables.scss";
+
+.supplier-container {
+  position: absolute;
+  padding-left: 24rem;
+  padding-top: 5rem;
+
+  .supplier-section {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 5rem;
+    position: relative;
+  }
+  
+  .image-container {
+    width: 60%;
+    position: relative;
+    overflow: visible;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .fade-in-image {
+    margin: 10px;
+    opacity: 0;
+    transition: opacity 2s ease-in-out, transform 2s ease-in-out;
+    height: auto;
+    object-fit: cover;
+  }
+
+
+  //images section Chocolat Bio
+
+  .supplier-1 .image-container {
+    img:nth-child(1).small-image {
+      position: absolute;
+      top: -1vw;
+      left: -7vw;
+      width: 90%; 
+    }
+    img:nth-child(2).large-image {
+      position: absolute;
+      top: 1vw;
+      left: 12vw;
+      width: 130%; 
+    }
+    img:nth-child(3).medium-image {
+      position: absolute;
+      top: -8vw;
+      left: 37vw;
+      width: 110%; 
+    }
+  }
+
+  //images section café Alchimiste
+
+  .supplier-2 .image-container {
+    img:nth-child(1).medium-image {
+      position: absolute;
+      top: 20px;
+      width: 110%; 
+    }
+    img:nth-child(2).small-image {
+      position: absolute;
+      top: 80px;
+      left: 15vw;
+      width: 140%; 
+    }
+    img:nth-child(3).large-image {
+      position: absolute;
+      top: 10px;
+      left: 34vw;
+      width: 150%;
+    }
+  }
+
+  // images section Meneau
+  .supplier-3 .image-container {
+    img:nth-child(1).large-image {
+        position: absolute;
+        top: 10px;
+        left: -10vw;
+        width: 120%;
+    }
+    img:nth-child(2).medium-image {
+        position: absolute;
+        top: 90px;
+        left: 10vw;
+        width: 105%;
+    }
+    img:nth-child(3).small-image {
+        position: absolute;
+        top: -110px;
+        left: 30vw;
+        width: 140%;
+    }
+  }
+  
+  // images section Alba
+  .supplier-4 .image-container {
+    img:nth-child(1).small-image {
+        position: absolute;
+        top: 60px;
+        width: 125%;
+    }
+    img:nth-child(2).large-image {
+        position: absolute;
+        top: 120px;
+        left: 20vw;
+        width: 180%;
+    }
+    img:nth-child(3).medium-image {
+        position: absolute;
+        top: -120px;
+        left: 49vw;
+        width: 170%;
+    }
+  }
+  
+  // images section Riz Bio
+  .supplier-5 .image-container {
+    img:nth-child(1).large-image {
+        position: absolute;
+        top: 50px;
+        width: 170%;
+    }
+    img:nth-child(2).medium-image {
+        position: absolute;
+        top: 90px;
+        left: 20vw;
+        width: 135%;
+    }
+    img:nth-child(3).small-image {
+        position: absolute;
+        top: -30px;
+        left: 40vw;
+        width: 140%;
+    }
+  }
+
+  //images section sucre blanc
+
+  .supplier-6 .image-container {
+    img:nth-child(1).medium-image {
+        position: absolute;
+        top: 40px;
+        width: 170%; 
+    }
+    img:nth-child(2).small-image {
+        position: absolute;
+        top: 120px;
+        left: 15vw;
+        width: 140%;
+    }
+    img:nth-child(3).large-image {
+        position: absolute;
+        top: 20px; 
+        left: 32vw;
+        width: 190%;
+    }
+  }
+
+  // images section Fruits BIO
+  .supplier-7 .image-container {
+    img:nth-child(1).small-image {
+        position: absolute;
+        top: 60px;
+        width: 125%;
+    }
+    img:nth-child(2).large-image {
+        position: absolute;
+        top: 120px;
+        left: 17vw;
+        width: 180%;
+    }
+    img:nth-child(3).medium-image {
+        position: absolute;
+        top: -10px;
+        left: 40vw;
+        width: 170%;
+    }
+  }
+}

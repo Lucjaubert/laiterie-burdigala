@@ -1,26 +1,25 @@
-<div class="container container-brunch" *ngIf="brunchData$ | async as brunchDataArray">
+<div class="brunch-container" *ngIf="brunchData$ | async as brunchDataArray">
   <section *ngFor="let brunchData of brunchDataArray">
-    <div class="row brunch-container">
+    <div class="row">
       <div class="col-md-5 px-8">
         <h2 class="mb-5">{{ brunchData.acf_fields.title }}</h2>
+        <p class="mb-7">{{ brunchData.acf_fields.subtitle }}</p>
         <div *ngIf="brunchData?.acf_fields" [innerHTML]="brunchData.acf_fields.texte"></div>
-        <button class="btn btn-call w-100 mt-3 d-flex justify-content-center align-items-center" (click)="callLaiterie()">
+        <button class="btn btn-call w-100 mt-10 d-flex justify-content-center align-items-center" (click)="callLaiterie()">
           Réserver une table
           <span class="material-symbols-outlined icon-flipped mx-3">
             call
           </span>
-        </button>        
+        </button>
       </div>
       <div class="col-md-7">
         <div class="image-logo-container">
-          <img *ngIf="brunchData.acf_fields['image-1']" [src]="brunchData.acf_fields['image-1']" alt="Brunch Image" class="img-fluid-1">
-          <img *ngIf="brunchData.acf_fields['image-2']" [src]="brunchData.acf_fields['image-2']" alt="Brunch Image" class="img-fluid-2">
-          <img *ngIf="brunchData.acf_fields['image-3']" [src]="brunchData.acf_fields['image-3']" alt="Brunch Image" class="img-fluid-3">
-          <img *ngIf="brunchData.acf_fields['image-4']" [src]="brunchData.acf_fields['image-4']" alt="Brunch Image" class="img-fluid-4">
-          <img *ngIf="brunchData.acf_fields['image-5']" [src]="brunchData.acf_fields['image-5']" alt="Brunch Image" class="img-fluid-5">
-          <img *ngIf="brunchData.acf_fields['image-6']" [src]="brunchData.acf_fields['image-6']" alt="Brunch Image" class="img-fluid-6">
-          <img *ngIf="brunchData.acf_fields['image-7']" [src]="brunchData.acf_fields['image-7']" alt="Brunch Image" class="img-fluid-7">
-          <div class="logo-overlay"></div>
+          <div class="image-scroll-wrapper">
+            <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]">
+              <img *ngIf="brunchData.acf_fields['image-' + i]" [src]="brunchData.acf_fields['image-' + i]"
+                   alt="Brunch Image {{ i }}" class="img-fluid">
+            </ng-container>
+          </div>
         </div>
       </div>
     </div>

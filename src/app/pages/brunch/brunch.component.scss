@@ -1,50 +1,9 @@
 @import "../../styles/_variables.scss";
 
-.container-brunch {
-  .image-logo-container {
-    position: relative;
-    
-    .img-fluid-1 {
-      position: absolute;
-      top: 20vh;
-      left: 23vw;
-      width: 60%;
-      height: auto;
-      z-index: -1;
-
-      @media (max-width: 768px) {
-        top: 100%;
-        left: 10%; 
-        width: 80%;
-      }
-    }
-    
-    .img-fluid-2 {
-      position: absolute;
-      width: 80%;
-      height: auto;
-      top: 0; 
-      left: 0; 
-
-      @media (max-width: 768px) {
-        width: 100%;
-      }
-    }
-
-    //.logo-overlay {
-    //  position: absolute;
-    //  top: 33vh;
-    //  left: 9vw;
-    //  width: 17vw;
-    //  height: 17vw;
-    //  background-image: url(/assets/img/logo-burdigala-green.png);
-    //  background-size: cover;
-    //  background-repeat: no-repeat;
-    //  opacity: 0.5;
-    //  z-index: 2;
-    //  rotate: 15deg;
-    //}        
-  }
+.brunch-container {
+  padding-left: 24rem;
+  padding-top: 5rem;
+  
   .btn-call {
     background-color: map-get($theme-colors, "green-light");
     color: white;
@@ -82,4 +41,27 @@
   .btn-call .material-symbols-outlined {
     margin-left: 8px; 
   }
+  .image-logo-container {
+    position: relative;
+    overflow: hidden;  
+
+    .image-scroll-wrapper {
+      display: flex;
+      animation: scrollImages 25s linear infinite;
+      img {
+        flex-shrink: 0;
+        width: 100%;  
+        height: auto;
+      }
+    }
+
+    @keyframes scrollImages {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(-100%);  
+      }
+    }
+  }  
 }

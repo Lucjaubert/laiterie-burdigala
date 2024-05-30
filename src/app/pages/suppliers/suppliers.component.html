@@ -1,14 +1,82 @@
-<div *ngIf="suppliersData$ | async as suppliersDataArray">
-  <section *ngFor="let suppliersData of suppliersDataArray">
-    <h2>{{ suppliersData?.title }}</h2>
-    <div *ngIf="suppliersData?.acf_fields">
-      <h3>{{ suppliersData.acf_fields.title }}</h3>
-      <p>{{ suppliersData.acf_fields.subtitle }}</p>
-      <div *ngFor="let supplier of suppliersData.acf_fields.suppliers | keyvalue">
-        <div>
-          <strong>{{ supplier.key }}</strong>: <span [innerHTML]="supplier.value"></span>
-        </div>
+<div class="supplier-container" *ngIf="suppliersData$ | async as suppliersData">
+  <h2>{{ suppliersData[0].acf_fields.title }}</h2>
+  <p class="pr-15">{{ suppliersData[0].acf_fields.subtitle }}</p>
+  <section class="supplier-section supplier-1 py-10">
+    <div class="d-flex flex-column">
+       <div [innerHTML]="suppliersData[0].acf_fields['supplier-1']"></div>
+      <div class="image-container">
+        <img [src]="suppliersData[0].acf_fields['supplier-1-image-1']" alt="Image 1 for Supplier 1" class="supplier-1-image-1 fade-in-image small-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-1-image-2']" alt="Image 2 for Supplier 1" class="supplier-1-image-2 fade-in-image large-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-1-image-3']" alt="Image 3 for Supplier 1" class="supplier-1-image-3 fade-in-image medium-image" #fadeInImage (error)="handleImageError($event)">
+      </div>
+    </div>
+  </section>
+
+  <section class="supplier-section supplier-2 pt-30">
+    <div class="d-flex flex-column">
+      <div [innerHTML]="suppliersData[0].acf_fields['supplier-2']"></div>
+      <div class="image-container">
+        <img [src]="suppliersData[0].acf_fields['supplier-2-image-1']" alt="Image 1 for Supplier 2" class="supplier-2-image-1 fade-in-image medium-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-2-image-2']" alt="Image 2 for Supplier 2" class="supplier-2-image-2 fade-in-image small-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-2-image-3']" alt="Image 3 for Supplier 2" class="supplier-2-image-3 fade-in-image large-image" #fadeInImage (error)="handleImageError($event)">
+      </div>
+    </div>
+  </section>
+
+  <section class="supplier-section supplier-3 pt-30">
+    <div class="d-flex flex-column">
+      <div [innerHTML]="suppliersData[0].acf_fields['supplier-3']"></div>
+      <div class="image-container">
+        <img [src]="suppliersData[0].acf_fields['supplier-3-image-1']" alt="Image 1 for Supplier 3" class="supplier-3-image-1 fade-in-image large-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-3-image-2']" alt="Image 2 for Supplier 3" class="supplier-3-image-2 fade-in-image medium-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-3-image-3']" alt="Image 3 for Supplier 3" class="supplier-3-image-3 fade-in-image small-image" #fadeInImage (error)="handleImageError($event)">
+      </div>
+    </div>
+  </section>
+
+  <section class="supplier-section supplier-4 pt-35">
+    <div class="d-flex flex-column">
+      <div [innerHTML]="suppliersData[0].acf_fields['supplier-4']"></div>
+      <div class="image-container">
+        <img [src]="suppliersData[0].acf_fields['supplier-4-image-1']" alt="Image 1 for Supplier 4" class="supplier-4-image-1 fade-in-image small-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-4-image-2']" alt="Image 2 for Supplier 4" class="supplier-4-image-2 fade-in-image large-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-4-image-3']" alt="Image 3 for Supplier 4" class="supplier-4-image-3 fade-in-image medium-image" #fadeInImage (error)="handleImageError($event)">
+      </div>
+    </div>
+  </section>
+
+  <section class="supplier-section supplier-5 pt-45">
+    <div class="d-flex flex-column">
+      <div [innerHTML]="suppliersData[0].acf_fields['supplier-5']"></div>
+      <div class="image-container">
+        <img [src]="suppliersData[0].acf_fields['supplier-5-image-1']" alt="Image 1 for Supplier 5" class="supplier-5-image-1 fade-in-image large-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-5-image-2']" alt="Image 2 for Supplier 5" class="supplier-5-image-2 fade-in-image medium-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-5-image-3']" alt="Image 3 for Supplier 5" class="supplier-5-image-3 fade-in-image small-image" #fadeInImage (error)="handleImageError($event)">
+      </div>
+    </div>
+  </section>
+
+  <section class="supplier-section supplier-6 pt-32">
+    <div class="d-flex flex-column">
+      <div [innerHTML]="suppliersData[0].acf_fields['supplier-6']"></div>
+      <div class="image-container">
+        <img [src]="suppliersData[0].acf_fields['supplier-6-image-1']" alt="Image 1 for Supplier 6" class="supplier-6-image-1 fade-in-image medium-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-6-image-2']" alt="Image 2 for Supplier 6" class="supplier-6-image-2 fade-in-image small-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-6-image-3']" alt="Image 3 for Supplier 6" class="supplier-6-image-3 fade-in-image large-image" #fadeInImage (error)="handleImageError($event)">
+      </div>
+    </div>
+  </section>
+
+  <section class="supplier-section supplier-7 py-30">
+    <div class="d-flex flex-column">
+      <div [innerHTML]="suppliersData[0].acf_fields['supplier-7']"></div>
+      <div class="image-container">
+        <img [src]="suppliersData[0].acf_fields['supplier-7-image-1']" alt="Image 1 for Supplier 7" class="supplier-7-image-1 fade-in-image small-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-7-image-2']" alt="Image 2 for Supplier 7" class="supplier-7-image-2 fade-in-image large-image" #fadeInImage (error)="handleImageError($event)">
+        <img [src]="suppliersData[0].acf_fields['supplier-7-image-3']" alt="Image 3 for Supplier 7" class="supplier-7-image-3 fade-in-image medium-image" #fadeInImage (error)="handleImageError($event)">
       </div>
     </div>
   </section>
 </div>
+
+
