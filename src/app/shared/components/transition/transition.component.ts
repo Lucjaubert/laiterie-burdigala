@@ -57,7 +57,6 @@ export class TransitionComponent implements OnInit, OnDestroy {
     const backgroundBlur = document.querySelector('.background-blur') as HTMLElement;
   
     if (transitionContainer && backgroundBlur) {
-      // Assurez-vous que backgroundBlur est visible
       backgroundBlur.style.display = 'block';
       gsap.to(backgroundBlur, {
         opacity: 1,
@@ -78,13 +77,12 @@ export class TransitionComponent implements OnInit, OnDestroy {
             ease: 'power2.out'
           });
   
-          // Vous pouvez choisir de cacher le backgroundBlur après l'animation ou le laisser visible
           gsap.to(backgroundBlur, {
             opacity: 0,
             duration: 0.5,
             delay: 1.5,
             onComplete: () => {
-              backgroundBlur.style.display = 'none'; // Le cacher après la transition
+              backgroundBlur.style.display = 'none'; 
             }
           });
         }

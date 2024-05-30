@@ -1,16 +1,28 @@
-<div class="container" *ngIf="brunchData$ | async as brunchDataArray">
+<div class="container container-brunch" *ngIf="brunchData$ | async as brunchDataArray">
   <section *ngFor="let brunchData of brunchDataArray">
-    <h2 class="mt-8">{{ brunchData?.title }}</h2>
-    <div *ngIf="brunchData?.acf_fields">
-      <h3>{{ brunchData.acf_fields.title }}</h3>
-      <p [innerHTML]="brunchData.acf_fields.texte"></p>
+    <div class="row brunch-container">
+      <div class="col-md-5 px-8">
+        <h2 class="mb-5">{{ brunchData.acf_fields.title }}</h2>
+        <div *ngIf="brunchData?.acf_fields" [innerHTML]="brunchData.acf_fields.texte"></div>
+        <button class="btn btn-call w-100 mt-3 d-flex justify-content-center align-items-center" (click)="callLaiterie()">
+          Réserver une table
+          <span class="material-symbols-outlined icon-flipped mx-3">
+            call
+          </span>
+        </button>        
+      </div>
+      <div class="col-md-7">
+        <div class="image-logo-container">
+          <img *ngIf="brunchData.acf_fields['image-1']" [src]="brunchData.acf_fields['image-1']" alt="Brunch Image" class="img-fluid-1">
+          <img *ngIf="brunchData.acf_fields['image-2']" [src]="brunchData.acf_fields['image-2']" alt="Brunch Image" class="img-fluid-2">
+          <img *ngIf="brunchData.acf_fields['image-3']" [src]="brunchData.acf_fields['image-3']" alt="Brunch Image" class="img-fluid-3">
+          <img *ngIf="brunchData.acf_fields['image-4']" [src]="brunchData.acf_fields['image-4']" alt="Brunch Image" class="img-fluid-4">
+          <img *ngIf="brunchData.acf_fields['image-5']" [src]="brunchData.acf_fields['image-5']" alt="Brunch Image" class="img-fluid-5">
+          <img *ngIf="brunchData.acf_fields['image-6']" [src]="brunchData.acf_fields['image-6']" alt="Brunch Image" class="img-fluid-6">
+          <img *ngIf="brunchData.acf_fields['image-7']" [src]="brunchData.acf_fields['image-7']" alt="Brunch Image" class="img-fluid-7">
+          <div class="logo-overlay"></div>
+        </div>
+      </div>
     </div>
   </section>
-  <div class="press-container py-7 d-flex flex-column">
-    <div class="press-logos px-5 ml-10">
-      <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
-        <img [src]="pressLogo.img" alt="Press Logo" class="press-logo">
-      </a>
-    </div>
-  </div>
 </div>

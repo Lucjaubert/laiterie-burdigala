@@ -1,9 +1,12 @@
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { gsap } from 'gsap';
 import { WordpressService } from 'src/app/services/wordpress.service';
+import { HeaderComponent } from 'src/app/shared/components/header/header.component';
+import { TransitionService } from 'src/app/services/transition.service'; 
 
 interface BrunchData {
   title: string;
@@ -11,6 +14,13 @@ interface BrunchData {
   acf_fields: {
     title: string;
     texte: string;
+    'image-1': string;
+    'image-2': string;
+    'image-3': string;
+    'image-4': string;
+    'image-5': string;
+    'image-6': string;
+    'image-7': string;
   };
 }
 
@@ -19,31 +29,72 @@ interface BrunchData {
   templateUrl: './brunch.component.html',
   styleUrls: ['./brunch.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, HeaderComponent, RouterModule]
 })
-export class BrunchComponent implements OnInit {
-
+export class BrunchComponent implements OnInit, AfterViewInit, OnDestroy {
+  isHomepage = false;
   brunchData$: Observable<BrunchData[] | null>;
+  private transitionSub: Subscription = new Subscription();
 
-   pressLogos = [
-    { img: 'assets/press-logos/france-bleu-logo.png', url: 'https://www.radiofrance.fr/francebleu/podcasts/circuits-courts-en-gironde/la-burrata-100-bordeaux-4827655' },
-    { img: 'assets/press-logos/le-bonbon-logo.png', url: 'https://www.lebonbon.fr/bordeaux/les-tops-food-et-drink/burdigala-la-premiere-laiterie-urbaine-bio-s-est-installee-aux-capus/' },
-    { img: 'assets/press-logos/france-week-end-logo.png', url: 'https://franceweek-end.com/etablissements/la-douceur-italienne-au-coeur-de-bordeaux-laiterie-burdigala/' },
-    { img: 'assets/press-logos/qfabx-logo.png', url: 'https://quoifaireabordeaux.com/blog/burdigala-la-premiere-laiterie-de-bordeaux-fabrique-sa-mozzarella-sur-place/' },
-  ];
-
-  constructor(private wpService: WordpressService) { 
+  constructor(
+    private wpService: WordpressService, 
+    private transitionService: TransitionService
+  ) { 
     this.brunchData$ = this.wpService.getBrunchs().pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des données de la page brunch:', error);
         return of(null); 
       })
     );
-    
-    this.brunchData$.subscribe(data => console.log('Données de la page brunch:', data));
   }
 
   ngOnInit(): void {
+    this.subscribeToTransition();
   }
 
+  ngAfterViewInit(): void {
+    this.brunchData$.subscribe(data => {
+    });
+  }
+
+  private subscribeToTransition(): void {
+    this.transitionSub = this.transitionService.transitionDone$.subscribe(done => {
+      if (done) {
+        this.animateElements();
+      }
+    });
+  }
+
+  private animateElements(): void {
+    gsap.fromTo('.img-fluid-2', { x: -200, opacity: 0 }, {
+      duration: 4.5,
+      x: 0,
+      opacity: 1,
+      ease: 'power4.out'
+    });
+
+    gsap.fromTo('.img-fluid-1', { x: 200, opacity: 0 }, {
+      duration: 5,
+      x: 0,
+      opacity: 1,
+      ease: 'power4.out'
+    });
+
+    gsap.fromTo('.logo-overlay', { y: -100, opacity: 0 }, {
+      duration: 5.5,
+      y: 0,
+      opacity: 1,
+      ease: 'power4.out'
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.transitionSub) {
+      this.transitionSub.unsubscribe();
+    }
+  }
+
+  callLaiterie(): void {
+    window.location.href = 'tel:+33665492642';
+  }
 }

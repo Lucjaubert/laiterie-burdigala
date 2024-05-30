@@ -37,6 +37,5 @@ export class AppComponent {
 
     toggleTransition(): void {
         this.showTransition = !this.showTransition;
-        console.log(`Show transition set to ${this.showTransition}`);
     }
 }
