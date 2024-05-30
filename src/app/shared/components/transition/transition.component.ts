@@ -26,12 +26,12 @@ export class TransitionComponent implements OnInit, OnDestroy {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.shouldRender = true;
-        this.cdr.detectChanges(); // Assurez-vous que le DOM est mis à jour
+        this.cdr.detectChanges(); 
         this.transitionService.startTransition();
       }
       if (event instanceof NavigationEnd) {
         this.shouldRender = this.router.url !== '/' && this.router.url !== '/accueil';
-        this.cdr.detectChanges(); // Assurez-vous que le DOM est mis à jour
+        this.cdr.detectChanges(); 
         if (!this.shouldRender) {
           this.transitionService.resetTransition();
         }
@@ -40,14 +40,14 @@ export class TransitionComponent implements OnInit, OnDestroy {
 
     this.subscription.add(
       this.transitionService.showTransition$.subscribe(show => {
-        this.cdr.detectChanges(); // Force Angular à détecter les changements
-        setTimeout(() => { // Ajoutez un délai pour laisser le DOM se stabiliser
+        this.cdr.detectChanges(); 
+        setTimeout(() => { 
           if (show && this.shouldRender) {
             this.animateIn();
           } else {
             this.animateOut();
           }
-        }, 100); // Délai ajustable selon le besoin
+        }, 100); 
       })
     );
   }
@@ -55,9 +55,10 @@ export class TransitionComponent implements OnInit, OnDestroy {
   animateIn(): void {
     const transitionContainer = document.querySelector('.transition-container') as HTMLElement;
     const backgroundBlur = document.querySelector('.background-blur') as HTMLElement;
-    
-    if (transitionContainer) {
-      // Fait apparaître le flou dès que commence l'animation
+  
+    if (transitionContainer && backgroundBlur) {
+      // Assurez-vous que backgroundBlur est visible
+      backgroundBlur.style.display = 'block';
       gsap.to(backgroundBlur, {
         opacity: 1,
         duration: 0.5,
@@ -77,17 +78,19 @@ export class TransitionComponent implements OnInit, OnDestroy {
             ease: 'power2.out'
           });
   
-          // Fait disparaître le flou à la fin de l'animation
+          // Vous pouvez choisir de cacher le backgroundBlur après l'animation ou le laisser visible
           gsap.to(backgroundBlur, {
             opacity: 0,
             duration: 0.5,
-            delay: 1.5,  // Commence à disparaître juste après que l'animation soit terminée
+            delay: 1.5,
+            onComplete: () => {
+              backgroundBlur.style.display = 'none'; // Le cacher après la transition
+            }
           });
         }
       });
     }
-  }
-   
+  }   
 
   animateOut(): void {
     if (document.querySelector('.transition-container') && document.querySelector('.logo-intro')) {
