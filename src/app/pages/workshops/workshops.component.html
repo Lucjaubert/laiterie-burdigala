@@ -1,9 +1,20 @@
-<div class="container" *ngIf="workshopsData$ | async as workshopsDataArray">
+<div class="container container-workshops" *ngIf="workshopsData$ | async as workshopsDataArray">
   <section *ngFor="let workshopData of workshopsDataArray">
-    <h2>{{ workshopData?.title }}</h2>
-    <div *ngIf="workshopData?.acf_fields">
-      <h3>{{ workshopData.acf_fields.title }}</h3>
-      <p [innerHTML]="workshopData.acf_fields.texte"></p>
+    <div class="row workshop-container">
+      <div class="col-md-5 px-8">
+        <h2 class="mb-5">{{ workshopData.acf_fields.title }}</h2>
+        <div *ngIf="workshopData?.acf_fields" [innerHTML]="workshopData.acf_fields.texte"></div>
+        <button class="btn btn-reserve w-100 mt-5" (click)="openWecandooSite()">
+          Réserver un atelier <i class="fa fa-shopping-cart"></i>
+        </button>        
+      </div>
+      <div class="col-md-7">
+        <div class="image-logo-container">
+          <img *ngIf="workshopData.acf_fields['image-2']" [src]="workshopData.acf_fields['image-2']" alt="Atelier Image" class="img-fluid-2">
+          <img *ngIf="workshopData.acf_fields['image-1']" [src]="workshopData.acf_fields['image-1']" alt="Atelier Image" class="img-fluid-1">
+          <div class="logo-overlay"></div>
+        </div>
+      </div>
     </div>
   </section>
 </div>

@@ -11,14 +11,15 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 @Component({ selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: true, imports: [
+    standalone: true, 
+    imports: [
         CommonModule,
         RouterModule,
         FooterComponent,
         HeaderComponent,
         TransitionComponent,
         MatSnackBarModule, 
-        MatButtonModule
+        MatButtonModule,
     ], 
 })
 export class AppComponent {
