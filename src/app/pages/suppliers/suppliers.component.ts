@@ -40,25 +40,97 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.images.changes.subscribe(imgList => {
-      this.animateImages(imgList);
+      this.customAnimateImages(imgList);
     });
   }
 
-  generateArray(fields: any): number[] {
-    const keys = Object.keys(fields);
-    const supplierNumbers = keys.filter(key => key.startsWith('supplier-') && !key.includes('-image'))
-                                 .map(key => parseInt(key.split('-')[1]));
-    return supplierNumbers;
-  }
-
-  animateImages(imgList: QueryList<ElementRef>): void {
-    imgList.forEach(img => {
-      const direction = Math.random() > 0.5 ? 1 : -1;
-      const x = direction * (100 + Math.random() * 50); 
-      const y = direction * (100 + Math.random() * 50); 
-      gsap.fromTo(img.nativeElement, { opacity: 0, x, y }, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: 'power3.out' });
+  customAnimateImages(imgList: QueryList<ElementRef>): void {
+    imgList.forEach((img, index) => {
+      const section = img.nativeElement.closest('.supplier-section');
+      let xStart: number = 0;  
+      let yStart: number = 0; 
+  
+      if (section.classList.contains('supplier-1')) {
+        switch (index % 3) {
+          case 0:
+            xStart = -300;  
+            yStart = 0;
+            break;
+          case 1:
+            xStart = 0;     
+            yStart = -300;
+            break;
+          case 2:
+            xStart = 300;   
+            yStart = 0;
+            break;
+        }
+      } else if (section.classList.contains('supplier-2')) {
+        switch (index % 3) {
+          case 0:
+            xStart = 0;    
+            yStart = 300;
+            break;
+          case 1:
+            xStart = -300;  
+            yStart = 0;
+            break;
+          case 2:
+            xStart = 300;   
+            yStart = 0;
+            break;
+        }
+      } else if (section.classList.contains('supplier-3')) {
+        switch (index % 3) {
+          case 0:
+            xStart = 0;     
+            yStart = -300;
+            break;
+          case 1:
+            xStart = 0;     
+            yStart = 300;
+            break;
+          case 2:
+            xStart = 300;  
+            yStart = 0;
+            break;
+        }
+      } else if (section.classList.contains('supplier-4')) {
+        switch (index % 3) {
+          case 0:
+            xStart = -300;  
+            yStart = 0;
+            break;
+          case 1:
+            xStart = 300;  
+            yStart = 0;
+            break;
+          case 2:
+            xStart = 0;     
+            yStart = -300;
+            break;
+        }
+      } else if (section.classList.contains('supplier-5')) {
+        switch (index % 3) {
+          case 0:
+            xStart = 0;    
+            yStart = 300;
+            break;
+          case 1:
+            xStart = -300; 
+            yStart = 0;
+            break;
+          case 2:
+            xStart = 0;    
+            yStart = -300;
+            break;
+        }
+      }
+  
+      gsap.fromTo(img.nativeElement, { opacity: 0, x: xStart, y: yStart }, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: 'power3.out' });
     });
   }
+  
 
   handleImageError(event: any): void {
     console.error("Image load error: ", event);
