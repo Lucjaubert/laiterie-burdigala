@@ -47,15 +47,12 @@ export class WorkshopsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.workshopsData$.subscribe(data => {
-      console.log('Données de la page ateliers:', data);
-      // Animations ne sont déclenchées que si la transition est déjà terminée
     });
   }
 
   private subscribeToTransition(): void {
     this.transitionSub = this.transitionService.transitionDone$.subscribe(done => {
       if (done) {
-        console.log('Transition terminée, déclenchement des animations');
         this.animateElements();
       }
     });
