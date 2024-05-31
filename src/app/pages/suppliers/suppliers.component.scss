@@ -6,10 +6,49 @@
   padding-top: 5rem;
 
   .supplier-section {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 5rem;
-    position: relative;
+    .logo-container {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    img.supplier-logo {
+      position: absolute;
+      height: auto;
+      opacity: 0.1;
+      z-index: -1;
+    }
+
+    .supplier-1-logo {
+      width: 50vw; 
+      top: -12vw;
+      left: 2vw;
+      opacity: 0.05 !important;
+    }
+    .supplier-2-logo {
+      bottom: -220px;
+      left: 5vw;
+      width: 40vw;
+    }
+    .supplier-3-logo {
+      top: -40vh;
+      right: 30vw;
+      width: 50vw;
+    }
+    .supplier-4-logo {
+      top: -10vh;
+      right: 5vw;
+      width: 65vw;
+      opacity: 0.05 !important;
+    }
+    .supplier-5-logo {
+      top: -40vh;
+      right: 30vw;
+      width: 35vw;
+      opacity: 0.05 !important;
+    }
   }
   
   .image-container {
@@ -38,19 +77,19 @@
       position: absolute;
       top: -1vw;
       left: -7vw;
-      width: 90%; 
+      width: 40%;
     }
     img:nth-child(2).large-image {
       position: absolute;
       top: 1vw;
       left: 12vw;
-      width: 130%; 
+      width: 50%; 
     }
     img:nth-child(3).medium-image {
       position: absolute;
-      top: -8vw;
+      top: -12vw;
       left: 37vw;
-      width: 110%; 
+      width: 60%; 
     }
   }
 
@@ -59,20 +98,21 @@
   .supplier-2 .image-container {
     img:nth-child(1).medium-image {
       position: absolute;
-      top: 20px;
-      width: 110%; 
+      top: 55px;
+      left: -10vw;
+      width: 40%;
     }
     img:nth-child(2).small-image {
       position: absolute;
       top: 80px;
-      left: 15vw;
-      width: 140%; 
+      left: vw;
+      width: 50%;
     }
     img:nth-child(3).large-image {
       position: absolute;
       top: 10px;
       left: 34vw;
-      width: 150%;
+      width: 70%;
     }
   }
 
@@ -82,19 +122,19 @@
         position: absolute;
         top: 10px;
         left: -10vw;
-        width: 120%;
+        width: 40%;
     }
     img:nth-child(2).medium-image {
         position: absolute;
         top: 90px;
         left: 10vw;
-        width: 105%;
+        width: 35%;
     }
     img:nth-child(3).small-image {
         position: absolute;
         top: -110px;
         left: 30vw;
-        width: 140%;
+        width: 60%;
     }
   }
   
@@ -103,19 +143,20 @@
     img:nth-child(1).small-image {
         position: absolute;
         top: 60px;
-        width: 125%;
+        width: 35%;
+        left: -5vw;
     }
     img:nth-child(2).large-image {
         position: absolute;
-        top: 120px;
-        left: 20vw;
-        width: 180%;
+        top: 100px;
+        left: 13vw;
+        width: 50%;
     }
     img:nth-child(3).medium-image {
         position: absolute;
         top: -120px;
-        left: 49vw;
-        width: 170%;
+        left: 38vw;
+        width: 60%;
     }
   }
   
@@ -124,19 +165,19 @@
     img:nth-child(1).large-image {
         position: absolute;
         top: 50px;
-        width: 170%;
+        width: 40%;
+        right: 35vw;
     }
     img:nth-child(2).medium-image {
         position: absolute;
         top: 90px;
-        left: 20vw;
-        width: 135%;
+        width: 45%;
     }
     img:nth-child(3).small-image {
         position: absolute;
         top: -30px;
-        left: 40vw;
-        width: 140%;
+        left: 35vw;
+        width: 60%;
     }
   }
 
@@ -145,20 +186,21 @@
   .supplier-6 .image-container {
     img:nth-child(1).medium-image {
         position: absolute;
-        top: 40px;
-        width: 170%; 
+        top: 10px;
+        left: -10vw;
+        width: 40%;
     }
     img:nth-child(2).small-image {
         position: absolute;
-        top: 120px;
-        left: 15vw;
-        width: 140%;
+        top: 90px;
+        left: 10vw;
+        width: 35%;
     }
     img:nth-child(3).large-image {
         position: absolute;
-        top: 20px; 
-        left: 32vw;
-        width: 190%;
+        top: -110px;
+        left: 30vw;
+        width: 60%;
     }
   }
 
@@ -166,20 +208,20 @@
   .supplier-7 .image-container {
     img:nth-child(1).small-image {
         position: absolute;
-        top: 60px;
-        width: 125%;
+        top: 50px;
+        width: 40%;
+        right: 35vw;
     }
     img:nth-child(2).large-image {
         position: absolute;
-        top: 120px;
-        left: 17vw;
-        width: 180%;
+        top: 90px;
+        width: 45%;
     }
     img:nth-child(3).medium-image {
         position: absolute;
-        top: -10px;
-        left: 40vw;
-        width: 170%;
+        top: -30px;
+        left: 35vw;
+        width: 60%;
     }
   }
 }
