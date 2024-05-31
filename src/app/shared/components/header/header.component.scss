@@ -79,6 +79,20 @@
     position: relative;
     top: 12.75rem; 
     transition: top 0.3s ease;
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .social-icon {
+      margin: 0 10px;  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
   }
 
   &.menu-open .navigation-elements {
@@ -98,10 +112,6 @@
       align-items: center;
       overflow: hidden;
       transition: max-height 0.35s ease;
-    }
-
-    .social-icon {
-        margin-right: 20px; 
     }
 
     .navbar-nav {
