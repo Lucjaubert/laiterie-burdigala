@@ -27,7 +27,6 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
   @ViewChildren('fadeInImage', { read: ElementRef }) images!: QueryList<ElementRef>;
   suppliersData$: Observable<SupplierData[]>;
 
-  // Stockez les positions initiales des images
   initialPositions: Map<ElementRef, number> = new Map();
 
   constructor(private wpService: WordpressService) {
@@ -43,7 +42,6 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
     this.suppliersData$.subscribe(() => {
       setTimeout(() => {
         this.animateImagesOnLoad();
-        // Stockez les positions initiales après le chargement des images
         this.storeInitialPositions();
       }, 0);
     });
@@ -94,27 +92,25 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
 
   customAnimateImages(imgList: QueryList<ElementRef>): void {
     imgList.forEach((img, index) => {
-      // Calculer le décalage en fonction de la position de l'image dans la rangée
       let yOffset = 0;
       switch (index % 3) {
-        case 0: // Image à gauche
-          yOffset = 1000; // Descendre de 20 pixels
+        case 0: 
+          yOffset = 1000;
           break;
-        case 1: // Image au centre
-          yOffset = -1000; // Monter de 20 pixels
+        case 1: 
+          yOffset = -1000; 
           break;
-        case 2: // Image à droite
-          yOffset = 1000; // Descendre de 20 pixels
+        case 2: 
+          yOffset = 1000; 
           break;
       }
   
-      // Animer l'image pour bouger en fonction du défilement
+     
       gsap.to(img.nativeElement, { y: yOffset, duration: 2, ease: 'power3.out' });
   
-      // Réinitialiser la position initiale de l'image après le défilement
       setTimeout(() => {
         gsap.to(img.nativeElement, { y: 0, duration: 2, ease: 'power2.out' });
-      }, 2000); // 2 secondes
+      }, 2000); 
     });
   }  
 
