@@ -36,27 +36,68 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngOnInit(): void {}
-
-  ngAfterViewInit(): void {
-    this.images.changes.subscribe(imgList => {
-      this.animateImages(imgList);
+  ngOnInit(): void {
+    this.suppliersData$.subscribe(() => {
+      setTimeout(() => {
+        this.animateImagesOnLoad();
+      }, 0);
     });
   }
 
-  generateArray(fields: any): number[] {
-    const keys = Object.keys(fields);
-    const supplierNumbers = keys.filter(key => key.startsWith('supplier-') && !key.includes('-image'))
-                                 .map(key => parseInt(key.split('-')[1]));
-    return supplierNumbers;
+  ngAfterViewInit(): void {
+    this.images.changes.subscribe(imgList => {
+      this.customAnimateImages(imgList);
+    });
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          this.customAnimateImages(this.images);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
   }
 
-  animateImages(imgList: QueryList<ElementRef>): void {
-    imgList.forEach(img => {
-      const direction = Math.random() > 0.5 ? 1 : -1;
-      const x = direction * (100 + Math.random() * 50); 
-      const y = direction * (100 + Math.random() * 50); 
-      gsap.fromTo(img.nativeElement, { opacity: 0, x, y }, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: 'power3.out' });
+  animateImagesOnLoad(): void {
+    this.images.forEach((img, index) => {
+      let yStart: number = 0;
+
+      switch (index % 3) {
+        case 0:
+          yStart = -100;
+          break;
+        case 1:
+          yStart = 100;
+          break;
+        case 2:
+          yStart = -100;
+          break;
+      }
+
+      gsap.fromTo(img.nativeElement, { y: yStart, opacity: 0 }, { y: 0, opacity: 1, duration: 2, ease: 'power2.out' });
+    });
+  }
+
+  customAnimateImages(imgList: QueryList<ElementRef>): void {
+    const scrollY = window.scrollY;
+    imgList.forEach((img, index) => {
+      let yOffset: number = scrollY * 0.1;
+      switch (index % 3) {
+        case 0:
+          yOffset = -30 + yOffset;
+          break;
+        case 1:
+          yOffset = 30 + yOffset;
+          break;
+        case 2:
+          yOffset = -30 + yOffset;
+          break;
+      }
+
+      gsap.to(img.nativeElement, { y: yOffset, duration: 1.5, ease: 'power3.out' });
     });
   }
 
