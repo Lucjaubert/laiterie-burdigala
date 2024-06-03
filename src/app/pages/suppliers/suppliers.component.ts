@@ -36,101 +36,70 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
     );
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.suppliersData$.subscribe(() => {
+      setTimeout(() => {
+        this.animateImagesOnLoad();
+      }, 0);
+    });
+  }
 
   ngAfterViewInit(): void {
     this.images.changes.subscribe(imgList => {
       this.customAnimateImages(imgList);
     });
+
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          this.customAnimateImages(this.images);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
+
+  animateImagesOnLoad(): void {
+    this.images.forEach((img, index) => {
+      let yStart: number = 0;
+
+      switch (index % 3) {
+        case 0:
+          yStart = -100;
+          break;
+        case 1:
+          yStart = 100;
+          break;
+        case 2:
+          yStart = -100;
+          break;
+      }
+
+      gsap.fromTo(img.nativeElement, { y: yStart, opacity: 0 }, { y: 0, opacity: 1, duration: 2, ease: 'power2.out' });
+    });
   }
 
   customAnimateImages(imgList: QueryList<ElementRef>): void {
+    const scrollY = window.scrollY;
     imgList.forEach((img, index) => {
-      const section = img.nativeElement.closest('.supplier-section');
-      let xStart: number = 0;  
-      let yStart: number = 0; 
-  
-      if (section.classList.contains('supplier-1')) {
-        switch (index % 3) {
-          case 0:
-            xStart = -300;  
-            yStart = 0;
-            break;
-          case 1:
-            xStart = 0;     
-            yStart = -300;
-            break;
-          case 2:
-            xStart = 300;   
-            yStart = 0;
-            break;
-        }
-      } else if (section.classList.contains('supplier-2')) {
-        switch (index % 3) {
-          case 0:
-            xStart = 0;    
-            yStart = 300;
-            break;
-          case 1:
-            xStart = -300;  
-            yStart = 0;
-            break;
-          case 2:
-            xStart = 300;   
-            yStart = 0;
-            break;
-        }
-      } else if (section.classList.contains('supplier-3')) {
-        switch (index % 3) {
-          case 0:
-            xStart = 0;     
-            yStart = -300;
-            break;
-          case 1:
-            xStart = 0;     
-            yStart = 300;
-            break;
-          case 2:
-            xStart = 300;  
-            yStart = 0;
-            break;
-        }
-      } else if (section.classList.contains('supplier-4')) {
-        switch (index % 3) {
-          case 0:
-            xStart = -300;  
-            yStart = 0;
-            break;
-          case 1:
-            xStart = 300;  
-            yStart = 0;
-            break;
-          case 2:
-            xStart = 0;     
-            yStart = -300;
-            break;
-        }
-      } else if (section.classList.contains('supplier-5')) {
-        switch (index % 3) {
-          case 0:
-            xStart = 0;    
-            yStart = 300;
-            break;
-          case 1:
-            xStart = -300; 
-            yStart = 0;
-            break;
-          case 2:
-            xStart = 0;    
-            yStart = -300;
-            break;
-        }
+      let yOffset: number = scrollY * 0.1;
+      switch (index % 3) {
+        case 0:
+          yOffset = -30 + yOffset;
+          break;
+        case 1:
+          yOffset = 30 + yOffset;
+          break;
+        case 2:
+          yOffset = -30 + yOffset;
+          break;
       }
-  
-      gsap.fromTo(img.nativeElement, { opacity: 0, x: xStart, y: yStart }, { opacity: 1, x: 0, y: 0, duration: 1.5, ease: 'power3.out' });
+
+      gsap.to(img.nativeElement, { y: yOffset, duration: 1.5, ease: 'power3.out' });
     });
   }
-  
 
   handleImageError(event: any): void {
     console.error("Image load error: ", event);
