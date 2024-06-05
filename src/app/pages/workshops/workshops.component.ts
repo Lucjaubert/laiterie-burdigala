@@ -13,7 +13,7 @@ interface WorkshopData {
   content: string;
   acf_fields: {
     title: string;
-    content: string;
+    texte: string;
   };
 }
 
