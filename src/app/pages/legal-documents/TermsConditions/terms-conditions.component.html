@@ -1,0 +1,6 @@
+<div class="container" *ngIf="termsConditionsData$ | async as termsConditionsDataArray">
+  <section *ngFor="let termsConditionsData of termsConditionsDataArray">
+      <h2 class="mb-5">{{ termsConditionsData.acf_fields.title }}</h2>
+      <div class="px-0 py-7" *ngIf="termsConditionsData?.acf_fields" [innerHTML]="termsConditionsData.acf_fields.content"></div>    
+  </section>
+</div>

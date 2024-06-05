@@ -1,0 +1,7 @@
+<div class="container" *ngIf="privacyLegacyData$ | async as privacyLegacyDataArray">
+  <section *ngFor="let privacyLegacyData of privacyLegacyDataArray">
+      <h2 class="mb-5">{{ privacyLegacyData.acf_fields.title }}</h2>
+      <div class="px-0 py-7" *ngIf="privacyLegacyData?.acf_fields" [innerHTML]="privacyLegacyData.acf_fields.content"></div>    
+  </section>
+</div>
+
