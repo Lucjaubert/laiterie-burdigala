@@ -34,11 +34,11 @@
     }
 
     .logo-intro {
-      position: absolute; /* Positionnement absolu pour centrer le logo */
-      top: 50%;  /* Centrer verticalement */
-      left: 50%; /* Centrer horizontalement */
-      transform: translate(-50%, -80%); /* Ajustement précis pour centrer parfaitement */
-      width: 60vw; /* Largeur ajustée pour une meilleure visibilité sur mobile */
-      z-index: 100; /* S'assure que le logo reste au-dessus des autres éléments */
+      position: absolute; 
+      top: 50%;  
+      left: 50%; 
+      transform: translate(-50%, -80%); 
+      width: 60vw; 
+      z-index: 100; 
     }
   }

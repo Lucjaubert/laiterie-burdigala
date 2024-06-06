@@ -6,12 +6,10 @@
     <div class="homepage-content pt-17">
       <div *ngIf="(homepageData$ | async) as homepageDataArray">
         <div *ngFor="let homepageData of homepageDataArray">
-          <!--<div [innerHTML]="homepageData.content"></div>-->
           <div class="slogan-container d-flex justify-content-center">
             <h3 class="text-fw-regular text-center text-fs-60 d-flex pt-6 px-12 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h3>
           </div>
           <div class="opinion-container mt-17 d-flex flex-column">
-            <!--<h5 class="mt-10">{{ homepageData?.acf_fields?.avis }}</h5>-->
             <div class="opinion-frame pb-10 pt-6">
               <carousel [interval]="3000" [itemsPerSlide]="1" [singleSlideOffset]="false" [noWrap]="false">
                 <slide *ngFor="let opinion of opinions">

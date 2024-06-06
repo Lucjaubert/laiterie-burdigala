@@ -20,12 +20,14 @@
           </ul>
           <div class="social-links pt-5 d-flex justify-content-center">
             <a href="https://www.facebook.com" target="_blank" class="social-icon">
-              <img src="assets/img/facebook-blanc.png" alt="Facebook" style="height: 30px;">
+              <img *ngIf="isHomepage" src="assets/img/facebook-blanc.png" alt="Logo Facebook blanc" class="mx-3" style="height: 30px;">
+              <img *ngIf="!isHomepage" src="assets/img/facebook-green.png" alt="Logo Facebook vert" class="mx-3" style="height: 30px;">
             </a>
             <a href="https://www.instagram.com" target="_blank" class="social-icon">
-              <img src="assets/img/instagram-blanc.png" alt="Instagram" style="height: 30px;">
+              <img *ngIf="isHomepage" src="assets/img/instagram-blanc.png" alt="Logo Facebook blanc" class="mx-3" style="height: 30px;">
+              <img *ngIf="!isHomepage" src="assets/img/instagram-green.png" alt="Logo Facebook vert" class="mx-3" style="height: 30px;">
             </a>
-          </div>          
+          </div>                   
         </div>
       </nav>
     </header>

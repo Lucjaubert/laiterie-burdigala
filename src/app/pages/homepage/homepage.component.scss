@@ -84,3 +84,56 @@
       color: map-get($theme-colors, "white-yellow");
   }
 }
+
+
+@media (max-width: 767px) {
+  //.video-background {
+  //  display: none; /* Cache la vidéo sur mobile */
+  //}
+  .homepage-container {
+    width: 100%;
+    .homepage-content {
+      .slogan-container {
+        width: 100%; /* Assurez-vous que le conteneur utilise toute la largeur disponible */
+        justify-content: center; /* Centrage horizontal */
+        text-align: center; /* Assure que le texte à l'intérieur est également centré */
+        margin: 20px 0; 
+        .slogan {
+          font-size: 5vw; /* Réduire la taille de la police pour une meilleure adaptation sur mobile */
+          padding: 10px; /* Un peu d'espacement pour éviter que le texte touche les bords */
+          line-height: normal;/* Ajustez l'espacement */
+        }
+      }
+
+      .opinion-container {
+        .opinion-frame {
+          width: 90%; /* Ajustez la largeur */
+        }
+
+        .opinion-carousel {
+          height: 15vh; /* Ajustez la hauteur pour les mobiles */
+        }
+      }
+
+      .press-container {
+        .press-logos {
+          flex-wrap: wrap; /* Permettre le retour à la ligne pour les logos */
+        }
+
+        .press-logo {
+          width: 15vw; /* Réduire la taille des logos */
+          margin-right: 2vw; /* Réduire l'espacement entre les logos */
+        }
+      }
+
+      .location-container {
+        flex-direction: column; /* Organiser verticalement les éléments */
+
+        .map {
+          width: 100%; /* Ajuster la largeur de la carte pour remplir l'espace */
+          height: 200px; /* Hauteur fixe pour la carte sur mobile */
+        }
+      }
+    }
+  }
+}

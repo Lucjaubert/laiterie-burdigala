@@ -100,10 +100,6 @@
       transition: max-height 0.35s ease;
     }
 
-    .social-icon {
-        margin-right: 20px; 
-    }
-
     .navbar-nav {
       width: 100%;
       display: flex;
@@ -158,4 +154,67 @@
   backdrop-filter: blur(3px); 
   z-index: 995; 
   background: rgba(255, 255, 255, 0.5); 
+}
+
+
+@media (max-width: 767px) {
+  .full-width-container {
+    height: 100vh; // S'assurer que le conteneur prend toute la hauteur de la fenêtre
+    display: flex;
+    align-items: center; // Centrer les enfants verticalement
+    justify-content: center; // Centrer les enfants horizontalement
+  }
+
+  .header-container {
+    width: 100%; // Utiliser toute la largeur disponible pour la vue mobile
+    max-width: 400px!important;
+    height: 100vh; // Hauteur auto pour adapter le contenu de manière flexible
+    display: flex;
+    flex-direction: column;
+    justify-content: center; // Centrer le contenu verticalement dans le conteneur
+    align-items: center; // Centrer le contenu horizontalement
+    padding: 20px; // Un peu de padding pour l'esthétique
+    box-sizing: border-box; // Inclure le padding et la bordure dans la largeur et la hauteur du conteneur
+  }
+
+  .navigation-elements {
+    width: 100%; // Toute la largeur pour les éléments de navigation
+    display: flex;
+    top: 0 !important;
+    flex-direction: column; // Les éléments de navigation sont disposés en colonne
+    align-items: center; // Centrer les liens de navigation
+    justify-content: center; // Assurer le centrage vertical des liens
+
+    .navbar {
+      width: 100%; // La barre de navigation utilise toute la largeur
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center; // Centrer le contenu de la navbar verticalement
+
+      .nav-item {
+        text-align: center; // Le texte des liens est centré
+        padding: 10px 0; // Padding vertical pour les liens
+
+        .nav-link {
+          display: block; // Les liens occupent toute la largeur de leur élément parent
+        }
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center; // Centrer les icônes sociales
+        width: 100%;
+        margin-top: 20px; // Un peu d'espace au-dessus des liens sociaux
+
+        .social-icon {
+          margin: 0 10px; // Espacement entre les icônes sociales
+        }
+      }
+    }
+  }
+
+  .cart-icon {
+    display: none; // Masquer l'icône du panier sur mobile
+  }
 }
