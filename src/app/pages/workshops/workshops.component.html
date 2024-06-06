@@ -3,7 +3,7 @@
     <div class="row workshop-container">
       <div class="col-md-5 px-8">
         <h2 class="mb-5">{{ workshopData.acf_fields.title }}</h2>
-        <div *ngIf="workshopData?.acf_fields" [innerHTML]="workshopData.acf_fields.content"></div>
+        <div *ngIf="workshopData?.acf_fields" [innerHTML]="workshopData.acf_fields.texte"></div>
         <button class="btn btn-reserve w-100 mt-5" (click)="openWecandooSite()">
           Réserver un atelier <i class="fa fa-shopping-cart"></i>
         </button>        
