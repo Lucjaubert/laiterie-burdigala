@@ -12,6 +12,7 @@
   .logo-intro {
     width: 25vw; 
     height: auto;
+    transition: width 0.5s ease;
   }
   
   .text-appear {
@@ -24,3 +25,20 @@
     opacity: 1;
   }
   
+  @media (max-width: 767px) {
+    .intro-container {
+      position: relative; 
+    }
+    .text-appear {
+      display: none; 
+    }
+
+    .logo-intro {
+      position: absolute; /* Positionnement absolu pour centrer le logo */
+      top: 50%;  /* Centrer verticalement */
+      left: 50%; /* Centrer horizontalement */
+      transform: translate(-50%, -80%); /* Ajustement précis pour centrer parfaitement */
+      width: 60vw; /* Largeur ajustée pour une meilleure visibilité sur mobile */
+      z-index: 100; /* S'assure que le logo reste au-dessus des autres éléments */
+    }
+  }
