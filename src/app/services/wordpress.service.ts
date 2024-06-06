@@ -42,6 +42,18 @@ export class WordpressService {
     return this.http.get(`${this.apiUrl}/a-propos-de-nous`);
   }
 
+  getLegalNotices(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/mentions-legales`);
+  }
+
+  getPrivacyPolicy(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/confidentialite`);
+  }
+
+  getTermsConditions(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/cgv`);
+  }
+
   getPageContent(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/pages/62`); 
   }

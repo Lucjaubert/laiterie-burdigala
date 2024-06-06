@@ -3,6 +3,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Cambay:wght@400;700&display=swap');
 
 body {
+  height: 100%; 
+  margin: 0;
+  padding: 0;
   font-family: 'Cambay', sans-serif;
   color: map-get($theme-colors, "green");
   background-color: map-get($theme-colors, "light-grey");
@@ -43,7 +46,7 @@ h5 {
   font-size: map-get($font-size, "30");
 }
 
-p {
+a, p {
   font-size: map-get($font-size, "20");
 }
 

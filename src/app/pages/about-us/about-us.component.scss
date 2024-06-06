@@ -1,0 +1,50 @@
+@import "../../styles/_variables.scss";
+
+.container-about-us {
+    .image-container {
+        height: 250px; 
+        width: 100%; 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden; 
+    }
+  
+    .image-container img {
+        max-height: 100%;
+        max-width: 100%;
+        display: block; 
+    }
+
+    .logo-1-overlay {
+        position: absolute;
+        top: -23vh;
+        left: 45vw;
+        width: 25vw;
+        height: 25vw;
+        background-image: url(/assets/img/logo-burdigala-green.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.2;
+        z-index: -1;
+        rotate: 15deg;
+    }
+
+    .logo-2-overlay {
+        position: absolute;
+        top: 4vh;
+        left: -20vw;
+        width: 35vw;
+        height: 35vw;
+        background-image: url(/assets/img/logo-burdigala-green.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.2;
+        z-index: -1;
+        rotate: -15deg;
+    }
+}
+
+
+  
+

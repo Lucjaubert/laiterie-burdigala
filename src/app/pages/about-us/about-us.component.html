@@ -1,10 +1,48 @@
-<div *ngIf="aboutUsData$ | async as aboutUsDataArray">
-  <section *ngFor="let data of aboutUsDataArray">
-    <h2>{{ data.title }}</h2>
-    <div *ngIf="data.acf_fields">
-      <p>{{ data.acf_fields['about-us'] }}</p>
-      <div *ngFor="let key of ['text-1', 'text-2', 'text-3']">
-        <div [innerHTML]="data.acf_fields[key]"></div>
+<div class="container container-about-us" *ngIf="aboutUsData$ | async as aboutUsDataArray">
+  <section *ngFor="let aboutUsData of aboutUsDataArray">
+    <h2 class="mb-5">{{ aboutUsData.title }}</h2>
+    <p>{{ aboutUsData.acf_fields['about-us'] }}</p>
+    <div class="row">
+      <!-- Première image -->
+      <div class="section-1 col-md-12 pt-7">
+        <div class="row d-flex align-items-center justify-content-center">
+          <div class="col-md-7 text-content">
+            <div [innerHTML]="aboutUsData.acf_fields['text-1']"></div>
+          </div>
+          <div class="col-md-5">
+            <div class="image-container">
+              <img *ngIf="aboutUsData.acf_fields['image-1']" [src]="aboutUsData.acf_fields['image-1']" alt="Image 1" class="img-fluid">
+            </div>
+          </div>
+          <div class="logo-1-overlay"></div>
+        </div>
+      </div>
+      <!-- Deuxième image -->
+      <div class="section-2 col-md-12 pt-12">
+        <div class="row d-flex align-items-center">
+          <div class="col-md-5">
+            <div class="logo-2-overlay"></div>
+            <div class="image-container">
+              <img *ngIf="aboutUsData.acf_fields['image-2']" [src]="aboutUsData.acf_fields['image-2']" alt="Image 2" class="img-fluid">
+            </div>
+          </div>
+          <div class="col-md-7 text-content">
+            <div [innerHTML]="aboutUsData.acf_fields['text-2']"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Troisième image -->
+      <div class="section-3 col-md-12 py-12">
+        <div class="row d-flex align-items-center">
+          <div class="col-md-7 text-content">
+            <div [innerHTML]="aboutUsData.acf_fields['text-3']"></div>
+          </div>
+          <div class="col-md-5">
+            <div class="image-container">
+              <img *ngIf="aboutUsData.acf_fields['image-3']" [src]="aboutUsData.acf_fields['image-3']" alt="Image 3" class="img-fluid">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
