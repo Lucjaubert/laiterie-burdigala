@@ -21,6 +21,7 @@
 .menu-toggle {
   cursor: pointer;
   z-index: 1100;
+  display: block;
 
   .animated-icon1 {
     position: relative;
@@ -66,32 +67,39 @@
 
 @media (max-width: 767px) {
   .fixed-elements {
-    max-width: 100vw; // Ajustement pour une largeur totale
+    max-width: 100vw; 
   
-
     &.on-homepage {
-      display: flex; // Réaffiche le menu sur la page d'accueil uniquement si nécessaire
+      .navbar-brand {
+        display: none; 
+      }
+
+      .menu-toggle {
+        display: block; 
+      }
     }
   }
 
   .menu-toggle {
-    display: block; // S'assure que le bouton de menu est visible
+    display: block; 
     position: absolute;
     top: 20px;
-    left: 20px; // Positionne le bouton en haut à gauche
+    left: 20px; 
   }
 
   .navbar-brand {
-    display: none; // Cache la marque sur mobile par défaut
-
-    .logo {
-      max-height: 120px; // Réduit la taille du logo pour les petits écrans
-    }
+    display: none; 
   }
 
   .animated-icon1 {
     .menu-line {
-      background-color: map-get($theme-colors, "white"); // Change la couleur pour une meilleure visibilité sur les fonds sombres
+      background-color: map-get($theme-colors, "white"); 
     }
+  }
+}
+
+@media (min-width: 767px) {
+  .fixed-elements.on-homepage .menu-toggle {
+    display: none; 
   }
 }

@@ -13,6 +13,10 @@
 
   .homepage-content {
 
+    .logo-container-mobile {
+      display: none; 
+    }
+
     .slogan-container {
       display: flex;
       align-items: center; 
@@ -87,22 +91,26 @@
 
 
 @media (max-width: 767px) {
-  //.video-background {
-  //  display: none; /* Cache la vidéo sur mobile */
-  //}
+ 
   .homepage-container {
     width: 100%;
     .homepage-content {
-      .slogan-container {
-        width: 100%; /* Assurez-vous que le conteneur utilise toute la largeur disponible */
-        justify-content: center; /* Centrage horizontal */
-        text-align: center; /* Assure que le texte à l'intérieur est également centré */
-        margin: 20px 0; 
-        .slogan {
-          font-size: 5vw; /* Réduire la taille de la police pour une meilleure adaptation sur mobile */
-          padding: 10px; /* Un peu d'espacement pour éviter que le texte touche les bords */
-          line-height: normal;/* Ajustez l'espacement */
+      .logo-container-mobile {
+        display: block; 
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); 
+
+        .logo-homepage-mobile {
+          width: 55vw; 
+          height: auto;
+          transition: width 0.5s ease;
         }
+      }
+
+      .slogan-container {
+        display: none; /* Optionally hide slogan on mobile */
       }
 
       .opinion-container {

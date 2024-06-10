@@ -126,7 +126,7 @@
           
           &.other-page-link {
               color: map-get($theme-colors, "green");
-              transition: transform 0.5s ease, color 0.3s ease; 
+              transition: transform 0.5s ease, color 1s ease; 
               &:hover {
                   color: darken(map-get($theme-colors, "green"), 10%);
                   transform: scale(1.2); 
@@ -137,8 +137,6 @@
             height: 30px;
             margin-right: 8px;
           }
-
-          
         }
       }
     }
@@ -159,62 +157,106 @@
 
 @media (max-width: 767px) {
   .full-width-container {
-    height: 100vh; // S'assurer que le conteneur prend toute la hauteur de la fenêtre
+    height: 100vh; 
     display: flex;
-    align-items: center; // Centrer les enfants verticalement
-    justify-content: center; // Centrer les enfants horizontalement
+    align-items: center; 
   }
 
   .header-container {
-    width: 100%; // Utiliser toute la largeur disponible pour la vue mobile
-    max-width: 400px!important;
-    height: 100vh; // Hauteur auto pour adapter le contenu de manière flexible
+    width: 100%;
+    max-width: 380px!important;
+    height: 100vh; 
     display: flex;
     flex-direction: column;
-    justify-content: center; // Centrer le contenu verticalement dans le conteneur
-    align-items: center; // Centrer le contenu horizontalement
-    padding: 20px; // Un peu de padding pour l'esthétique
-    box-sizing: border-box; // Inclure le padding et la bordure dans la largeur et la hauteur du conteneur
+    justify-content: center; 
+    align-items: center; 
+    box-sizing: border-box; 
+    &.fixed-header {
+      margin-top: 0;
+    }
+    &.on-homepage {
+      display: none;
+    }
+
+    &.menu-open {
+      padding-top: 0;
+      background-color: rgba(231, 231, 231, 0.966);
+      transition: padding-top 0.3s ease, width 0.5s ease, background-color 1.2s ease;
+      color: map-get($theme-colors, "green");
+    }
   }
 
   .navigation-elements {
-    width: 100%; // Toute la largeur pour les éléments de navigation
+    width: 100%; 
     display: flex;
     top: 0 !important;
-    flex-direction: column; // Les éléments de navigation sont disposés en colonne
-    align-items: center; // Centrer les liens de navigation
-    justify-content: center; // Assurer le centrage vertical des liens
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    transform: translateX(-15px) !important;
 
     .navbar {
-      width: 100%; // La barre de navigation utilise toute la largeur
+      width: 100%; 
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center; // Centrer le contenu de la navbar verticalement
+      justify-content: center;
 
       .nav-item {
-        text-align: center; // Le texte des liens est centré
-        padding: 10px 0; // Padding vertical pour les liens
+        text-align: center; 
+        padding: 5px 0; 
 
         .nav-link {
-          display: block; // Les liens occupent toute la largeur de leur élément parent
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &.homepage-link {
+            color: map-get($theme-colors, "green") !important;
+          }
         }
       }
 
       .social-links {
         display: flex;
-        justify-content: center; // Centrer les icônes sociales
+        justify-content: center; 
         width: 100%;
-        margin-top: 20px; // Un peu d'espace au-dessus des liens sociaux
+        margin-top: 20px; 
 
         .social-icon {
-          margin: 0 10px; // Espacement entre les icônes sociales
+          
+          .social-logo-fb img {
+            & {
+              content: url("/assets/img/facebook-green.png"); 
+            }
+            @media (min-width: 768px) { 
+              &[src*="blanc"] {
+                content: url("/assets/img/facebook-blanc.png");
+              }
+              &:not([src*="blanc"]) {
+                content: url("/assets/img/facebook-green.png");
+              }
+            }
+          }
+
+          .social-logo-insta img {
+            & {
+              content: url("/assets/img/instagram-green.png"); 
+            }
+            @media (min-width: 768px) { 
+              &[src*="blanc"] {
+                content: url("/assets/img/instagram-blanc.png");
+              }
+              &:not([src*="blanc"]) {
+                content: url("/assets/img/instagram-green.png");
+              }
+            }
+          }
         }
       }
     }
   }
 
   .cart-icon {
-    display: none; // Masquer l'icône du panier sur mobile
+    display: none; 
   }
 }
