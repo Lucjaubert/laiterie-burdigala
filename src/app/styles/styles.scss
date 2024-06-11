@@ -3,17 +3,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Cambay:wght@400;700&display=swap');
 
 body {
-  height: 100%; 
+  min-height: 100vh; 
   margin: 0;
   padding: 0;
   font-family: 'Cambay', sans-serif;
   color: map-get($theme-colors, "green");
   background-color: map-get($theme-colors, "light-grey");
-  overflow-x: hidden !important;
+  overflow-x: hidden;
 
   main {
-    overflow: hidden !important;
+    overflow: hidden;
     width: 100%;
+    flex: 1 0 auto; /* S'assure que le contenu principal prend l'espace disponible */
   }
 }
 
@@ -53,6 +54,17 @@ a, p {
 .container {
   padding-left: 20rem;
   padding-top: 5rem;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Assure que le conteneur prend au moins la hauteur de la fenêtre */
+}
+
+app-transition,
+router-outlet {
+  flex: 1 0 auto; /* S'assure que le contenu principal prend l'espace disponible */
 }
 
 .carousel-indicators {
@@ -109,6 +121,8 @@ a, p {
 
 .footer {
   z-index: 1400; 
+  flex-shrink: 0; /* Empêche le footer de rétrécir */
+  width: 100%;
 }
 
 @media (max-width: 767px) {
@@ -122,7 +136,10 @@ a, p {
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow-x: hidden; 
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
   }
 
   .carousel-indicators {
@@ -141,5 +158,5 @@ a, p {
 
   .mat-mdc-snack-bar-container {
     width: 95vw !important;
-}
+  }
 }

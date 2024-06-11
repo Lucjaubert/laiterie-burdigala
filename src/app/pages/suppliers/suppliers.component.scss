@@ -1,7 +1,6 @@
 @import "../../styles/_variables.scss";
 
 .supplier-container {
-  position: absolute;
   padding-left: 24rem;
   padding-top: 5rem;
 
@@ -224,4 +223,66 @@
         width: 60%;
     }
   }
+}
+
+@media (max-width: 768px) {
+
+  .supplier-container {
+    position: static;
+    padding-left: 0 !important;
+    padding-top: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+
+    .image-container {
+      display: none;
+    }  
+
+    .supplier-section {
+      .logo-container {
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+  
+      img.supplier-logo {
+        position: absolute;
+        height: auto;
+        opacity: 0.1;
+        z-index: -1;
+      }
+  
+      .supplier-1-logo {
+        width: 60vw;
+        top: -12vw;
+        left: 15vw;
+        opacity: 0.05 !important;
+      }
+      .supplier-2-logo {
+        bottom: -220px;
+        top: -8vh;
+        left: 25vw;
+        width: 40vw;
+      }
+      .supplier-3-logo {
+        top: -7vh;
+        right: 20vw;
+        width: 60vw;
+      }
+      .supplier-4-logo {
+        top: -5vh;
+        right: 15vw;
+        width: 65vw;
+        opacity: 0.05 !important;
+      }
+      .supplier-5-logo {
+        top: -10vh;
+        right: 30vw;
+        width: 35vw;
+        opacity: 0.05 !important;
+      }
+    }
+  } 
 }
