@@ -156,10 +156,9 @@
 
 
 @media (max-width: 767px) {
+
   .full-width-container {
-    height: 100vh; 
-    display: flex;
-    align-items: center; 
+    height: 20vh !important;
   }
 
   .header-container {
