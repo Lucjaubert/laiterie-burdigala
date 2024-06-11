@@ -54,11 +54,11 @@ export class BrunchComponent implements OnInit {
   }
 
   getImageWidth(): string {
-    return this.screenWidth < 768 ? '100%' : '450px'; // 450px est un exemple, ajustez selon vos besoins
+    return this.screenWidth < 768 ? '100%' : '450px'; 
   }
 
   getImageHeight(): string {
-    return this.screenWidth < 768 ? 'auto' : '300px'; // Conservez les proportions ou fixez une hauteur
+    return this.screenWidth < 768 ? 'auto' : '300px'; 
   }
 
   callLaiterie(): void {

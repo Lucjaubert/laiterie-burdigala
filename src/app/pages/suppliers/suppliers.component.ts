@@ -5,6 +5,7 @@ import { gsap } from 'gsap';
 import { WordpressService } from 'src/app/services/wordpress.service';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 interface SupplierData {
   title: string;
@@ -21,13 +22,12 @@ interface SupplierData {
   templateUrl: './suppliers.component.html',
   styleUrls: ['./suppliers.component.scss'],
   standalone: true,
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, LazyLoadImageModule]
 })
 export class SuppliersComponent implements OnInit, AfterViewInit {
   @ViewChildren('fadeInImage', { read: ElementRef }) images!: QueryList<ElementRef>;
   suppliersData$: Observable<SupplierData[]>;
 
-  // Stockez les positions initiales des images
   initialPositions: Map<ElementRef, number> = new Map();
 
   constructor(private wpService: WordpressService) {
@@ -43,7 +43,6 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
     this.suppliersData$.subscribe(() => {
       setTimeout(() => {
         this.animateImagesOnLoad();
-        // Stockez les positions initiales après le chargement des images
         this.storeInitialPositions();
       }, 0);
     });
