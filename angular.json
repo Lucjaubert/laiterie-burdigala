@@ -104,7 +104,9 @@
             "styles": [
               "src/app/styles/styles.scss" 
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/scripts/map.js"
+            ]
           }
         }
       }

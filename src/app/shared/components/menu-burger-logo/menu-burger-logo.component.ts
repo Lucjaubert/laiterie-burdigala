@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class MenuBurgerLogoComponent {
   @Input() isHomepage: boolean = false; 
-  @Input() showToggle: boolean = true;
+  @Input() isIntroPage: boolean = false;
   @Output() toggle = new EventEmitter<boolean>();
   @Input() navbarExpanded: boolean = false; 
 

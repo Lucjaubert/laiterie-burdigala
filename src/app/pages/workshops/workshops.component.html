@@ -1,4 +1,4 @@
-<div class="container container-workshops" *ngIf="workshopsData$ | async as workshopsDataArray">
+<div class="container container-workshops pb-15" *ngIf="workshopsData$ | async as workshopsDataArray">
   <section *ngFor="let workshopData of workshopsDataArray">
     <div class="row workshop-container">
       <div class="col-md-5 px-8">
@@ -8,7 +8,7 @@
           Réserver un atelier <i class="fa fa-shopping-cart"></i>
         </button>        
       </div>
-      <div class="col-md-7">
+      <div class="col-md-7 pb">
         <div class="image-logo-container">
           <img *ngIf="workshopData.acf_fields['image-2']" [src]="workshopData.acf_fields['image-2']" alt="Atelier Image" class="img-fluid-2">
           <img *ngIf="workshopData.acf_fields['image-1']" [src]="workshopData.acf_fields['image-1']" alt="Atelier Image" class="img-fluid-1">

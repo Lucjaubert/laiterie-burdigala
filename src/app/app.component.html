@@ -1,5 +1,5 @@
 <div class="app-container">
-    <app-header [isHomepage]="isHomepage" (menuItemClicked)="toggleTransition()"></app-header>
+    <app-header [isHomepage]="isHomepage" [isIntroPage]="isIntroPage" (menuItemClicked)="toggleTransition()"></app-header>
     <app-transition></app-transition>
     <router-outlet></router-outlet>
 </div>

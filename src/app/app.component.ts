@@ -26,13 +26,16 @@ export class AppComponent {
     title = 'laiterie-burdigala';
     showTransition: boolean = false;
     isHomepage: boolean = false;
+    isIntroPage: boolean = false;
     showFooter: boolean = true;
 
     constructor(private router: Router) {
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd)
         ).subscribe(() => {
+            console.log("Current URL:", router.url);
             this.isHomepage = this.router.url === '/' || this.router.url.startsWith('/accueil');
+            this.isIntroPage = this.router.url === '/';
             this.showFooter = !(this.router.url === '/' || this.router.url === '/accueil'); 
         });
     }

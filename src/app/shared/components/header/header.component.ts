@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -17,11 +17,18 @@ import { CartService } from 'src/app/services/cart.service';
   imports: [CommonModule, MenuBurgerLogoComponent, RouterModule]
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  @Input() isHomepage: boolean = true;
+  @Input() isHomepage: boolean = false;
+  @Input() isIntroPage: boolean = false;
   navbarExpanded: boolean = false;
   showHeader: boolean = false;
   showCartIcon: boolean = false;
   totalItemCount$: Observable<number>;
+  isMobile: boolean = window.innerWidth < 768;
+
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isMobile = window.innerWidth < 768;
+  }
 
   @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleMenuState: EventEmitter<boolean> = new EventEmitter<boolean>();

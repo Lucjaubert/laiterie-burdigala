@@ -21,6 +21,7 @@
 .menu-toggle {
   cursor: pointer;
   z-index: 1100;
+  display: block;
 
   .animated-icon1 {
     position: relative;
@@ -61,5 +62,44 @@
   .logo {
     max-height: 180px;
     max-width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .fixed-elements {
+    max-width: 100vw; 
+  
+    &.on-homepage {
+      .navbar-brand {
+        display: none; 
+      }
+
+      .menu-toggle {
+        display: block; 
+      }
+    }
+  }
+
+  .menu-toggle {
+    display: block; 
+    position: absolute;
+    top: 20px;
+    left: 20px; 
+  }
+
+  .navbar-brand {
+    display: none; 
+  }
+
+  .animated-icon1 {
+    .menu-line {
+      background-color: map-get($theme-colors, "white"); 
+    }
+  }
+}
+
+@media (min-width: 767px) {
+  .fixed-elements.on-homepage .menu-toggle {
+    display: none; 
   }
 }
