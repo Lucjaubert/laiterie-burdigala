@@ -4,6 +4,12 @@
   padding-left: 24rem;
   padding-top: 5rem;
   
+  @media (max-width: 768px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0 !important
+  }
+  
   .btn-call {
     background-color: map-get($theme-colors, "green-light");
     color: white;
@@ -19,10 +25,6 @@
     &:hover {
       background-color: darken(map-get($theme-colors, "green-light"), 20%);
     }
-
-    i {
-      margin-left: 0.5rem;
-    }
   }
 
   .material-symbols-outlined {
@@ -31,26 +33,23 @@
       'wght' 400,
       'GRAD' 0,
       'opsz' 24;
-    color: white; 
+    color: white;
   }
-  
+
   .icon-flipped {
-    transform: scaleX(-1); 
+    transform: scaleX(-1);
   }
-  
-  .btn-call .material-symbols-outlined {
-    margin-left: 8px; 
-  }
+
   .image-logo-container {
     position: relative;
-    overflow: hidden;  
+    overflow: hidden;
 
     .image-scroll-wrapper {
       display: flex;
       animation: scrollImages 25s linear infinite;
       img {
         flex-shrink: 0;
-        width: 100%;  
+        max-width: 100%;
         height: auto;
       }
     }
@@ -60,8 +59,8 @@
         transform: translateX(0);
       }
       to {
-        transform: translateX(-100%);  
+        transform: translateX(-100%);
       }
     }
-  }  
+  }
 }
