@@ -82,7 +82,7 @@ export class OrderComponent implements OnInit {
     this.http.post('https://laiterieburdigala.fr/wp-json/laiterie-burdigala/v1/send-order', orderDetails).subscribe({
       next: (response) => {
         this.snackBar.open('Votre commande a été envoyée avec succès', 'merci', {
-          duration: 300000,
+          duration: 3000,
           horizontalPosition: 'end',
           verticalPosition: 'bottom',
           panelClass: ['custom-snackbar']
