@@ -82,17 +82,19 @@ export class OrderComponent implements OnInit {
     this.http.post('https://laiterieburdigala.fr/wp-json/laiterie-burdigala/v1/send-order', orderDetails).subscribe({
       next: (response) => {
         this.snackBar.open('Votre commande a été envoyée avec succès', 'merci', {
-          duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
+          duration: 300000,
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+          panelClass: ['custom-snackbar']
         });
         this.clearCart();
       },
       error: (error) => {
         this.snackBar.open('Erreur lors de l\'envoi de la commande', 'Fermer', {
           duration: 3000,
-          horizontalPosition: 'right',
-          verticalPosition: 'top'
+          horizontalPosition: 'end',
+          verticalPosition: 'bottom',
+          panelClass: ['custom-snackbar']
         });
       }
     });

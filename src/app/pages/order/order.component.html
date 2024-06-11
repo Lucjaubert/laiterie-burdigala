@@ -3,12 +3,12 @@
   <p>Voici un dernier aperçu de votre commande. Vous n’avez plus qu’à renseigner vos coordonnées puis le jour et l’heure du retrait de votre commande. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place.</p>
   <div class="row d-flex justify-content-center">  
     <div class="col-md-8">  
-      <div class="order-items p" *ngIf="orderItems$ | async as items">
-        <div class="order-item" *ngFor="let item of items">
-          <span class="product-name">{{ item.acf_fields.product_title }}</span>
-          <span class="product-detail">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
-          <input type="number" class="quantity" [(ngModel)]="item.quantity" min="1">
-          <span class="total-price">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
+      <div class="order-items px-0" *ngIf="orderItems$ | async as items">
+        <div class="order-item col-12" *ngFor="let item of items">
+          <span class="product-name col-4 pr-0">{{ item.acf_fields.product_title }}</span>
+          <span class="product-detail product-detail mx-4 mx-md-0 col-4 px-0">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
+          <input type="number" class="quantity col-2" [(ngModel)]="item.quantity" min="1">
+          <span class="total-price col-2 pl-0">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
         </div>
       </div>
       <div class="social-media d-flex flex-column align-items-center">
@@ -24,7 +24,7 @@
       </div>
     </div>
     <div class="col-md-4 order-box">
-      <div class="order-summary">
+      <div class="order-summary mt-md-0 mt-6">
         <span>Prix HT: {{ getTotalPriceHT() }} €</span>
         <hr>
         <span>TVA (5,5%): {{ calculateTVA() }} €</span>
