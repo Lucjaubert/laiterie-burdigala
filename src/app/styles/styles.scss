@@ -92,8 +92,24 @@ a, p {
   padding-right: 18px !important;
 }
 
+.custom-snackbar {
+  min-width: auto;      
+  width: max-content;   
+  max-width: 100%;      
+  background-color: #ffffff; 
+  color: map-get($theme-colors, "green"); 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
 
+.mat-mdc-snack-bar-container {
+  left: auto !important;
+  right: 0 !important; 
+  bottom: 0 !important; 
+}
 
+.footer {
+  z-index: 1400; 
+}
 
 @media (max-width: 767px) {
   .container {
@@ -122,4 +138,8 @@ a, p {
     font-weight: map-get($font-weight, "bold");
     font-size: map-get($font-size, "20");
   }
+
+  .mat-mdc-snack-bar-container {
+    width: 95vw !important;
+}
 }
