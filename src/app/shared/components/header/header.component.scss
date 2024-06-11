@@ -157,8 +157,12 @@
 
 @media (max-width: 767px) {
 
-  .full-width-container {
-    height: 20vh !important;
+  .otherpage-height {
+    height: 15vh !important;
+  }
+
+  .homepage-height {
+    height: 100vh !important; 
   }
 
   .header-container {
@@ -260,6 +264,9 @@
   }
 
   .cart-icon {
-    display: none; 
+    position: absolute;
+    right: 20px; 
+    top: 45px;
+    display: flex;
   }
 }
