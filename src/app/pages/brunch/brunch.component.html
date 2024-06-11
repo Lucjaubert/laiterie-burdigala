@@ -12,12 +12,16 @@
           </span>
         </button>
       </div>
-      <div class="col-md-7">
+      <div class="col-md-7 pt-md-0 pt-7">
         <div class="image-logo-container">
           <div class="image-scroll-wrapper">
             <ng-container *ngFor="let i of [1, 2, 3, 4, 5, 6, 7]">
-              <img *ngIf="brunchData.acf_fields['image-' + i]" [src]="brunchData.acf_fields['image-' + i]"
-                   alt="Brunch Image {{ i }}" class="img-fluid">
+              <img *ngIf="brunchData.acf_fields['image-' + i]" 
+                   [src]="brunchData.acf_fields['image-' + i]"
+                   [style.width]="getImageWidth()"
+                   [style.height]="getImageHeight()"
+                   alt="Brunch Image {{ i }}" 
+                   class="img-fluid">
             </ng-container>
           </div>
         </div>
