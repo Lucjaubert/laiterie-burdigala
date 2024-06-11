@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TransitionService } from 'src/app/services/transition.service';
 import { gsap } from 'gsap';
@@ -15,6 +15,7 @@ import { RouterModule, Router, NavigationEnd, NavigationStart } from '@angular/r
 export class TransitionComponent implements OnInit, OnDestroy {
   private subscription: Subscription = new Subscription();
   shouldRender = true;
+  @Input() isActive: boolean = false;
 
   constructor(
     private transitionService: TransitionService, 

@@ -18,6 +18,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input() isHomepage: boolean = false;
+  @Input() isIntroPage: boolean = false;
   navbarExpanded: boolean = false;
   showHeader: boolean = false;
   showCartIcon: boolean = false;

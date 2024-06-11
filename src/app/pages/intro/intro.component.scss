@@ -26,6 +26,10 @@
   }
   
   @media (max-width: 767px) {
+
+    .full-width-container {
+      height: 0 !important
+    }
     .intro-container {
       position: relative; 
     }
@@ -35,7 +39,7 @@
 
     .logo-intro {
       position: absolute; 
-      top: 50%;  
+      top: 55%;  
       left: 50%; 
       transform: translate(-50%, -80%); 
       width: 60vw; 

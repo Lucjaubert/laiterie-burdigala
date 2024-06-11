@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 
@@ -12,6 +12,7 @@ import { HeaderComponent } from '../../shared/components/header/header.component
 })
 export class IntroComponent implements OnInit {
   isHomepage = false;
+  isIntroPage = false;  
 
   constructor(private router: Router, private el: ElementRef, private renderer: Renderer2) { }
 
@@ -24,6 +25,6 @@ export class IntroComponent implements OnInit {
         this.router.navigate(['/accueil']);
       }, 4000);  
 
-    }, 1000);  
+    }, 1500);  
   }
 }

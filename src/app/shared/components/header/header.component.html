@@ -1,4 +1,4 @@
-<div class="full-width-container">
+<div class="full-width-container" *ngIf="!isIntroPage">
   <a routerLink="/finaliser-commande" class="cart-icon" *ngIf="showCartIcon">
     <span class="material-symbols-outlined" [ngClass]="{'homepage-cart': isHomepage, 'other-page-cart': !isHomepage}">shopping_cart</span>
     <span *ngIf="totalItemCount$ | async as totalCount" class="cart-notification">{{ totalCount }}</span>

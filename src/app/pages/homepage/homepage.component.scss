@@ -34,11 +34,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: map-get($theme-colors, "grey-light-2");
+      background-color: map-get($theme-colors, "grey-light-2");   
     }
     
     .opinion-frame {
-      width: 80%;
+      width: 100%;
       max-width: 800px;
       border-radius: 10px;
       display: flex;
@@ -82,16 +82,24 @@
         margin-right: 5vw; 
       }
     }
+
+    .custom-carousel .carousel-indicators {
+      display: none !important;
+    }   
   }
 
   .location-container {
-      color: map-get($theme-colors, "white-yellow");
+    color: map-get($theme-colors, "white-yellow");
+    .map iframe {
+      height: 250px !important;
+      width: 400px !important;
+    }
   }
 }
 
 
 @media (max-width: 767px) {
- 
+
   .homepage-container {
     width: 100%;
     .homepage-content {
@@ -110,36 +118,34 @@
       }
 
       .slogan-container {
-        display: none; /* Optionally hide slogan on mobile */
+        display: none !important;
       }
 
       .opinion-container {
-        .opinion-frame {
-          width: 90%; /* Ajustez la largeur */
-        }
-
-        .opinion-carousel {
-          height: 15vh; /* Ajustez la hauteur pour les mobiles */
-        }
+        display: none !important;
       }
 
       .press-container {
+        border: none;
+        height: 20vh !important;
+        
         .press-logos {
-          flex-wrap: wrap; /* Permettre le retour à la ligne pour les logos */
+          flex-wrap: wrap; 
         }
 
         .press-logo {
-          width: 15vw; /* Réduire la taille des logos */
-          margin-right: 2vw; /* Réduire l'espacement entre les logos */
+          width: 13vw; 
+          margin-right: 4vw; 
         }
       }
 
       .location-container {
-        flex-direction: column; /* Organiser verticalement les éléments */
+        flex-direction: column; 
+        text-align: center !important;
 
-        .map {
-          width: 100%; /* Ajuster la largeur de la carte pour remplir l'espace */
-          height: 200px; /* Hauteur fixe pour la carte sur mobile */
+        .map iframe {
+          height: 150px !important;
+          width: 300px !important;
         }
       }
     }

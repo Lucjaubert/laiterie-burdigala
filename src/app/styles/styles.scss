@@ -55,6 +55,10 @@ a, p {
   padding-top: 5rem;
 }
 
+.carousel-indicators {
+  display: none !important;
+}   
+
 @each $color-name, $color-value in $theme-colors {
   .text-#{$color-name} {
     color: $color-value;
@@ -88,3 +92,27 @@ a, p {
   padding-right: 18px !important;
 }
 
+
+
+
+@media (max-width: 767px) {
+  .container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 0 !important;
+  }
+
+  .carousel-indicators {
+    display: none !important;
+  }
+
+  h4 {
+    font-weight: map-get($font-weight, "bold");
+    font-size: map-get($font-size, "30");
+  }
+  
+  h5 {
+    font-weight: map-get($font-weight, "bold");
+    font-size: map-get($font-size, "20");
+  }
+}

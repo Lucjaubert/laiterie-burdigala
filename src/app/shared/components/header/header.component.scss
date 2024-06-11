@@ -187,12 +187,12 @@
   }
 
   .navigation-elements {
-    width: 100%; 
-    display: flex;
     top: 0 !important;
-    flex-direction: column; 
-    align-items: center; 
-    justify-content: center; 
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     transform: translateX(-15px) !important;
 
     .navbar {
@@ -254,6 +254,10 @@
         }
       }
     }
+  }
+
+  .header-container.menu-open .navigation-elements {
+    display: block;
   }
 
   .cart-icon {
