@@ -10,6 +10,7 @@
     height: 100%;
     border: map-get($border-size, "1") solid map-get($theme-colors, "green-light");
     padding: 1rem;
+    z-index: 1;
   }
 
   .product-image {
@@ -135,5 +136,8 @@
   z-index: 1000;
   transition: transform 1s ease, opacity 1s ease;
 }
+
+
+
 
 
