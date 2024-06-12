@@ -46,5 +46,36 @@
 }
 
 
-  
+@media (max-width: 768px) {
+    .section-1 .row,
+    .section-3 .row {
+        flex-direction: column !important;
+    }
+
+    .section-2 .row {
+        flex-direction: column-reverse !important;
+    }
+
+    .section-2 .text-content {
+        order: 1 !important;
+    }
+
+    .image-container {
+        margin-bottom: 20px;
+    }
+
+    .logo-1-overlay {
+        display: none;
+    }
+
+    .logo-2-overlay {
+        display: none;
+    }
+
+    .logo-3-overlay {
+        display: none;
+    }
+}
+
+
 

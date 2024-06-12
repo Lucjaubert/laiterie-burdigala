@@ -56,7 +56,7 @@ export class AboutUsComponent implements OnInit, AfterViewInit {
     gsap.from('.section-2 .image-container', { delay: 1.5, duration: 1.5, x: -100, opacity: 0, ease: 'power2.out' });
 
     gsap.from('.section-3 .text-content', { delay: 2, duration: 2, y: 100, opacity: 0, ease: 'power3.out' });
-    gsap.from('.section-3 .image-container', { delay: 1.5, duration: 2, y: -100, opacity: 0, ease: 'power3.out' });
+    gsap.from('.section-3 .image-container', { delay: 1.5, duration: 2, x: 100, opacity: 0, ease: 'power3.out' });
 
     gsap.from('.logo-1-overlay', { delay: 2.0, duration: 2, x: -100, opacity: 0, ease: 'power4.out' });
     gsap.from('.logo-2-overlay', { delay: 2.0, duration: 1.5, x: 100, opacity: 0, ease: 'power4.out' });
