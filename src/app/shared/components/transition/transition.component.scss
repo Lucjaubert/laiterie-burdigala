@@ -33,7 +33,13 @@
 
 .logo-intro {
   opacity: 1;
-  width: 40vw;
+  width: 30vw;
   height: auto;
   transition: opacity 0.5s ease-in-out;
+}
+
+@media (max-width: 767px) {
+  .logo-intro {
+    width: 55vw !important;
+  }
 }

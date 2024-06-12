@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, Output, EventEmitter, OnDestroy, OnInit, HostListener, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { gsap } from 'gsap';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
@@ -8,6 +8,11 @@ import { TransitionService } from 'src/app/services/transition.service';
 import { filter } from 'rxjs/operators';
 import { Subscription, Observable } from 'rxjs';
 import { CartService } from 'src/app/services/cart.service';
+
+interface MenuItem {
+  label: string;
+  link: string;
+}
 
 @Component({
   selector: 'app-header',
@@ -25,35 +30,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
   totalItemCount$: Observable<number>;
   isMobile: boolean = window.innerWidth < 768;
 
-  @HostListener('window:resize', ['$event'])
-  onResize() {
-    this.isMobile = window.innerWidth < 768;
-  }
-
   @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleMenuState: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @ViewChild('headerContainer') headerContainer!: ElementRef<HTMLDivElement>;
 
   private subscription: Subscription = new Subscription();
-  menuItems = [
-    { label: "Nos produits", link: "/nos-produits" },
-    { label: "Nos ateliers", link: "/nos-ateliers" },
-    { label: "Notre brunch", link: "/notre-brunch" },
-    { label: "Nos fournisseurs", link: "/nos-fournisseurs" },
-    { label: "À propos de nous", link: "/a-propos-de-nous" }
-  ];
+  menuItems: MenuItem[] = [];
 
   constructor(
     private menuStateService: MenuStateService,
     private transitionService: TransitionService,
     private router: Router,
-    private cartService: CartService
+    private cartService: CartService,
+    private cdRef: ChangeDetectorRef 
   ) {
     this.totalItemCount$ = this.cartService.getTotalItemCount();
   }
 
   ngOnInit(): void {
+    this.updateMenuItems();
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd)
     ).subscribe(event => {
@@ -65,7 +61,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       ];
       this.showCartIcon = cartVisibleUrls.includes(event.url);
     });
-
+  
     this.subscription.add(
       this.transitionService.transitionDone$.subscribe(done => {
         if (done) {
@@ -74,7 +70,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
       })
     );
   }
+  
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.isMobile = window.innerWidth < 768;
+    this.updateMenuItems();
+    this.cdRef.detectChanges();  
+  }
 
+  updateMenuItems(): void {
+    this.menuItems = [
+        { label: "Nos produits", link: "/nos-produits" },
+        { label: "Nos ateliers", link: "/nos-ateliers" },
+        { label: "Notre brunch", link: "/notre-brunch" },
+        { label: "Nos fournisseurs", link: "/nos-fournisseurs" },
+        { label: "À propos de nous", link: "/a-propos-de-nous" }
+    ];
+
+    if (this.isMobile) {
+        this.menuItems.unshift({ label: "Accueil", link: "/accueil" }); 
+    }
+  }
+  
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
     this.menuStateService.toggleMenu(this.navbarExpanded);
