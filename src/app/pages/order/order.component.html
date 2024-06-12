@@ -7,7 +7,7 @@
         <div class="order-item col-12" *ngFor="let item of items">
           <span class="product-name col-4 pr-0">{{ item.acf_fields.product_title }}</span>
           <span class="product-detail product-detail mx-4 mx-md-0 col-4 px-0">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
-          <input type="number" class="quantity col-2" [(ngModel)]="item.quantity" min="1">
+          <input type="number" class="quantity col-2 px-0" [(ngModel)]="item.quantity" min="1">
           <span class="total-price col-2 pl-0">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
         </div>
       </div>

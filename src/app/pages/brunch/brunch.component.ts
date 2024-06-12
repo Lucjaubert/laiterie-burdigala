@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, OnInit } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
@@ -34,7 +34,7 @@ export class BrunchComponent implements OnInit {
   brunchData$: Observable<BrunchData[] | null>;
   screenWidth: number;
 
-  constructor(private wpService: WordpressService) {
+  constructor(private wpService: WordpressService, private cdRef: ChangeDetectorRef) {
     this.brunchData$ = this.wpService.getBrunchs().pipe(
       catchError(error => {
         console.error('Error retrieving brunch page data:', error);
@@ -48,18 +48,31 @@ export class BrunchComponent implements OnInit {
     this.updateScreenWidth();
   }
 
-  @HostListener('window:resize', ['$event'])
-  updateScreenWidth(event?: Event): void {
+  @HostListener('window:resize')
+  updateScreenWidth(): void {
     this.screenWidth = window.innerWidth;
+    this.cdRef.detectChanges(); 
   }
 
   getImageWidth(): string {
-    return this.screenWidth < 768 ? '100%' : '450px'; 
+    if (this.screenWidth < 768) {
+      return '100%'; 
+    } else if (this.screenWidth >= 768 && this.screenWidth <= 1024) {
+      return '400px'; 
+    } else {
+      return '400px'; 
+    }
   }
-
+  
   getImageHeight(): string {
-    return this.screenWidth < 768 ? 'auto' : '300px'; 
-  }
+    if (this.screenWidth < 768) {
+      return 'auto';
+    } else if (this.screenWidth >= 768 && this.screenWidth <= 1024) {
+      return '300px';
+    } else {
+      return '550px'; 
+    }
+  }  
 
   callLaiterie(): void {
     window.location.href = 'tel:+33665492642';
