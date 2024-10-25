@@ -77,7 +77,7 @@
   .navigation-elements {
     width: 100%; 
     position: relative;
-    top: 12.75rem; 
+    top: 13.75rem; 
     transition: top 0.3s ease;
 
     .social-links {
@@ -160,8 +160,7 @@
 .blurred-overlay {
   position: fixed;
   top: 0;
-  left: 30vw;  
-  width: 70vw; 
+  width: 100vw; 
   height: 100vh; 
   backdrop-filter: blur(3px); 
   z-index: 995; 
@@ -198,14 +197,14 @@
     &.menu-open {
       padding-top: 0;
       background-color: rgba(231, 231, 231, 0.966);
-      transition: padding-top 0.3s ease, width 0.5s ease, background-color 1.2s ease;
+      transition: padding-top 0.3s ease, width 0.5s ease, background-color 0.8s ease;
       color: map-get($theme-colors, "green");
     }
   }
 
   .navigation-elements {
     top: 0 !important;
-    display: none;
+    opacity: 0;
     width: 100%;
     flex-direction: column;
     align-items: center;
@@ -274,7 +273,8 @@
   }
 
   .header-container.menu-open .navigation-elements {
-    display: block;
+    opacity: 1;
+    visibility: visible;
   }
 
   .cart-icon {

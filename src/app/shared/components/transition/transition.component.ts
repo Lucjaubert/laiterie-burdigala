@@ -59,38 +59,47 @@ export class TransitionComponent implements OnInit, OnDestroy {
   
     if (transitionContainer && backgroundBlur) {
       backgroundBlur.style.display = 'block';
-      gsap.to(backgroundBlur, {
+  
+      const tl = gsap.timeline();
+  
+      // Animation du backgroundBlur
+      tl.to(backgroundBlur, {
         opacity: 1,
         duration: 0.5,
         ease: 'power1.inOut'
       });
   
-      gsap.fromTo(transitionContainer, {
+      // Ajouter un label 'start' après le backgroundBlur
+      tl.add('start');
+  
+      // Animation du transitionContainer à partir du label 'start'
+      tl.fromTo(transitionContainer, {
         x: '-100%'
       }, {
         x: '0%',
         duration: 1.5,
-        ease: 'power2.out',
-        onComplete: () => {
-          gsap.fromTo('.logo-intro', { opacity: 0 }, {
-            opacity: 1,
-            duration: 1,
-            ease: 'power2.out'
-          });
+        ease: 'power2.out'
+      }, 'start');
   
-          gsap.to(backgroundBlur, {
-            opacity: 0,
-            duration: 0.5,
-            delay: 1.5,
-            onComplete: () => {
-              backgroundBlur.style.display = 'none'; 
-            }
-          });
+      // Animation du logo-intro qui commence 0.5 seconde après 'start'
+      tl.to('.logo-intro', {
+        opacity: 1,
+        duration: 2.5,
+        ease: 'power2.out'
+      }, 'start+=0.3');
+  
+      // Animation de disparition du backgroundBlur
+      tl.to(backgroundBlur, {
+        opacity: 0,
+        duration: 1,
+        onComplete: () => {
+          backgroundBlur.style.display = 'none'; 
         }
       });
     }
-  }   
-
+  }
+  
+  
   animateOut(): void {
     if (document.querySelector('.transition-container') && document.querySelector('.logo-intro')) {
       gsap.to('.transition-container', {
@@ -106,7 +115,7 @@ export class TransitionComponent implements OnInit, OnDestroy {
       });
       gsap.to('.logo-intro', {
         opacity: 0,
-        duration: 1,
+        duration: 1.6,
         ease: 'power2.in'
       });
     } else {
