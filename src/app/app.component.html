@@ -1,7 +1,8 @@
 <div class="app-container">
-    <app-header [isHomepage]="isHomepage" [isIntroPage]="isIntroPage" (menuItemClicked)="toggleTransition()"></app-header>
-    <app-transition></app-transition>
+    <app-header *ngIf="!isNotFoundPage" [isHomepage]="isHomepage" [isIntroPage]="isIntroPage" (menuItemClicked)="toggleTransition()"></app-header>
+    <app-transition *ngIf="!isNotFoundPage"></app-transition>
     <router-outlet></router-outlet>
 </div>
-<app-footer *ngIf="showFooter"></app-footer>
+<app-footer *ngIf="!isNotFoundPage && showFooter"></app-footer>
+
 

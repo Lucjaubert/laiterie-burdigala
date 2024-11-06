@@ -122,7 +122,7 @@ router-outlet {
 
 .footer {
   z-index: 1400; 
-  flex-shrink: 0; /* Empêche le footer de rétrécir */
+  flex-shrink: 0; 
   width: 100%;
 }
 
@@ -161,3 +161,19 @@ router-outlet {
     width: 95vw !important;
   }
 }
+
+body.not-found-page, body.not-found-page .app-container {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+body.not-found-page .app-container {
+  display: flex;
+}
+
+body.not-found-page router-outlet {
+  flex-grow: 1;
+  display: flex;
+}
+

@@ -28,6 +28,7 @@ export class AppComponent {
     isHomepage: boolean = false;
     isIntroPage: boolean = false;
     showFooter: boolean = true;
+    isNotFoundPage: boolean = false;
 
     constructor(private router: Router) {
         this.router.events.pipe(
