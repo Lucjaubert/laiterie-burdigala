@@ -1,26 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { CommonModule } from '@angular/common'; 
 import { WordpressService } from 'src/app/services/wordpress.service'; 
-import { catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { HeaderComponent } from '../../shared/components/header/header.component';
-import { MenuBurgerLogoComponent } from '../../shared/components/menu-burger-logo/menu-burger-logo.component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { gsap } from 'gsap';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
   standalone: true, 
-  imports: [CommonModule, RouterModule, HeaderComponent, MenuBurgerLogoComponent, CarouselModule],
+  imports: [
+    CommonModule,   
+    CarouselModule
+  ],
 })
 export class HomepageComponent implements OnInit {
   isHomepage = true;
   initialOpacity: number = 0;  
-  homepageData$: Observable<any | null>;
+  homepageData: any = null;
   preparedSlogan: SafeHtml = '';
 
   opinions = [
@@ -40,23 +38,28 @@ export class HomepageComponent implements OnInit {
     { img: 'assets/press-logos/qfabx-logo.png', url: 'https://quoifaireabordeaux.com/blog/burdigala-la-premiere-laiterie-de-bordeaux-fabrique-sa-mozzarella-sur-place/' },
   ];
   
-  constructor(private wpService: WordpressService, private sanitizer: DomSanitizer) { 
-    this.homepageData$ = this.wpService.getHomepage().pipe(
-      catchError(error => {
-        console.error('Erreur lors de la récupération des données de la page daccueil:', error);
-        return of(null); 
-      })
-    );
-  }
+  constructor(
+    private wpService: WordpressService, 
+    private sanitizer: DomSanitizer, 
+    private cdRef: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     console.log(this.pressLogos); 
-    this.homepageData$.subscribe((data) => {
-      if (data && data.length > 0) {
-        this.preparedSlogan = this.prepareSlogan(data[0].acf_fields.slogan);
-        setTimeout(() => this.animateSlogan(), 100);
+    this.wpService.getHomepage().subscribe(
+      (data) => {
+        console.log('Données reçues de l\'API :', data);
+        if (data && data.length > 0) {
+          this.homepageData = data[0];
+          this.preparedSlogan = this.prepareSlogan(this.homepageData.acf_fields.slogan);
+          this.cdRef.detectChanges();  
+          this.animateSlogan();
+        }
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des données de la page d\'accueil:', error);
       }
-    });
+    );
   }
   
 
@@ -75,9 +78,5 @@ export class HomepageComponent implements OnInit {
 
   prepareSlogan(slogan: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(slogan);
-  }
-
-  safeHtml(html: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 }

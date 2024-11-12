@@ -161,19 +161,3 @@ router-outlet {
     width: 95vw !important;
   }
 }
-
-body.not-found-page, body.not-found-page .app-container {
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-}
-
-body.not-found-page .app-container {
-  display: flex;
-}
-
-body.not-found-page router-outlet {
-  flex-grow: 1;
-  display: flex;
-}
-

@@ -1,4 +1,3 @@
-// app-routing.module.ts
 import { IntroComponent } from './pages/intro/intro.component';
 import { HomepageComponent } from './pages/homepage/homepage.component';
 import { ProductsComponent } from './pages/products/products.component';

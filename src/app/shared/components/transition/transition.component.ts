@@ -31,11 +31,8 @@ export class TransitionComponent implements OnInit, OnDestroy {
         this.transitionService.startTransition();
       }
       if (event instanceof NavigationEnd) {
-        this.shouldRender = this.router.url !== '/' && this.router.url !== '/accueil';
+        this.shouldRender = true; // Toujours afficher le composant de transition
         this.cdr.detectChanges(); 
-        if (!this.shouldRender) {
-          this.transitionService.resetTransition();
-        }
       }
     });
 
@@ -62,17 +59,14 @@ export class TransitionComponent implements OnInit, OnDestroy {
   
       const tl = gsap.timeline();
   
-      // Animation du backgroundBlur
       tl.to(backgroundBlur, {
         opacity: 1,
         duration: 0.5,
         ease: 'power1.inOut'
       });
   
-      // Ajouter un label 'start' après le backgroundBlur
       tl.add('start');
   
-      // Animation du transitionContainer à partir du label 'start'
       tl.fromTo(transitionContainer, {
         x: '-100%'
       }, {
@@ -81,14 +75,12 @@ export class TransitionComponent implements OnInit, OnDestroy {
         ease: 'power2.out'
       }, 'start');
   
-      // Animation du logo-intro qui commence 0.5 seconde après 'start'
       tl.to('.logo-intro', {
         opacity: 1,
         duration: 2.5,
         ease: 'power2.out'
       }, 'start+=0.3');
   
-      // Animation de disparition du backgroundBlur
       tl.to(backgroundBlur, {
         opacity: 0,
         duration: 1,
@@ -98,7 +90,6 @@ export class TransitionComponent implements OnInit, OnDestroy {
       });
     }
   }
-  
   
   animateOut(): void {
     if (document.querySelector('.transition-container') && document.querySelector('.logo-intro')) {

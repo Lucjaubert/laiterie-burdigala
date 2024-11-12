@@ -1,44 +1,44 @@
+<!-- homepage.component.html -->
 <div class="container overflow-hidden">
   <div class="homepage-container">
     <video autoplay muted loop class="video-background" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
       <source src="assets/video/homepage-video.mov" type="video/mp4">
     </video>
     <div class="homepage-content pt-md-17 pt-3">
-      <div *ngIf="(homepageData$ | async) as homepageDataArray">
-        <div *ngFor="let homepageData of homepageDataArray">
-          <div class="slogan-container d-flex justify-content-center">
-            <h3 class="text-fw-regular text-center text-fs-60 d-flex pt-md-6 pt-2 px-12 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h3>
-          </div>
-          <div class="logo-container-mobile">
-            <img src="assets/img/logo-burdigala-white.png" class="logo-homepage-mobile" alt="Laiterie Burdigala Logo">
-          </div>
-          <div class="opinion-container mt-md-17 mt-3 d-flex flex-column">
-            <div class="opinion-frame pb-md-10 pt-md-6">
-              <carousel [interval]="3000" [itemsPerSlide]="1" [singleSlideOffset]="false" [noWrap]="false">
-                <slide *ngFor="let opinion of opinions">
-                  <div class="opinion-carousel">
-                    <img [src]="opinion.img" alt="Opinion Image" class="img-fluid">
-                  </div>
-                </slide>
-              </carousel>
-            </div>
-          </div>
-          <div class="press-container py-md-10 pt-10 pb-14 d-flex flex-column">
-            <h4 class="press-text pb-md-4 pb-2 text-fw-bold">{{ homepageData?.acf_fields?.presse }}</h4>
-            <div class="press-logos px-5 ml-md-10">
-              <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
-                <img [src]="pressLogo.img" alt="Press Logo" class="press-logo">
-              </a>
-            </div>
-          </div>
-          <div class="location-container pl-md-11 py-md-13 py-md-10 px-md-10 pb-7 d-flex align-items-center justify-content-between">
-            <div class="text-center" [innerHTML]="homepageData?.acf_fields?.location ? homepageData?.acf_fields?.location : ''"></div>
-            <div id="map" class="map py-7">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d364.0575001033623!2d-0.5666406712211562!3d44.830772281559504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5527ede1d43ddb%3A0x9462e0cdffc647cf!2sLaiterie%20Burdigala!5e0!3m2!1sfr!2sfr!4v1718035409613!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>  
+      <div *ngIf="homepageData">
+        <div class="slogan-container d-flex justify-content-center">
+          <h3 class="text-fw-regular text-center text-fs-60 d-flex pt-md-6 pt-2 px-12 slogan" [style.opacity]="initialOpacity" [innerHTML]="preparedSlogan"></h3>
         </div>
+        <div class="logo-container-mobile">
+          <img src="assets/img/logo-burdigala-white.png" class="logo-homepage-mobile" alt="Laiterie Burdigala Logo">
+        </div>
+        <div class="opinion-container mt-md-17 mt-3 d-flex flex-column">
+          <div class="opinion-frame pb-md-10 pt-md-6">
+            <carousel [interval]="3000" [noWrap]="false">
+              <slide *ngFor="let opinion of opinions">
+                <div class="opinion-carousel">
+                  <img [src]="opinion.img" alt="Opinion Image" class="img-fluid">
+                </div>
+              </slide>
+            </carousel>
+          </div>
+        </div>
+        <div class="press-container py-md-10 pt-10 pb-14 d-flex flex-column">
+          <h4 class="press-text pb-md-4 pb-2 text-fw-bold">{{ homepageData.acf_fields.presse }}</h4>
+          <div class="press-logos px-5 ml-md-10">
+            <a *ngFor="let pressLogo of pressLogos" [href]="pressLogo.url" target="_blank">
+              <img [src]="pressLogo.img" alt="Press Logo" class="press-logo">
+            </a>
+          </div>
+        </div>
+        <div class="location-container pl-md-11 py-md-13 py-md-10 px-md-10 pb-7 d-flex align-items-center justify-content-between">
+          <div class="text-center" [innerHTML]="homepageData.acf_fields.location ? homepageData.acf_fields.location : ''"></div>
+          <div id="map" class="map py-7">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d364.0575001033623!2d-0.5666406712211562!3d44.830772281559504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5527ede1d43ddb%3A0x9462e0cdffc647cf!2sLaiterie%20Burdigala!5e0!3m2!1sfr!2sfr!4v1718035409613!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>  
       </div>
     </div>
   </div>
 </div>
+
