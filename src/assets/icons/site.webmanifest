@@ -4,13 +4,13 @@
   "description": "Découvrez les produits laitiers artisanaux de la Laiterie Burdigala, fabriqués à Bordeaux avec des ingrédients locaux pour un goût authentique et naturel.",
   "icons": [
     {
-      "src": "assets/icons/web-app-manifest-192x192.png",
+      "src": "../icons/web-app-manifest-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "assets/icons/web-app-manifest-512x512.png",
+      "src": "../icons/web-app-manifest-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"

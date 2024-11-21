@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChildren, ElementRef, QueryList, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, ElementRef, QueryList, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { gsap } from 'gsap';
@@ -30,7 +30,7 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
 
   initialPositions: Map<ElementRef, number> = new Map();
 
-  constructor(private wpService: WordpressService) {
+  constructor(private wpService: WordpressService, private cdRef: ChangeDetectorRef) {
     this.suppliersData$ = this.wpService.getSuppliers().pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des données des fournisseurs:', error);
@@ -40,18 +40,16 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.suppliersData$.subscribe(() => {
-      setTimeout(() => {
-        this.animateImagesOnLoad();
-        this.storeInitialPositions();
-      }, 0);
-    });
   }
 
   ngAfterViewInit(): void {
-    this.images.changes.subscribe(imgList => {
-      this.customAnimateImages(imgList);
+    this.images.changes.subscribe(() => {
+      this.launchAnimations();
     });
+
+    if (this.images.length > 0) {
+      this.launchAnimations();
+    }
 
     let ticking = false;
     window.addEventListener('scroll', () => {
@@ -63,6 +61,15 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
         ticking = true;
       }
     });
+  }
+
+  private launchAnimations(): void {
+    this.cdRef.detectChanges();
+
+    setTimeout(() => {
+      this.animateImagesOnLoad();
+      this.storeInitialPositions();
+    }, 0);
   }
 
   animateImagesOnLoad(): void {
@@ -95,26 +102,28 @@ export class SuppliersComponent implements OnInit, AfterViewInit {
     imgList.forEach((img, index) => {
       let yOffset = 0;
       switch (index % 3) {
-        case 0: 
-          yOffset = 1000; 
+        case 0:
+          yOffset = 1000;
           break;
-        case 1: 
-          yOffset = -1000; 
+        case 1:
+          yOffset = -1000;
           break;
-        case 2: 
-          yOffset = 1000; 
+        case 2:
+          yOffset = 1000;
           break;
       }
-  
+
       gsap.to(img.nativeElement, { y: yOffset, duration: 2, ease: 'power3.out' });
       setTimeout(() => {
         gsap.to(img.nativeElement, { y: 0, duration: 2, ease: 'power2.out' });
-      }, 2000); 
+      }, 2000);
     });
-  }  
+  }
 
   handleImageError(event: any): void {
     console.error("Image load error: ", event);
     event.target.style.display = 'none';
   }
 }
+
+

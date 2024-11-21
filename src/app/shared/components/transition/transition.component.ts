@@ -31,7 +31,7 @@ export class TransitionComponent implements OnInit, OnDestroy {
         this.transitionService.startTransition();
       }
       if (event instanceof NavigationEnd) {
-        this.shouldRender = true; // Toujours afficher le composant de transition
+        this.shouldRender = true; 
         this.cdr.detectChanges(); 
       }
     });

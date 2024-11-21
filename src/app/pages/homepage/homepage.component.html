@@ -1,9 +1,11 @@
-<!-- homepage.component.html -->
 <div class="container overflow-hidden">
   <div class="homepage-container">
-    <video autoplay muted loop class="video-background" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
-      <source src="assets/video/homepage-video.mov" type="video/mp4">
-    </video>
+    <div class="video-wrapper">
+      <video autoplay muted loop playsinline class="video-background">
+        <source src="assets/video/video-background-laiterie.mp4" type="video/mp4" />
+        <img src="assets/video/img-background-laiterie.png" alt="Image de fond Laiterie Burdigala" class="fallback-image" />
+      </video>
+    </div>
     <div class="homepage-content pt-md-17 pt-3">
       <div *ngIf="homepageData">
         <div class="slogan-container d-flex justify-content-center">
@@ -36,9 +38,8 @@
           <div id="map" class="map py-7">
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d364.0575001033623!2d-0.5666406712211562!3d44.830772281559504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5527ede1d43ddb%3A0x9462e0cdffc647cf!2sLaiterie%20Burdigala!5e0!3m2!1sfr!2sfr!4v1718035409613!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
-        </div>  
+        </div>
       </div>
     </div>
   </div>
 </div>
-

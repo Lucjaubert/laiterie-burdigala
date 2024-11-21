@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
-import { WordpressService } from 'src/app/services/wordpress.service'; 
+import { CommonModule } from '@angular/common';
+import { WordpressService } from 'src/app/services/wordpress.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { gsap } from 'gsap';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
@@ -9,15 +9,15 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
-  standalone: true, 
+  standalone: true,
   imports: [
-    CommonModule,   
+    CommonModule,
     CarouselModule
   ],
 })
 export class HomepageComponent implements OnInit {
   isHomepage = true;
-  initialOpacity: number = 0;  
+  initialOpacity: number = 0;
   homepageData: any = null;
   preparedSlogan: SafeHtml = '';
 
@@ -37,23 +37,23 @@ export class HomepageComponent implements OnInit {
     { img: 'assets/press-logos/france-week-end-logo.png', url: 'https://franceweek-end.com/etablissements/la-douceur-italienne-au-coeur-de-bordeaux-laiterie-burdigala/' },
     { img: 'assets/press-logos/qfabx-logo.png', url: 'https://quoifaireabordeaux.com/blog/burdigala-la-premiere-laiterie-de-bordeaux-fabrique-sa-mozzarella-sur-place/' },
   ];
-  
+
   constructor(
-    private wpService: WordpressService, 
-    private sanitizer: DomSanitizer, 
+    private wpService: WordpressService,
+    private sanitizer: DomSanitizer,
     private cdRef: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
-    console.log(this.pressLogos); 
     this.wpService.getHomepage().subscribe(
       (data) => {
-        console.log('Données reçues de l\'API :', data);
         if (data && data.length > 0) {
           this.homepageData = data[0];
           this.preparedSlogan = this.prepareSlogan(this.homepageData.acf_fields.slogan);
-          this.cdRef.detectChanges();  
-          this.animateSlogan();
+          this.cdRef.detectChanges();
+          Promise.resolve().then(() => {
+            this.animateSlogan();
+          });
         }
       },
       (error) => {
@@ -61,10 +61,10 @@ export class HomepageComponent implements OnInit {
       }
     );
   }
-  
+
 
   animateSlogan(): void {
-    this.initialOpacity = 1;  
+    this.initialOpacity = 1;
     const sloganElement = document.querySelector('.slogan');
     if (sloganElement) {
       gsap.fromTo(sloganElement, { y: 30, opacity: 0 }, {
@@ -78,5 +78,15 @@ export class HomepageComponent implements OnInit {
 
   prepareSlogan(slogan: string): SafeHtml {
     return this.sanitizer.bypassSecurityTrustHtml(slogan);
+  }
+
+  ngAfterViewInit(): void {
+    const videoElement = document.querySelector('.video-background') as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.muted = true;
+      videoElement.play().catch((error) => {
+        console.error('Erreur lors du démarrage automatique de la vidéo :', error);
+      });
+    }
   }
 }
