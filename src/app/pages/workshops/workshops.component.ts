@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { Observable, of, Subscription } from 'rxjs';
+import { Observable, of, Subscription, combineLatest } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { gsap } from 'gsap';
 import { WordpressService } from 'src/app/services/wordpress.service';
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
-import { TransitionService } from 'src/app/services/transition.service'; 
+import { TransitionService } from 'src/app/services/transition.service';
 
 interface WorkshopData {
   title: string;
@@ -24,38 +24,38 @@ interface WorkshopData {
   standalone: true,
   imports: [CommonModule, HeaderComponent, RouterModule]
 })
-export class WorkshopsComponent implements OnInit, AfterViewInit, OnDestroy {
+export class WorkshopsComponent implements OnInit, OnDestroy {
   isHomepage = false;
   workshopsData$: Observable<WorkshopData[] | null>;
-  private transitionSub: Subscription = new Subscription();
+  private subscription: Subscription = new Subscription();
 
   constructor(
-    private wpService: WordpressService, 
-    private transitionService: TransitionService
-  ) { 
+    private wpService: WordpressService,
+    private transitionService: TransitionService,
+    private cdr: ChangeDetectorRef
+  ) {
     this.workshopsData$ = this.wpService.getWorkshop().pipe(
       catchError(error => {
         console.error('Erreur lors de la récupération des données de la page ateliers:', error);
-        return of(null); 
+        return of(null);
       })
     );
   }
 
   ngOnInit(): void {
-    this.subscribeToTransition();
+    this.subscribeToDataAndTransition();
   }
 
-  ngAfterViewInit(): void {
-    this.workshopsData$.subscribe(data => {
-    });
-  }
-
-  private subscribeToTransition(): void {
-    this.transitionSub = this.transitionService.transitionDone$.subscribe(done => {
-      if (done) {
-        this.animateElements();
-      }
-    });
+  private subscribeToDataAndTransition(): void {
+    this.subscription.add(
+      combineLatest([this.workshopsData$, this.transitionService.transitionDone$])
+        .subscribe(([data, done]) => {
+          if (data && done) {
+            this.cdr.detectChanges();
+            this.animateElements();
+          }
+        })
+    );
   }
 
   private animateElements(): void {
@@ -82,9 +82,7 @@ export class WorkshopsComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.transitionSub) {
-      this.transitionSub.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 
   openWecandooSite(): void {

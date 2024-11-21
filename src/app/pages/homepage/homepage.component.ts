@@ -1,26 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { WordpressService } from 'src/app/services/wordpress.service'; 
-import { catchError } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
-import { HeaderComponent } from '../../shared/components/header/header.component';
-import { MenuBurgerLogoComponent } from '../../shared/components/menu-burger-logo/menu-burger-logo.component';
+import { WordpressService } from 'src/app/services/wordpress.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { gsap } from 'gsap';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @Component({
   selector: 'app-homepage',
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss'],
-  standalone: true, 
-  imports: [CommonModule, RouterModule, HeaderComponent, MenuBurgerLogoComponent, CarouselModule],
+  standalone: true,
+  imports: [
+    CommonModule,
+    CarouselModule
+  ],
 })
 export class HomepageComponent implements OnInit {
   isHomepage = true;
-  initialOpacity: number = 0;  
-  homepageData$: Observable<any | null>;
+  initialOpacity: number = 0;
+  homepageData: any = null;
   preparedSlogan: SafeHtml = '';
 
   opinions = [
@@ -39,29 +37,34 @@ export class HomepageComponent implements OnInit {
     { img: 'assets/press-logos/france-week-end-logo.png', url: 'https://franceweek-end.com/etablissements/la-douceur-italienne-au-coeur-de-bordeaux-laiterie-burdigala/' },
     { img: 'assets/press-logos/qfabx-logo.png', url: 'https://quoifaireabordeaux.com/blog/burdigala-la-premiere-laiterie-de-bordeaux-fabrique-sa-mozzarella-sur-place/' },
   ];
-  
-  constructor(private wpService: WordpressService, private sanitizer: DomSanitizer) { 
-    this.homepageData$ = this.wpService.getHomepage().pipe(
-      catchError(error => {
-        console.error('Erreur lors de la récupération des données de la page daccueil:', error);
-        return of(null); 
-      })
+
+  constructor(
+    private wpService: WordpressService,
+    private sanitizer: DomSanitizer,
+    private cdRef: ChangeDetectorRef
+  ) { }
+
+  ngOnInit(): void {
+    this.wpService.getHomepage().subscribe(
+      (data) => {
+        if (data && data.length > 0) {
+          this.homepageData = data[0];
+          this.preparedSlogan = this.prepareSlogan(this.homepageData.acf_fields.slogan);
+          this.cdRef.detectChanges();
+          Promise.resolve().then(() => {
+            this.animateSlogan();
+          });
+        }
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des données de la page d\'accueil:', error);
+      }
     );
   }
 
-  ngOnInit(): void {
-    console.log(this.pressLogos); 
-    this.homepageData$.subscribe((data) => {
-      if (data && data.length > 0) {
-        this.preparedSlogan = this.prepareSlogan(data[0].acf_fields.slogan);
-        setTimeout(() => this.animateSlogan(), 100);
-      }
-    });
-  }
-  
 
   animateSlogan(): void {
-    this.initialOpacity = 1;  
+    this.initialOpacity = 1;
     const sloganElement = document.querySelector('.slogan');
     if (sloganElement) {
       gsap.fromTo(sloganElement, { y: 30, opacity: 0 }, {
@@ -77,7 +80,13 @@ export class HomepageComponent implements OnInit {
     return this.sanitizer.bypassSecurityTrustHtml(slogan);
   }
 
-  safeHtml(html: string): SafeHtml {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
+  ngAfterViewInit(): void {
+    const videoElement = document.querySelector('.video-background') as HTMLVideoElement;
+    if (videoElement) {
+      videoElement.muted = true;
+      videoElement.play().catch((error) => {
+        console.error('Erreur lors du démarrage automatique de la vidéo :', error);
+      });
+    }
   }
 }

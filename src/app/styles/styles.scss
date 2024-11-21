@@ -122,7 +122,7 @@ router-outlet {
 
 .footer {
   z-index: 1400; 
-  flex-shrink: 0; /* Empêche le footer de rétrécir */
+  flex-shrink: 0; 
   width: 100%;
 }
 

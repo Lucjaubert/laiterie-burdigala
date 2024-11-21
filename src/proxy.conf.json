@@ -1,0 +1,12 @@
+{
+    "/api": {
+      "target": "https://laiterieburdigala.fr",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug",
+      "pathRewrite": {
+        "^/api": ""
+      }
+    }
+  }
+  

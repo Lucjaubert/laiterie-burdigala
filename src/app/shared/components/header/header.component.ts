@@ -70,7 +70,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       })
     );
   }
-  
+
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.isMobile = window.innerWidth < 768;
@@ -80,16 +80,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   updateMenuItems(): void {
     this.menuItems = [
-        { label: "Nos produits", link: "/nos-produits" },
-        { label: "Nos ateliers", link: "/nos-ateliers" },
-        { label: "Notre brunch", link: "/notre-brunch" },
-        { label: "Nos fournisseurs", link: "/nos-fournisseurs" },
-        { label: "À propos de nous", link: "/a-propos-de-nous" }
+      { label: "Accueil", link: "/accueil" },
+      { label: "Nos produits", link: "/nos-produits" },
+      { label: "Nos ateliers", link: "/nos-ateliers" },
+      { label: "Notre brunch", link: "/notre-brunch" },
+      { label: "Nos fournisseurs", link: "/nos-fournisseurs" },
+      { label: "À propos de nous", link: "/a-propos-de-nous" }
     ];
-
-    if (this.isMobile) {
-        this.menuItems.unshift({ label: "Accueil", link: "/accueil" }); 
-    }
   }
   
   toggleMenu(): void {
@@ -140,6 +137,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
       this.router.navigateByUrl(item.link).then(() => {
       });
+    } else {
+      this.transitionService.startTransition();
     }
   }
 
