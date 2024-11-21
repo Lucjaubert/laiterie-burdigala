@@ -12,6 +12,7 @@ import { CartService } from 'src/app/services/cart.service';
 interface MenuItem {
   label: string;
   link: string;
+  class?: string;
 }
 
 @Component({
@@ -43,7 +44,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private transitionService: TransitionService,
     private router: Router,
     private cartService: CartService,
-    private cdRef: ChangeDetectorRef 
+    private cdRef: ChangeDetectorRef
   ) {
     this.totalItemCount$ = this.cartService.getTotalItemCount();
   }
@@ -61,7 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       ];
       this.showCartIcon = cartVisibleUrls.includes(event.url);
     });
-  
+
     this.subscription.add(
       this.transitionService.transitionDone$.subscribe(done => {
         if (done) {
@@ -75,12 +76,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onResize(event: Event): void {
     this.isMobile = window.innerWidth < 768;
     this.updateMenuItems();
-    this.cdRef.detectChanges();  
+    this.cdRef.detectChanges();
   }
 
   updateMenuItems(): void {
     this.menuItems = [
-      { label: "Accueil", link: "/accueil" },
+      { label: "Accueil", link: "/accueil", class: "accueil-item" },
       { label: "Nos produits", link: "/nos-produits" },
       { label: "Nos ateliers", link: "/nos-ateliers" },
       { label: "Notre brunch", link: "/notre-brunch" },
@@ -88,17 +89,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
       { label: "À propos de nous", link: "/a-propos-de-nous" }
     ];
   }
-  
+
+  closeMenu(): void {
+    this.navbarExpanded = false;
+
+    const headerElement = this.headerContainer.nativeElement;
+
+    headerElement.classList.remove('menu-open');
+    headerElement.style.width = '0';
+    headerElement.style.zIndex = '-100';
+  }
+
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
-    this.menuStateService.toggleMenu(this.navbarExpanded);
-    this.toggleMenuState.emit(this.navbarExpanded);
+
+    const headerElement = this.headerContainer.nativeElement;
+
     if (this.navbarExpanded) {
-      this.animateIn();
+      headerElement.style.zIndex = '1000';
+      headerElement.classList.add('menu-open');
+      headerElement.style.width = '100vw';
+      headerElement.style.pointerEvents = 'auto';
     } else {
-      this.animateOut();
+      this.closeMenu();
     }
   }
+
 
   animateIn(): void {
     gsap.from('.navigation-elements', {
@@ -132,29 +148,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     event.preventDefault();
     if (this.router.url !== item.link) {
       this.menuStateService.setCurrentRoute(item.link);
-      await this.animateOut(); 
+      await this.animateOut();
+      this.closeMenu();
       this.transitionService.startTransition();
 
-      this.router.navigateByUrl(item.link).then(() => {
-      });
+      this.router.navigateByUrl(item.link).then(() => {});
     } else {
       this.transitionService.startTransition();
     }
-  }
-
-  expandHeader(): void {
-    if (this.headerContainer) {
-      gsap.to(this.headerContainer.nativeElement, {
-        width: '100vw',
-        duration: 1.5,
-        ease: 'power3.inOut'
-      });
-    }
-  }
-
-  closeMenu(): void {
-    this.navbarExpanded = false;
-    this.toggleMenuState.emit(this.navbarExpanded);
   }
 
   ngOnDestroy(): void {

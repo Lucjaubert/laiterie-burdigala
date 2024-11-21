@@ -3,7 +3,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cambay:wght@400;700&display=swap');
 
 body {
-  min-height: 100vh; 
+  min-height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -15,7 +15,7 @@ body {
   main {
     overflow: hidden;
     width: 100%;
-    flex: 1 0 auto; 
+    flex: 1 0 auto;
   }
 }
 
@@ -60,17 +60,17 @@ a, p {
 .app-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
+  min-height: 100vh;
 }
 
 app-transition,
 router-outlet {
-  flex: 1 0 auto; 
+  flex: 1 0 auto;
 }
 
 .carousel-indicators {
   display: none !important;
-}   
+}
 
 @each $color-name, $color-value in $theme-colors {
   .text-#{$color-name} {
@@ -106,23 +106,23 @@ router-outlet {
 }
 
 .custom-snackbar {
-  min-width: auto;      
-  width: max-content;   
-  max-width: 100%;      
-  background-color: #ffffff; 
-  color: map-get($theme-colors, "green"); 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+  min-width: auto;
+  width: max-content;
+  max-width: 100%;
+  background-color: #ffffff;
+  color: map-get($theme-colors, "green");
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .mat-mdc-snack-bar-container {
   left: auto !important;
-  right: 0 !important; 
-  bottom: 0 !important; 
+  right: 0 !important;
+  bottom: 0 !important;
 }
 
 .footer {
-  z-index: 1400; 
-  flex-shrink: 0; 
+  z-index: 1400;
+  flex-shrink: 0;
   width: 100%;
 }
 
@@ -140,7 +140,7 @@ router-outlet {
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    min-height: 100vh; 
+    min-height: 100vh;
   }
 
   .carousel-indicators {
@@ -151,7 +151,7 @@ router-outlet {
     font-weight: map-get($font-weight, "bold");
     font-size: map-get($font-size, "30");
   }
-  
+
   h5 {
     font-weight: map-get($font-weight, "bold");
     font-size: map-get($font-size, "20");

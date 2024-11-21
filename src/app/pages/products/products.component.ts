@@ -66,7 +66,7 @@ export class ProductsComponent implements OnInit {
     Object.keys(categoryGroups).forEach(key => {
       categoryGroups[key] = categoryGroups[key].reverse();
     });
-    
+
     return Object.keys(categoryGroups).map(key => ({
       category: key,
       products: categoryGroups[key]
