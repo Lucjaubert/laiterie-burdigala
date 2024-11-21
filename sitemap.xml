@@ -21,8 +21,43 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.laiterieburdigala.fr/nos-ateliers</loc>
+    <lastmod>2024-11-21</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.laiterieburdigala.fr/notre-brunch</loc>
+    <lastmod>2024-11-21</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.laiterieburdigala.fr/nos-fournisseurs</loc>
+    <lastmod>2024-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.laiterieburdigala.fr/a-propos-de-nous</loc>
+    <lastmod>2024-11-21</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.laiterieburdigala.fr/mentions-legales</loc>
     <lastmod>2024-11-21</lastmod>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.laiterieburdigala.fr/politique-de-confidentialite</loc>
+    <lastmod>2024-11-21</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.laiterieburdigala.fr/conditions-generales-de-vente</loc>
+    <lastmod>2024-11-21</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.laiterieburdigala.fr/404</loc>
+    <lastmod>2024-11-21</lastmod>
+    <priority>0.1</priority>
   </url>
 </urlset>
