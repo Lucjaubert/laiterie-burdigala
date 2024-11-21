@@ -35,7 +35,16 @@ h2 {
 
 h3 {
   font-weight: map-get($font-weight, "bold");
-  font-size: map-get($font-size, "50");
+  font-size: map-get($font-size, "60")!important;
+
+  @media (max-width: 1025px) {
+    font-size: map-get($font-size, "40") !important;
+  }
+}
+
+h3 {
+  font-size: clamp(1.6rem, 4vw, 3rem);
+  font-weight: map-get($font-weight, "bold");
 }
 
 h4 {

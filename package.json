@@ -5,8 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "clean": "rimraf dist && npm cache clean --force",
+    "preview": "http-server dist/laiterie-burdigala -p 8080",
+    "deploy": "npm run build:prod && npm run clean && npm run preview"
   },
   "private": true,
   "dependencies": {
@@ -34,11 +38,18 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "17.3.8",
+    "@angular-eslint/builder": "^18.4.1",
+    "@angular-eslint/eslint-plugin": "^18.4.1",
+    "@angular-eslint/eslint-plugin-template": "^18.4.1",
+    "@angular-eslint/schematics": "^18.4.1",
     "@angular/cli": "17.3.8",
     "@angular/compiler-cli": "^17.3.8",
     "@types/body-parser": "^1.19.5",
     "@types/jasmine": "~5.1.4",
     "@types/node": "^20.12.12",
+    "@typescript-eslint/eslint-plugin": "^8.15.0",
+    "@typescript-eslint/parser": "^8.15.0",
+    "eslint": "^9.15.0",
     "jasmine-core": "~5.1.2",
     "karma": "^6.4.3",
     "karma-chrome-launcher": "~3.2.0",
@@ -47,5 +58,9 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "sass": "^1.77.2",
     "typescript": "~5.4.5"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
   }
 }
