@@ -1,12 +1,14 @@
 <div class="container container-order">
   <h3>Récapitulatif de votre commande</h3>
-  <p>Voici un dernier aperçu de votre commande. Vous n’avez plus qu’à renseigner vos coordonnées puis le jour et l’heure du retrait de votre commande. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place.</p>
-  <div class="row d-flex justify-content-center">  
-    <div class="col-md-9">  
+  <p>
+    Voici un dernier aperçu de votre commande. Vous n’avez plus qu’à renseigner vos coordonnées puis le jour et l’heure du retrait de votre commande. Vous n’avez rien à payer en ligne, le paiement se fera directement sur place.
+  </p>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8">
       <div class="order-items px-0" *ngIf="orderItems$ | async as items">
         <div class="order-item col-12 px-4" *ngFor="let item of items">
           <span class="product-name col-4 pr-0">{{ item.acf_fields.product_title }}</span>
-          <span class="product-detail product-detail mx-4 mx-md-0 col-4 px-0">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
+          <span class="product-detail mx-4 mx-md-0 col-4 px-0">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
           <input type="number" class="quantity col-2 px-0" [(ngModel)]="item.quantity" min="1">
           <span class="total-price col-2 pl-0">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
         </div>
@@ -20,24 +22,53 @@
           <a href="https://www.instagram.com" target="_blank" class="social-icon mx-3">
             <img src="assets/img/instagram-green.png" alt="Instagram">
           </a>
-        </div>  
+        </div>
       </div>
     </div>
-    <div class="col-md-3 order-box">
-      <div class="order-summary mt-md-0 mt-6">
+    <div class="col-md-4 order-box">
+      <div class="order-summary mt-md-0 mt-6 col-12">
         <span>Prix HT: {{ getTotalPriceHT() }} €</span>
         <hr>
-        <span>TVA (5,5%): {{ calculateTVA() }} €</span>
+        <span>TVA (5,5%): {{ calculateTVA() | number:'1.2-2' }} €</span>
         <hr>
-        <span>TOTAL (TTC): {{ getTotalPrice() + calculateTVA() }} €</span>
+        <span>TOTAL (TTC): {{ (getTotalPrice() + calculateTVA()) | number:'1.2-2' }} €</span>
       </div>
       <form (ngSubmit)="submitOrder()">
-        <input type="text" [(ngModel)]="customerInfo.firstName" name="firstName" placeholder="Prénom" class="form-control mb-3">
-        <input type="text" [(ngModel)]="customerInfo.lastName" name="lastName" placeholder="Nom" class="form-control mb-3">
-        <input type="text" [(ngModel)]="customerInfo.phone" name="phone" placeholder="Numéro de téléphone" class="form-control mb-3">
-        <input type="email" [(ngModel)]="customerInfo.email" name="email" placeholder="Email" class="form-control mb-3">
-        <input type="text" [(ngModel)]="customerInfo.pickupDay" name="pickupDay" placeholder="Jour de retrait" class="form-control mb-3">
-        <input type="text" [(ngModel)]="customerInfo.pickupTime" name="pickupTime" placeholder="Heure de retrait" class="form-control mb-3">
+
+        <mat-form-field class="full-width mb-3" appearance="fill">
+          <mat-label>Prénom</mat-label>
+          <input matInput [(ngModel)]="customerInfo.firstName" name="firstName" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width mb-3" appearance="fill">
+          <mat-label>Nom</mat-label>
+          <input matInput [(ngModel)]="customerInfo.lastName" name="lastName" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width mb-3" appearance="fill">
+          <mat-label>Numéro de téléphone</mat-label>
+          <input matInput [(ngModel)]="customerInfo.phone" name="phone">
+        </mat-form-field>
+
+        <mat-form-field class="full-width mb-3" appearance="fill">
+          <mat-label>Email</mat-label>
+          <input matInput [(ngModel)]="customerInfo.email" name="email" type="email" required>
+        </mat-form-field>
+
+        <mat-form-field class="full-width mb-3" appearance="fill">
+          <mat-label>Jour de retrait</mat-label>
+          <input matInput [matDatepicker]="picker" [matDatepickerFilter]="myFilter" [(ngModel)]="customerInfo.pickupDay" name="pickupDay" required (dateChange)="onPickupDayChange($event)">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="full-width mb-3" appearance="fill">
+          <mat-label>Heure de retrait</mat-label>
+          <mat-select [(ngModel)]="customerInfo.pickupTime" name="pickupTime" [disabled]="!availablePickupTimes.length" required>
+            <mat-option *ngFor="let time of availablePickupTimes" [value]="time">{{ time }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <button type="submit" class="btn btn-success w-100 mb-10 mt-5">COMMANDER</button>
       </form>
     </div>

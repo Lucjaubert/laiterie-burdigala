@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/laiterie-burdigala",  
+            "outputPath": "dist/laiterie-burdigala",
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"
@@ -25,7 +25,11 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/favicon.ico",
+              "src/assets",
+              "src/robots.txt",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/app/styles/styles.scss",
@@ -51,19 +55,21 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "4mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "100kb",
+                  "maximumError": "150kb"
                 }
               ]
             },
             "development": {
-              "optimization": false,
-              "sourceMap": true
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false
             }
           },
           "defaultConfiguration": "development"
@@ -72,16 +78,16 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
             "buildTarget": "laiterie-burdigala:build",
-            "proxyConfig": "src/proxy.conf.json" 
+            "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
               "buildTarget": "laiterie-burdigala:build:production",
-              "proxyConfig": "src/proxy.conf.json" 
+              "proxyConfig": "src/proxy.conf.json"
             },
             "development": {
               "buildTarget": "laiterie-burdigala:build:development",
-              "proxyConfig": "src/proxy.conf.json" 
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -101,7 +107,9 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/robots.txt",
+              "src/sitemap.xml"
             ],
             "styles": [
               "src/app/styles/styles.scss"
