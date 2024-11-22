@@ -3,7 +3,7 @@
 .container-workshops {
   .image-logo-container {
     position: relative;
-    
+
     .img-fluid-1 {
       position: absolute;
       top: 20vh;
@@ -13,18 +13,16 @@
       z-index: -1;
 
       @media (max-width: 768px) {
-        top: 100%;
-        left: 10%; 
-        width: 80%;
+        display: none;
       }
     }
-    
+
     .img-fluid-2 {
       position: absolute;
       width: 80%;
       height: auto;
-      top: 0; 
-      left: 0; 
+      top: 0;
+      left: 0;
 
       @media (max-width: 768px) {
         width: 100%;
@@ -43,7 +41,7 @@
       opacity: 0.5;
       z-index: 2;
       rotate: 15deg;
-    }        
+    }
   }
   .btn-reserve {
     background-color: map-get($theme-colors, "green-light");
@@ -71,5 +69,5 @@
 
   .logo-overlay {
     display: none;
-  }   
+  }
 }

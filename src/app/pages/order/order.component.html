@@ -7,20 +7,20 @@
     <div class="col-md-8">
       <div class="order-items px-0" *ngIf="orderItems$ | async as items">
         <div class="order-item col-12 px-4" *ngFor="let item of items">
-          <span class="product-name col-4 pr-0">{{ item.acf_fields.product_title }}</span>
+          <span class="product-name col-lg-4 col-12 pr-0">{{ item.acf_fields.product_title }}</span>
           <span class="product-detail mx-4 mx-md-0 col-4 px-0">{{ item.acf_fields.weight }} g / {{ item.acf_fields.price }} €</span>
           <input type="number" class="quantity col-2 px-0" [(ngModel)]="item.quantity" min="1">
-          <span class="total-price col-2 pl-0">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
+          <span class="total-price text-center col-2 pl-0">{{ (item.quantity ?? 0) * parseToFloat(item.acf_fields.price) }} €</span>
         </div>
       </div>
       <div class="social-media d-flex flex-column align-items-center">
         <p>Suivez nos nouveautés sur les réseaux sociaux</p>
         <div class="social-links d-flex justify-content-center">
           <a href="https://www.facebook.com" target="_blank" class="social-icon mx-3">
-            <img src="assets/img/facebook-green.png" alt="Facebook">
+            <img src="/assets/img/facebook-green.png" alt="Facebook">
           </a>
           <a href="https://www.instagram.com" target="_blank" class="social-icon mx-3">
-            <img src="assets/img/instagram-green.png" alt="Instagram">
+            <img src="/assets/img/instagram-green.png" alt="Instagram">
           </a>
         </div>
       </div>
