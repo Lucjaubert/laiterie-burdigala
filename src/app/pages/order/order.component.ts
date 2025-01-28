@@ -7,8 +7,6 @@ import { ProductData } from '../../models/product.model';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-
-// Importations Angular Material
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -17,7 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 interface OpeningHours {
-  dayOfWeek: number; // 0 pour Dimanche, 1 pour Lundi, etc.
+  dayOfWeek: number;
   dayName: string;
   openingTime?: string;
   closingTime?: string;
@@ -52,7 +50,7 @@ export class OrderComponent implements OnInit {
   };
 
   openingHours: OpeningHours[] = [
-    { dayOfWeek: 1, dayName: 'Lundi' }, // Fermé
+    { dayOfWeek: 1, dayName: 'Lundi' },
     { dayOfWeek: 2, dayName: 'Mardi', openingTime: '09:00', closingTime: '19:00' },
     { dayOfWeek: 3, dayName: 'Mercredi', openingTime: '09:00', closingTime: '19:00' },
     { dayOfWeek: 4, dayName: 'Jeudi', openingTime: '09:00', closingTime: '19:00' },
@@ -75,20 +73,15 @@ export class OrderComponent implements OnInit {
     this.orderItems$.subscribe(items => this.items = items);
   }
 
-  // Méthode pour filtrer les dates disponibles dans le DatePicker
   myFilter = (d: Date | null): boolean => {
     if (!d) return false;
-
     const dayOfWeek = d.getDay();
     const today = new Date();
     const maxDate = new Date();
-    maxDate.setDate(today.getDate() + 14); // Limiter à 14 jours à partir d'aujourd'hui
-
-    // Vérifier que la date est dans la plage autorisée
+    maxDate.setDate(today.getDate() + 14);
     if (d < today || d > maxDate) {
       return false;
     }
-
     const openingHour = this.openingHours.find(o => o.dayOfWeek === dayOfWeek);
     return !!(openingHour && openingHour.openingTime);
   };
@@ -104,27 +97,19 @@ export class OrderComponent implements OnInit {
       this.availablePickupTimes = [];
       return;
     }
-
     const dayOfWeek = selectedDate.getDay();
     const openingHour = this.openingHours.find(o => o.dayOfWeek === dayOfWeek);
-
     if (openingHour && openingHour.openingTime && openingHour.closingTime) {
       const openingTime: string = openingHour.openingTime;
       const closingTime: string = openingHour.closingTime;
-
-      // Générer des créneaux horaires toutes les 30 minutes
       const times: string[] = [];
       let startTime: number = this.parseTime(openingTime);
       const endTime: number = this.parseTime(closingTime);
-
-      // Soustraire 30 minutes pour s'assurer que le dernier créneau est avant l'heure de fermeture
       const adjustedEndTime = endTime - 30;
-
       while (startTime <= adjustedEndTime) {
         times.push(this.formatTime(startTime));
-        startTime += 30; // Ajouter 30 minutes
+        startTime += 30;
       }
-
       this.availablePickupTimes = times;
     } else {
       this.availablePickupTimes = [];
@@ -146,29 +131,39 @@ export class OrderComponent implements OnInit {
     return n < 10 ? '0' + n : n.toString();
   }
 
-  getTotalPrice(): number {
-    return this.items.reduce((total, item) => total + (parseFloat(item.acf_fields.price) * (item.quantity ?? 0)), 0);
+  parseToFloat(value: string): number {
+    if (!value) return 0;
+    value = value.trim().replace(',', '.');
+    const floatVal = parseFloat(value);
+    return isNaN(floatVal) ? 0 : floatVal;
+  }
+
+  getTotalPriceTTC(): number {
+    return this.items.reduce((acc, item) => {
+      const priceTTC = this.parseToFloat(item.acf_fields.price);
+      return acc + (priceTTC * (item.quantity ?? 0));
+    }, 0);
   }
 
   getTotalPriceHT(): number {
-    return this.items.reduce((total, item) => total + (parseFloat(item.acf_fields.price) * (item.quantity ?? 0)), 0);
+    return this.items.reduce((acc, item) => {
+      const priceTTC = this.parseToFloat(item.acf_fields.price);
+      const priceHT = priceTTC / 1.055;
+      return acc + (priceHT * (item.quantity ?? 0));
+    }, 0);
+  }
+
+  calculateTVA(): number {
+    return this.getTotalPriceTTC() - this.getTotalPriceHT();
   }
 
   clearCart(): void {
     this.cartService.clearCart();
   }
 
-  parseToFloat(value: string): number {
-    return parseFloat(value);
-  }
-
-  calculateTVA(): number {
-    const totalPriceHT = this.getTotalPriceHT();
-    return totalPriceHT * 0.055;
-  }
-
   submitOrder() {
-    if (!this.customerInfo.firstName || !this.customerInfo.lastName || !this.customerInfo.email || !this.customerInfo.pickupDay || !this.customerInfo.pickupTime) {
+    if (!this.customerInfo.firstName || !this.customerInfo.lastName ||
+        !this.customerInfo.email || !this.customerInfo.pickupDay || !this.customerInfo.pickupTime) {
       this.snackBar.open('Veuillez remplir tous les champs requis.', 'Merci', {
         duration: 3000,
         horizontalPosition: 'right',
@@ -191,7 +186,7 @@ export class OrderComponent implements OnInit {
     };
 
     this.http.post('https://laiterieburdigala.fr/wp-json/laiterie-burdigala/v1/send-order', orderDetails).subscribe({
-      next: (response) => {
+      next: () => {
         this.snackBar.open('Votre commande a été envoyée avec succès', 'Merci', {
           duration: 3000,
           horizontalPosition: 'end',
@@ -200,7 +195,7 @@ export class OrderComponent implements OnInit {
         });
         this.clearCart();
       },
-      error: (error) => {
+      error: () => {
         this.snackBar.open('Erreur lors de l\'envoi de la commande', 'Fermer', {
           duration: 3000,
           horizontalPosition: 'end',

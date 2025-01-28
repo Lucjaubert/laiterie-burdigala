@@ -25,7 +25,11 @@ h1, h2, h3, p ul li {
 
 h1 {
   font-weight: map-get($font-weight, "bold");
-  font-size: map-get($font-size, "70");
+  font-size: map-get($font-size, "60");
+
+  @media (max-width: 1025px) {
+    font-size: map-get($font-size, "50") !important;
+  }
 }
 
 h2 {
@@ -35,10 +39,10 @@ h2 {
 
 h3 {
   font-weight: map-get($font-weight, "bold");
-  font-size: map-get($font-size, "60")!important;
+  font-size: map-get($font-size, "50")!important;
 
   @media (max-width: 1025px) {
-    font-size: map-get($font-size, "40") !important;
+    font-size: map-get($font-size, "30") !important;
   }
 }
 
@@ -49,7 +53,7 @@ h3 {
 
 h4 {
   font-weight: map-get($font-weight, "bold");
-  font-size: map-get($font-size, "40");
+  font-size: map-get($font-size, "30");
 }
 
 h5 {
