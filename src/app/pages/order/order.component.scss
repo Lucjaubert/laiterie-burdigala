@@ -1,20 +1,29 @@
 @import "../../styles/_variables.scss";
 
 .container-order {
+  padding-top: 40px;
+  padding-bottom: 80px;
+
   h3 {
     text-align: center;
     margin-bottom: 20px;
+    color: map-get($theme-colors, "green");
   }
 
+  .order-intro,
   p {
     text-align: center;
     margin-bottom: 40px;
+    color: #6f8f73;
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .order-items {
     margin-bottom: 30px;
-    background: #f9f9f9;
-    border: 1px solid #e0e0e0;
+    background: #fcfcf8;
+    border: 1px solid #e5e3dc;
     padding: 20px;
 
     .order-item {
@@ -23,7 +32,7 @@
       justify-content: space-between;
       align-items: center;
       padding: 20px 0;
-      border-bottom: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e5e3dc;
 
       &:last-child {
         border-bottom: none;
@@ -45,6 +54,9 @@
         flex: 1;
         max-width: 60px;
         text-align: center;
+        border: 1px solid #cfcfcf;
+        background: #fff;
+        height: 38px;
       }
 
       .quantity::-webkit-inner-spin-button,
@@ -58,6 +70,7 @@
         text-align: right;
         font-size: 16px;
         color: #4a4a4a;
+        font-weight: 500;
       }
     }
   }
@@ -65,7 +78,7 @@
   .order-box {
     .order-summary {
       background-color: map-get($theme-colors, "green-light");
-      border: 1px solid #e0e0e0;
+      border: 1px solid #dbe3d8;
       padding: 20px;
       margin-bottom: 30px;
 
@@ -82,23 +95,32 @@
 
       hr {
         border: none;
-        border-top: 1px solid #ffffff;
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
         margin: 20px 0;
       }
 
-      span.total {
+      .summary-total {
         font-size: 18px;
-        font-weight: bold;
-        color: #4a4a4a;
+        font-weight: 700;
       }
     }
 
     .btn-success {
       background-color: map-get($theme-colors, "green-light") !important;
       color: white !important;
+      border: none !important;
+      height: 46px;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      transition: 0.3s ease;
 
       &:hover {
-        background-color: darken(map-get($theme-colors, "green-light"), 20%) !important;
+        background-color: darken(map-get($theme-colors, "green-light"), 10%) !important;
+      }
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
       }
     }
 
@@ -136,6 +158,7 @@
 
   .social-media {
     text-align: center;
+    margin-top: 30px;
 
     p {
       margin-bottom: 10px;
@@ -152,6 +175,139 @@
         }
       }
     }
+  }
+}
+
+/* -------- SUCCÈS COMMANDE -------- */
+
+.order-success-wrapper {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 15px;
+}
+
+.success-card {
+  width: 100%;
+  max-width: 760px;
+  background: #fcfcf8;
+  border: 1px solid #e5e3dc;
+  padding: 50px 35px;
+  text-align: center;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.04);
+}
+
+.success-icon {
+  width: 74px;
+  height: 74px;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: map-get($theme-colors, "green-light");
+  color: white;
+  font-size: 34px;
+  font-weight: 700;
+}
+
+.success-card h2 {
+  color: map-get($theme-colors, "green");
+  margin-bottom: 18px;
+  font-size: 36px;
+}
+
+.success-intro {
+  font-size: 20px;
+  color: #6f8f73;
+  margin-bottom: 12px;
+}
+
+.success-text {
+  color: #6a6a6a;
+  font-size: 16px;
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto 32px;
+}
+
+.success-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 1fr));
+  gap: 18px;
+  margin: 0 auto 35px;
+  text-align: left;
+}
+
+.success-detail {
+  background: #f6f7f2;
+  border: 1px solid #e1e6dd;
+  padding: 16px 18px;
+
+  .label {
+    display: block;
+    font-size: 13px;
+    color: #8b8b8b;
+    margin-bottom: 6px;
+  }
+
+  .value {
+    display: block;
+    font-size: 16px;
+    color: #4a4a4a;
+    font-weight: 500;
+  }
+}
+
+.success-actions {
+  margin-bottom: 30px;
+}
+
+.btn-back-shop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 240px;
+  height: 46px;
+  padding: 0 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  background-color: map-get($theme-colors, "green-light");
+  color: #fff;
+  transition: 0.3s ease;
+
+  &:hover {
+    background-color: darken(map-get($theme-colors, "green-light"), 10%);
+    color: #fff;
+    text-decoration: none;
+  }
+}
+
+.success-social {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .container-order {
+    padding-top: 20px;
+    padding-bottom: 50px;
+  }
+
+  .success-card {
+    padding: 35px 20px;
+  }
+
+  .success-card h2 {
+    font-size: 28px;
+  }
+
+  .success-intro {
+    font-size: 18px;
+  }
+
+  .success-details {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -204,4 +360,3 @@
     }
   }
 }
-

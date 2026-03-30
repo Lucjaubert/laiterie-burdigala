@@ -1,73 +1,165 @@
 @import "../../styles/_variables.scss";
 
 .container-workshops {
-  .image-logo-container {
-    position: relative;
+  .page-title {
+    text-align: left;
+    margin: 25px 0 25px;
+    font-weight: 800;
+  }
 
-    .img-fluid-1 {
-      position: absolute;
-      top: 20vh;
-      left: 23vw;
-      width: 60%;
-      height: auto;
-      z-index: -1;
+  .page-intro {
+    margin: 0 0 22px;
+    max-width: 820px;
+    color: #6b7280;
+    font-weight: 500;
+    line-height: 1.5;
 
-      @media (max-width: 768px) {
-        display: none;
-      }
-    }
-
-    .img-fluid-2 {
-      position: absolute;
-      width: 80%;
-      height: auto;
-      top: 0;
-      left: 0;
-
-      @media (max-width: 768px) {
-        width: 100%;
-      }
-    }
-
-    .logo-overlay {
-      position: absolute;
-      top: 33vh;
-      left: 9vw;
-      width: 17vw;
-      height: 17vw;
-      background-image: url(/assets/img/logo-burdigala-green.png);
-      background-size: cover;
-      background-repeat: no-repeat;
-      opacity: 0.5;
-      z-index: 2;
-      rotate: 15deg;
+    @media (max-width: 768px) {
+      margin-bottom: 18px;
     }
   }
-  .btn-reserve {
-    background-color: map-get($theme-colors, "green-light");
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border-radius: 0.375rem;
-    transition: background-color 0.3s ease;
-    width: 100%;
-    margin-top: 1rem;
-    z-index: 2;
+
+  .workshops-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+
+    @media (max-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .workshop-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 14px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
-      background-color: darken(map-get($theme-colors, "green-light"), 20%);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+
+      .card-img {
+        transform: scale(1.02);
+      }
     }
 
-    i {
-      margin-left: 0.5rem;
+    .card-image {
+      position: relative;
+      height: 210px;
+      overflow: hidden;
+      background: #f9f9f9;
+
+      .card-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.25s ease;
+      }
+
+      // ✅ Reprise de ton overlay logo, mais adapté aux cards
+      .logo-overlay {
+        position: absolute;
+        right: 12px;
+        bottom: 12px;
+        width: 64px;
+        height: 64px;
+        background-image: url(/assets/img/logo-burdigala-green.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        opacity: 0.25;
+        transform: rotate(12deg);
+        pointer-events: none;
+      }
+
+      .badge-group {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        background-color: map-get($theme-colors, "green-light");
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
     }
-  }
-}
 
-@media (max-width: 768px) {
+    .card-body {
+      padding: 16px 16px 18px;
 
-  .logo-overlay {
-    display: none;
+      .category {
+        font-size: 12px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: #9b9b9b;
+        margin-bottom: 8px;
+        font-weight: 700;
+      }
+
+      .title {
+        font-size: 18px;
+        line-height: 1.2;
+        font-weight: 800;
+        margin: 0 0 14px;
+        color: #1f1f1f;
+        min-height: 44px;
+      }
+
+      .price {
+        font-size: 28px;
+        font-weight: 900;
+        color: map-get($theme-colors, "green");
+        margin-bottom: 12px;
+      }
+
+      .meta {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+
+        .meta-item {
+          font-size: 13px;
+          color: #6b7280;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          i {
+            color: map-get($theme-colors, "green-light");
+          }
+        }
+      }
+
+      // ✅ Reprise exacte de ton bouton "btn-reserve"
+      .btn-reserve {
+        background-color: map-get($theme-colors, "green-light");
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+        transition: background-color 0.3s ease;
+        width: 100%;
+
+        &:hover {
+          background-color: darken(map-get($theme-colors, "green-light"), 20%);
+        }
+
+        i {
+          margin-left: 0.5rem;
+        }
+      }
+    }
   }
 }

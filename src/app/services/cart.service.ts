@@ -17,16 +17,22 @@ export class CartService {
   }
 
   public addToCart(item: ProductData): void {
+    const defaultQuantity = Number(item.acf_fields.default_quantity ?? 1);
+
     const existingItem = this.itemsInCart.find(
       (cartItem) => cartItem.acf_fields.product_title === item.acf_fields.product_title
     );
 
     if (existingItem) {
-      existingItem.quantity = (existingItem.quantity ?? 0) + (item.acf_fields.default_quantity ?? 1);
+      existingItem.quantity = Number(existingItem.quantity ?? 0) + defaultQuantity;
     } else {
-      const cartItem = { ...item, quantity: item.acf_fields.default_quantity ?? 1 };
+      const cartItem = {
+        ...item,
+        quantity: defaultQuantity
+      };
       this.itemsInCart.push(cartItem);
     }
+
     this.itemsInCartSubject.next([...this.itemsInCart]);
   }
 
@@ -36,7 +42,9 @@ export class CartService {
 
   public getTotalItemCount(): Observable<number> {
     return this.itemsInCartSubject.asObservable().pipe(
-      map((items) => items.reduce((total, item) => total + (item.quantity ?? 0), 0))
+      map((items) =>
+        items.reduce((total, item) => total + Number(item.quantity ?? 0), 0)
+      )
     );
   }
 
@@ -45,15 +53,13 @@ export class CartService {
     this.itemsInCartSubject.next([]);
   }
 
-  // Méthode qui calcule le total TTC en convertissant la virgule en point.
   public getTotalPrice(): number {
     return this.itemsInCart.reduce(
-      (total, item) => total + this.parsePrice(item.acf_fields.price) * (item.quantity ?? 0),
+      (total, item) => total + this.parsePrice(item.acf_fields.price) * Number(item.quantity ?? 0),
       0
     );
   }
 
-  // Conversion "6,5" => "6.5"
   private parsePrice(value: string): number {
     if (!value) return 0;
     value = value.trim().replace(',', '.');

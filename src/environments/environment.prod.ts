@@ -1,5 +1,4 @@
 export const environment = {
-    production: true
-  };
-  
-  
+  production: true,
+  wpBaseUrl: 'https://laiterieburdigala.fr',
+};

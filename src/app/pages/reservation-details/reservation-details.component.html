@@ -1,0 +1,156 @@
+<div class="container reservation-page" *ngIf="draft as d">
+  <div class="reservation-container">
+    <div class="steps">
+      <div class="step active">1. Détails réservation</div>
+      <div class="step">2. Connexion</div>
+      <div class="step">3. Informations</div>
+      <div class="step">4. Paiement</div>
+    </div>
+
+    <div class="reservation-layout">
+      <div class="left-col">
+        <h1 class="page-title">Détails de la réservation</h1>
+
+        <div class="form-block">
+          <label class="field-label" for="qty">Nombre de places</label>
+
+          <div class="field-card">
+            <select
+              id="qty"
+              class="field-select"
+              [(ngModel)]="qty"
+              (ngModelChange)="onQtyChange()"
+            >
+              <option *ngFor="let option of availableQtyOptions" [ngValue]="option">
+                {{ option }} place<span *ngIf="option > 1">s</span>
+              </option>
+            </select>
+          </div>
+
+          <div class="field-help" *ngIf="d.seatsLeft > 0">
+            Il reste actuellement {{ d.seatsLeft }} place<span *ngIf="d.seatsLeft > 1">s</span> disponible<span *ngIf="d.seatsLeft > 1">s</span>.
+          </div>
+        </div>
+
+        <div class="form-block">
+          <label class="field-label" for="phone">Téléphone</label>
+
+          <div class="field-card">
+            <input
+              id="phone"
+              type="tel"
+              class="field-input"
+              [(ngModel)]="phone"
+              placeholder="Tél."
+            >
+          </div>
+        </div>
+
+        <div class="gift-card">
+          <div class="gift-icon">🎁</div>
+
+          <div class="gift-content">
+            <div class="gift-title">Je souhaite offrir cet atelier à un proche</div>
+            <div class="gift-text">
+              Vous recevrez une carte cadeau pour votre réservation par email.
+            </div>
+          </div>
+
+          <label class="gift-checkbox">
+            <input type="checkbox" [(ngModel)]="isGift">
+            <span></span>
+          </label>
+        </div>
+
+        <div class="actions">
+          <button class="btn-secondary" type="button" (click)="goBack()">
+            Retour
+          </button>
+
+          <button class="btn-primary" type="button" (click)="continue()">
+            Continuer
+          </button>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div class="summary-card">
+          <div class="summary-header">
+            <div class="summary-thumb">
+              <img src="assets/workshops/atelier-5.webp" alt="Atelier">
+            </div>
+
+            <div class="summary-title">
+              {{ d.workshopTitle }}
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">👥</span>
+            <span>{{ qty }} place<span *ngIf="qty > 1">s</span></span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">📅</span>
+            <span>{{ d.startAt | date:'fullDate':'':'fr' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">🕒</span>
+            <span>{{ d.startAt | date:'HH:mm' }} - {{ d.endAt | date:'HH:mm' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">📍</span>
+            <span>Bordeaux, Les Capucins</span>
+          </div>
+
+          <div class="summary-row" *ngIf="hasAppliedPromo">
+            <span class="summary-icon">🏷️</span>
+            <span>
+              <ng-container *ngIf="appliedDiscountPercent > 0; else fixedPromoLabel">
+                Code promo appliqué : -{{ appliedDiscountPercent }} %
+              </ng-container>
+              <ng-template #fixedPromoLabel>
+                Code promo appliqué : -{{ appliedDiscountAmount | number:'1.2-2' }} €
+              </ng-template>
+            </span>
+          </div>
+
+          <div class="amount-box" *ngIf="hasAppliedPromo; else normalAmount">
+            <span>Montant</span>
+            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
+              <small style="text-decoration:line-through; opacity:.65;">
+                {{ totalPrice | number:'1.2-2' }} €
+              </small>
+              <strong>{{ finalTotal | number:'1.2-2' }} €</strong>
+            </div>
+          </div>
+
+          <ng-template #normalAmount>
+            <div class="amount-box">
+              <span>Montant</span>
+              <strong>{{ totalPrice | number:'1.2-2' }} €</strong>
+            </div>
+          </ng-template>
+
+          <div class="promo-feedback success mt-3" *ngIf="promoMessage">
+            {{ promoMessage }}
+          </div>
+
+          <div class="promo-feedback error mt-3" *ngIf="promoError">
+            {{ promoError }}
+          </div>
+        </div>
+
+        <div class="conditions-card">
+          <h3>Conditions d’utilisation et d’annulation</h3>
+          <p>
+            Votre réservation est annulable jusqu’à 4 jours avant la date prévue
+            de l’atelier. Passé ce délai, elle ne sera plus remboursable.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

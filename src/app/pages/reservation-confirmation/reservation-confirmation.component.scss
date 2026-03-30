@@ -1,0 +1,312 @@
+.confirmation-page {
+  min-height: 100vh;
+  padding: 56px 20px;
+  background: #f7f6f2;
+}
+
+.confirmation-container {
+  max-width: 45vw;
+  margin: 0 auto;
+}
+
+.confirmation-card {
+  background: #fff;
+  border: 1px solid #e5ddd1;
+  border-radius: 28px;
+  padding: 42px 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+  text-align: center;
+}
+
+.confirmation-badge {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  background: #edf4e9;
+  color: #8fad8a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.1;
+  color: #181818;
+}
+
+.confirmation-text {
+  margin: 14px 0 0;
+  font-size: 20px;
+  color: #4b4b4b;
+}
+
+.confirmation-meta {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 28px;
+}
+
+.meta-pill {
+  min-width: 190px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: #f5f1ea;
+  border: 1px solid #e2d9ca;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.meta-pill-light {
+  background: #faf8f4;
+}
+
+.meta-label {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #8a7e6d;
+}
+
+.meta-value {
+  font-size: 20px;
+  color: #1d1d1d;
+  word-break: break-word;
+}
+
+.status-box {
+  margin-top: 28px;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: #faf8f4;
+  border: 1px solid #e5ddd1;
+  color: #5b554d;
+  font-size: 16px;
+}
+
+.status-box-error {
+  background: #fff3f1;
+  border-color: #efc3bb;
+  color: #a44e3f;
+}
+
+.summary-card,
+.referral-card,
+.info-box {
+  margin-top: 28px;
+  padding: 26px 24px;
+  border-radius: 22px;
+  border: 1px solid #e5ddd1;
+  background: #fcfbf8;
+  text-align: left;
+}
+
+.section-title {
+  margin: 0 0 18px;
+  font-size: 24px;
+  color: #1c1c1c;
+  text-align: center;
+}
+
+.summary-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #ece5d9;
+}
+
+.summary-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.summary-row-total .summary-key,
+.summary-row-total .summary-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #191919;
+}
+
+.summary-key {
+  color: #6b6358;
+  font-weight: 500;
+}
+
+.summary-value {
+  color: #1f1f1f;
+  font-weight: 600;
+  text-align: right;
+}
+
+.referral-text {
+  margin: 0 0 18px;
+  color: #5d574f;
+  text-align: center;
+  font-size: 16px;
+}
+
+.referral-code-wrap {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: #edf4e9;
+  border: 1px dashed #99b18f;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.referral-code-wrap:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(52, 82, 55, 0.08);
+}
+
+.referral-code {
+  flex: 1;
+  padding: 18px 20px;
+  color: #345237;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  word-break: break-word;
+}
+
+.referral-share-btn {
+  min-width: 72px;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(145, 174, 138, 0.22);
+  border-left: 1px dashed #99b18f;
+  color: #789c75;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.referral-share-btn:hover {
+  background: rgba(145, 174, 138, 0.34);
+}
+
+.referral-share-btn:active {
+  transform: scale(0.98);
+}
+
+.share-icon {
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.referral-feedback {
+  margin-top: 12px;
+  text-align: center;
+  color: #426447;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.referral-feedback-error {
+  color: #a44e3f;
+}
+
+.info-box p {
+  margin: 0;
+  text-align: center;
+  color: #5c574f;
+  font-size: 16px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-primary:hover,
+.btn-secondary:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: #91ae8a;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #ebe7ff;
+  color: #4d4bb5;
+}
+
+@media (max-width: 768px) {
+  .confirmation-card {
+    padding: 32px 18px;
+    border-radius: 20px;
+  }
+
+  .page-title {
+    font-size: 32px;
+  }
+
+  .confirmation-text {
+    font-size: 18px;
+  }
+
+  .summary-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .summary-value {
+    text-align: left;
+  }
+
+  .referral-code-wrap {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .referral-code {
+    font-size: 20px;
+    padding: 18px 14px;
+  }
+
+  .referral-share-btn {
+    min-width: 58px;
+    font-size: 24px;
+  }
+}

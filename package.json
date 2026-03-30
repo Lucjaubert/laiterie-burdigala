@@ -10,7 +10,7 @@
     "test": "ng test",
     "clean": "rimraf dist && npm cache clean --force",
     "preview": "http-server dist/laiterie-burdigala -p 8080",
-    "deploy": "npm run build:prod && npm run clean && npm run preview"
+    "deploy": "npm run clean && npm run build:prod && npm run preview"
   },
   "private": true,
   "dependencies": {

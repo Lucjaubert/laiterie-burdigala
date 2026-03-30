@@ -1,12 +1,8 @@
 {
-    "/api": {
-      "target": "https://laiterieburdigala.fr",
-      "secure": false,
-      "changeOrigin": true,
-      "logLevel": "debug",
-      "pathRewrite": {
-        "^/api": ""
-      }
-    }
+  "/wp-json": {
+    "target": "http://localhost/laiterieburdigala",
+    "secure": false,
+    "changeOrigin": true,
+    "logLevel": "debug"
   }
-  
+}

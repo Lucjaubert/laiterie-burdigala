@@ -1,91 +1,80 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
-import { Observable, of, Subscription, combineLatest } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { ActivatedRoute, RouterModule } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { gsap } from 'gsap';
-import { WordpressService } from 'src/app/services/wordpress.service';
+
 import { HeaderComponent } from 'src/app/shared/components/header/header.component';
 import { TransitionService } from 'src/app/services/transition.service';
-
-interface WorkshopData {
-  title: string;
-  content: string;
-  acf_fields: {
-    title: string;
-    texte: string;
-  };
-}
+import { ReferralPromoService } from 'src/app/services/referral-promo.service';
+import { WORKSHOPS, WorkshopHardcoded } from 'src/app/config/workshops.config';
 
 @Component({
   selector: 'app-workshops',
+  standalone: true,
+  imports: [CommonModule, HeaderComponent, RouterModule],
   templateUrl: './workshops.component.html',
   styleUrls: ['./workshops.component.scss'],
-  standalone: true,
-  imports: [CommonModule, HeaderComponent, RouterModule]
 })
 export class WorkshopsComponent implements OnInit, OnDestroy {
   isHomepage = false;
-  workshopsData$: Observable<WorkshopData[] | null>;
-  private subscription: Subscription = new Subscription();
+  workshops: WorkshopHardcoded[] = WORKSHOPS;
+
+  private transitionSub?: Subscription;
+  private queryParamsSub?: Subscription;
 
   constructor(
-    private wpService: WordpressService,
     private transitionService: TransitionService,
-    private cdr: ChangeDetectorRef
-  ) {
-    this.workshopsData$ = this.wpService.getWorkshop().pipe(
-      catchError(error => {
-        console.error('Erreur lors de la récupération des données de la page ateliers:', error);
-        return of(null);
-      })
-    );
-  }
+    private route: ActivatedRoute,
+    private referralPromoService: ReferralPromoService
+  ) {}
 
   ngOnInit(): void {
-    this.subscribeToDataAndTransition();
-  }
+    this.queryParamsSub = this.route.queryParamMap.subscribe((params) => {
+      const promoCode = params.get('promo');
 
-  private subscribeToDataAndTransition(): void {
-    this.subscription.add(
-      combineLatest([this.workshopsData$, this.transitionService.transitionDone$])
-        .subscribe(([data, done]) => {
-          if (data && done) {
-            this.cdr.detectChanges();
-            this.animateElements();
-          }
-        })
-    );
-  }
-
-  private animateElements(): void {
-    gsap.fromTo('.img-fluid-2', { x: -200, opacity: 0 }, {
-      duration: 4.5,
-      x: 0,
-      opacity: 1,
-      ease: 'power4.out'
+      if (promoCode) {
+        this.referralPromoService.captureFromQueryParam(promoCode);
+        console.log('Code promo referral détecté dans URL :', promoCode);
+      }
     });
 
-    gsap.fromTo('.img-fluid-1', { x: 200, opacity: 0 }, {
-      duration: 5,
-      x: 0,
-      opacity: 1,
-      ease: 'power4.out'
-    });
-
-    gsap.fromTo('.logo-overlay', { y: -100, opacity: 0 }, {
-      duration: 5.5,
-      y: 0,
-      opacity: 1,
-      ease: 'power4.out'
+    this.transitionSub = this.transitionService.transitionDone$.subscribe((done) => {
+      if (done) {
+        this.animateCards();
+      }
     });
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.transitionSub?.unsubscribe();
+    this.queryParamsSub?.unsubscribe();
   }
 
-  openWecandooSite(): void {
-    window.location.href = 'https://wecandoo.fr/atelier/mozzarella-artisanale-bordeaux';
+  private animateCards(): void {
+    gsap.fromTo(
+      '.workshop-card',
+      { y: 18, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power3.out',
+        stagger: 0.08,
+        clearProps: 'transform,opacity',
+      }
+    );
+
+    gsap.fromTo(
+      '.page-title',
+      { y: 10, opacity: 0 },
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power3.out',
+        clearProps: 'transform,opacity',
+      }
+    );
   }
 }
