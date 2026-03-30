@@ -1,0 +1,141 @@
+<div class="confirmation-page">
+  <div class="confirmation-container">
+    <div class="confirmation-card">
+      <div class="confirmation-badge">✓</div>
+
+      <h1 class="page-title">Réservation confirmée</h1>
+
+      <p class="confirmation-text">
+        Merci, votre réservation a bien été enregistrée.
+      </p>
+
+      <div class="confirmation-meta">
+        <div class="meta-pill" *ngIf="bookingId">
+          <span class="meta-label">Réservation</span>
+          <strong class="meta-value">#{{ bookingId }}</strong>
+        </div>
+
+        <div class="meta-pill meta-pill-light" *ngIf="truncatedStripeSessionId">
+          <span class="meta-label">Paiement Stripe</span>
+          <strong class="meta-value">{{ truncatedStripeSessionId }}</strong>
+        </div>
+      </div>
+
+      <div class="status-box" *ngIf="isLoading">
+        Chargement des détails de votre réservation...
+      </div>
+
+      <div class="status-box status-box-error" *ngIf="errorMessage">
+        {{ errorMessage }}
+      </div>
+
+      <div class="summary-card" *ngIf="booking as b">
+        <h2 class="section-title">Récapitulatif de votre atelier</h2>
+
+        <div class="summary-grid">
+          <div class="summary-row">
+            <span class="summary-key">Atelier</span>
+            <span class="summary-value">{{ b.workshopTitle }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-key">Date</span>
+            <span class="summary-value">{{ b.startAt | date:'fullDate':'':'fr' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-key">Horaire</span>
+            <span class="summary-value">{{ b.startAt | date:'HH:mm' }} - {{ b.endAt | date:'HH:mm' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-key">Quantité</span>
+            <span class="summary-value">{{ b.qty }}</span>
+          </div>
+
+          <div class="summary-row" *ngIf="b.promoCode">
+            <span class="summary-key">Code promo utilisé</span>
+            <span class="summary-value">{{ b.promoCode }}</span>
+          </div>
+
+          <div class="summary-row" *ngIf="b.discountAmount > 0">
+            <span class="summary-key">Réduction</span>
+            <span class="summary-value">-{{ b.discountAmount | number:'1.2-2' }} €</span>
+          </div>
+
+          <div class="summary-row summary-row-total">
+            <span class="summary-key">Montant payé</span>
+            <span class="summary-value">{{ b.finalTotal | number:'1.2-2' }} €</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="referral-card" *ngIf="booking?.referralCode as referralCode">
+        <h2 class="section-title">Votre code de parrainage</h2>
+
+        <p class="referral-text">
+          Partagez ce code avec vos proches pour leur faire profiter d’une réduction.
+        </p>
+
+        <button
+          class="referral-code-wrap"
+          type="button"
+          (click)="copyReferralCode()"
+          [attr.aria-label]="'Copier le code de parrainage ' + referralCode"
+          title="Cliquer pour copier"
+        >
+          <span class="referral-code">{{ referralCode }}</span>
+
+          <span
+            class="referral-share-btn"
+            (click)="shareReferralCode($event)"
+            role="button"
+            tabindex="0"
+            aria-label="Partager le code"
+            title="Partager le code"
+          >
+           <svg
+              class="share-icon"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                d="M22.2 3.4L3.4 11.2c-1 .4-.9 1.8.2 2l6.1 1.6 1.8 6.2c.3 1 1.6 1.2 2.1.3l2.9-5.1 5.9-11.2c.4-.8-.2-1.7-1.1-1.6Z"
+                fill="currentColor"
+              />
+            </svg>
+          </span>
+        </button>
+
+        <div class="referral-feedback" *ngIf="copySuccess">
+          Code copié.
+        </div>
+
+        <div class="referral-feedback" *ngIf="shareSuccess">
+          Partage prêt.
+        </div>
+
+        <div class="referral-feedback referral-feedback-error" *ngIf="shareError">
+          {{ shareError }}
+        </div>
+      </div>
+
+      <div class="info-box">
+        <p>
+          Un email de confirmation vous a été envoyé avec le récapitulatif
+          de votre atelier et les informations utiles.
+        </p>
+      </div>
+
+      <div class="actions">
+        <button class="btn-primary" type="button" (click)="goToWorkshops()">
+          Voir les ateliers
+        </button>
+
+        <button class="btn-secondary" type="button" (click)="goToHome()">
+          Retour à l’accueil
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

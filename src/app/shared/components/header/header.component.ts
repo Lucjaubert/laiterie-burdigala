@@ -25,6 +25,7 @@ interface MenuItem {
 export class HeaderComponent implements OnInit, OnDestroy {
   @Input() isHomepage: boolean = false;
   @Input() isIntroPage: boolean = false;
+
   navbarExpanded: boolean = false;
   showHeader: boolean = false;
   showCartIcon: boolean = false;
@@ -34,7 +35,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   @Output() menuItemClicked: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleMenuState: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @ViewChild('headerContainer') headerContainer!: ElementRef<HTMLDivElement>;
+  @ViewChild('headerContainer') headerContainer?: ElementRef<HTMLDivElement>;
 
   private subscription: Subscription = new Subscription();
   menuItems: MenuItem[] = [];
@@ -51,17 +52,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.updateMenuItems();
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe(event => {
-      this.showHeader = this.router.url !== '/';
-      this.isHomepage = this.router.url === '/accueil';
-      const cartVisibleUrls = [
-        '/accueil', '/nos-produits', '/finaliser-commande', '/nos-ateliers',
-        '/notre-brunch', '/nos-fournisseurs', '/a-propos-de-nous'
-      ];
-      this.showCartIcon = cartVisibleUrls.includes(event.url);
-    });
+
+    this.subscription.add(
+      this.router.events.pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+      ).subscribe(event => {
+        this.showHeader = this.router.url !== '/';
+        this.isHomepage = this.router.url === '/accueil';
+
+        const cartVisibleUrls = [
+          '/accueil',
+          '/nos-produits',
+          '/finaliser-commande',
+          '/nos-ateliers',
+          '/notre-brunch',
+          '/nos-fournisseurs',
+          '/a-propos-de-nous'
+        ];
+
+        this.showCartIcon = cartVisibleUrls.includes(event.url);
+      })
+    );
 
     this.subscription.add(
       this.transitionService.transitionDone$.subscribe(done => {
@@ -81,29 +92,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   updateMenuItems(): void {
     this.menuItems = [
-      { label: "Accueil", link: "/accueil", class: "accueil-item" },
-      { label: "Nos produits", link: "/nos-produits" },
-      { label: "Nos ateliers", link: "/nos-ateliers" },
-      { label: "Notre brunch", link: "/notre-brunch" },
-      { label: "Nos fournisseurs", link: "/nos-fournisseurs" },
-      { label: "À propos de nous", link: "/a-propos-de-nous" }
+      { label: 'Accueil', link: '/accueil', class: 'accueil-item' },
+      { label: 'Nos produits', link: '/nos-produits' },
+      { label: 'Nos ateliers', link: '/nos-ateliers' },
+      { label: 'Notre brunch', link: '/notre-brunch' },
+      { label: 'Nos fournisseurs', link: '/nos-fournisseurs' },
+      { label: 'À propos de nous', link: '/a-propos-de-nous' }
     ];
   }
 
   closeMenu(): void {
     this.navbarExpanded = false;
 
-    const headerElement = this.headerContainer.nativeElement;
+    const headerElement = this.headerContainer?.nativeElement;
+    if (!headerElement) return;
 
     headerElement.classList.remove('menu-open');
     headerElement.style.width = '0';
     headerElement.style.zIndex = '-100';
+    headerElement.style.pointerEvents = 'none';
   }
 
   toggleMenu(): void {
     this.navbarExpanded = !this.navbarExpanded;
 
-    const headerElement = this.headerContainer.nativeElement;
+    const headerElement = this.headerContainer?.nativeElement;
+    if (!headerElement) return;
 
     if (this.navbarExpanded) {
       headerElement.style.zIndex = '1000';
@@ -115,7 +129,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
-
   animateIn(): void {
     gsap.from('.navigation-elements', {
       x: '-100%',
@@ -123,6 +136,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       duration: 0.5,
       ease: 'power3.out'
     });
+
     gsap.to('.navigation-elements', {
       x: '0%',
       opacity: 1,
@@ -144,8 +158,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  async handleNavItemClick(event: MouseEvent, item: any): Promise<void> {
+  async handleNavItemClick(event: MouseEvent, item: MenuItem): Promise<void> {
     event.preventDefault();
+
     if (this.router.url !== item.link) {
       this.menuStateService.setCurrentRoute(item.link);
       await this.animateOut();
@@ -159,8 +174,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.subscription.unsubscribe();
   }
 }

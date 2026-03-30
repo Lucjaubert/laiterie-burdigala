@@ -1,13 +1,25 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "./_variables.scss";
 @import "../../../node_modules/bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Cambay:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+
+html,
+body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
 
 body {
   min-height: 100vh;
   width: 100%;
   margin: 0;
   padding: 0;
-  font-family: 'Cambay', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: map-get($theme-colors, "green");
   background-color: map-get($theme-colors, "light-grey");
   overflow-x: hidden;
@@ -19,50 +31,75 @@ body {
   }
 }
 
-h1, h2, h3, p ul li {
-  font-family: 'Cambay', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Playfair Display', serif;
+  color: map-get($theme-colors, "green");
+}
+
+p,
+a,
+ul li,
+button,
+input,
+textarea,
+select,
+label {
+  font-family: 'Inter', sans-serif;
 }
 
 h1 {
-  font-weight: map-get($font-weight, "bold");
-  font-size: map-get($font-size, "70");
-}
-
-h2 {
-  font-weight: map-get($font-weight, "bold");
+  font-weight: 700;
   font-size: map-get($font-size, "60");
-}
-
-h3 {
-  font-weight: map-get($font-weight, "bold");
-  font-size: map-get($font-size, "60")!important;
+  line-height: 1.75;
+  letter-spacing: -0.02em;
 
   @media (max-width: 1025px) {
-    font-size: map-get($font-size, "40") !important;
+    font-size: map-get($font-size, "50") !important;
   }
 }
 
+h2 {
+  font-weight: 700;
+  font-size: map-get($font-size, "60");
+  line-height: 1.75;
+  letter-spacing: -0.02em;
+}
+
 h3 {
-  font-size: clamp(1.6rem, 4vw, 3rem);
-  font-weight: map-get($font-weight, "bold");
+  font-size: map-get($font-size, "50");
+  font-weight: 600;
+  line-height: 1.75;
+  letter-spacing: -0.015em;
+
+  @media (max-width: 1025px) {
+    font-size: map-get($font-size, "30") !important;
+  }
 }
 
 h4 {
-  font-weight: map-get($font-weight, "bold");
+  font-weight: 600;
   font-size: map-get($font-size, "40");
+  line-height: 1.75;
 }
 
 h5 {
-  font-weight: map-get($font-weight, "bold");
-  font-size: map-get($font-size, "30");
+  font-weight: 600;
+  font-size: map-get($font-size, "40");
+  line-height: 1.75;
 }
 
-a, p {
-  font-size: map-get($font-size, "20");
+a,
+p {
+  font-size: map-get($font-size, "30");
+  line-height: 1.5;
 }
 
 .container {
-  padding-left: 20rem;
+  padding-left: 18rem;
   padding-top: 5rem;
 }
 
@@ -85,6 +122,7 @@ router-outlet {
   .text-#{$color-name} {
     color: $color-value;
   }
+
   .bg-#{$color-name} {
     background-color: $color-value;
   }
@@ -107,6 +145,9 @@ router-outlet {
 
 .mat-mdc-snack-bar-container {
   position: fixed !important;
+  left: auto !important;
+  right: 0 !important;
+  bottom: 0 !important;
 }
 
 .mdc-snackbar__label {
@@ -121,12 +162,6 @@ router-outlet {
   background-color: #ffffff;
   color: map-get($theme-colors, "green");
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.mat-mdc-snack-bar-container {
-  left: auto !important;
-  right: 0 !important;
-  bottom: 0 !important;
 }
 
 .footer {
@@ -157,12 +192,12 @@ router-outlet {
   }
 
   h4 {
-    font-weight: map-get($font-weight, "bold");
+    font-weight: 600;
     font-size: map-get($font-size, "30");
   }
 
   h5 {
-    font-weight: map-get($font-weight, "bold");
+    font-weight: 600;
     font-size: map-get($font-size, "20");
   }
 

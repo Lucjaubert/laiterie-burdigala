@@ -32,12 +32,18 @@ export class AppComponent {
   showFooter: boolean = true;
   isNotFoundPage: boolean = false;
 
-  constructor(private router: Router, private titleService: Title, private metaService: Meta) {
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      console.log("Current URL:", router.url);
-      this.updatePageFlags();
-      this.updateSEO();
-    });
+  constructor(
+    private router: Router,
+    private titleService: Title,
+    private metaService: Meta
+  ) {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        this.updatePageFlags();
+        this.updateSEO();
+      });
   }
 
   toggleTransition(): void {
@@ -78,14 +84,7 @@ export class AppComponent {
     }
   }
 
-  /**
-   * Met à jour les balises meta pour le SEO.
-   * @param title
-   * @param description
-   * @param image
-   */
   private setSEO(title: string, description: string, image: string): void {
-
     this.titleService.setTitle(title);
 
     this.metaService.updateTag({ name: 'description', content: description });

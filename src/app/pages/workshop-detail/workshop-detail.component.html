@@ -1,0 +1,207 @@
+<div class="container container-workshop-detail" *ngIf="workshop as w">
+  <h2 class="workshop-title">{{ w.title }}</h2>
+
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+
+      <div class="workshop-hero mb-6">
+        <div class="hero-row">
+          <div class="hero-left">
+            <div class="hero-big">
+              <div class="video-wrapper" *ngIf="w.media.heroVideoUrl; else heroImg">
+                <iframe
+                  [src]="getSafeVideoUrl(w.media.heroVideoUrl)!"
+                  title="Vidéo atelier"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen>
+                </iframe>
+              </div>
+
+              <ng-template #heroImg>
+                <img
+                  class="img-fluid"
+                  [src]="w.media.gallery[0] || '/assets/img/placeholder.jpg'"
+                  alt="Atelier - visuel principal"
+                >
+              </ng-template>
+            </div>
+          </div>
+
+          <div class="hero-right">
+            <div class="thumbs">
+              <div class="thumb" *ngFor="let img of w.media.gallery.slice(1,5)">
+                <img class="img-fluid" [src]="img" alt="Atelier - photo">
+              </div>
+
+              <div class="thumb" *ngIf="w.media.gallery.length <= 1">
+                <img class="img-fluid" src="/assets/img/placeholder.jpg" alt="Atelier - photo">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workshop-section">
+        <h3>En bref</h3>
+        <div class="section-box" [innerHTML]="w.summary"></div>
+      </div>
+
+      <div class="workshop-section mt-7">
+        <h3>L’atelier en détail</h3>
+
+        <div class="meta-row section-box">
+          <div class="meta-item">
+            <span class="meta-label">Durée</span>
+            <span class="meta-value">{{ w.durationLabel }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Âge min.</span>
+            <span class="meta-value">{{ w.ageMin }} ans</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Participants</span>
+            <span class="meta-value">{{ w.participantsMin }} à {{ w.participantsMax }}</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Privatisation</span>
+            <span class="meta-value">jusqu’à {{ w.privatizationMax }} personnes</span>
+          </div>
+        </div>
+
+        <div class="section-box mt-4" [innerHTML]="w.details"></div>
+      </div>
+
+      <div class="workshop-section mt-7">
+        <h3>{{ w.location.title }}</h3>
+
+        <div class="section-box">
+          <p class="mb-3">{{ w.location.address }}</p>
+
+          <div class="pmr-alert" *ngIf="w.location.pmrAccessible === false">
+            <b>⚠</b> Ce lieu est accessible aux personnes à mobilité réduite.
+          </div>
+
+          <div class="map-wrapper mt-4">
+            <iframe
+              [src]="getMapEmbedUrl(w.location.address)"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+
+      <div class="workshop-section mt-7">
+        <h3>Rencontrez {{ w.host.name }}</h3>
+
+        <div class="section-box host-box">
+          <div class="host-photo">
+            <img [src]="w.host.photoUrl" alt="Photo hôte">
+          </div>
+          <div class="host-content">
+            <div class="host-role" *ngIf="w.host.jobTitle">{{ w.host.jobTitle | uppercase }}</div>
+            <div class="host-bio" [innerHTML]="w.host.bio"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="workshop-section mt-7">
+        <h3>Commentaires</h3>
+
+        <div class="section-box" *ngIf="reviews.length; else noReviews">
+          <div class="review-item" *ngFor="let r of reviews">
+            <div class="review-header">
+              <div class="avatar">{{ r.author[0] || 'A' }}</div>
+
+              <div class="review-meta">
+                <div class="review-author">{{ r.author }}</div>
+                <div class="review-date">{{ r.date }}</div>
+              </div>
+
+              <div class="review-rating" *ngIf="r.rating">
+                <span class="star" *ngFor="let s of [1,2,3,4,5]">
+                  {{ s <= r.rating ? '★' : '☆' }}
+                </span>
+              </div>
+            </div>
+
+            <p class="review-text mb-0">{{ r.text }}</p>
+          </div>
+        </div>
+
+        <ng-template #noReviews>
+          <div class="section-box">
+            <p class="mb-0">Aucun avis pour le moment.</p>
+          </div>
+        </ng-template>
+
+        <div class="mt-4 text-center">
+          <button class="btn btn-outline-primary btn-review" type="button" (click)="leaveReview()">
+            Laisser un avis
+          </button>
+        </div>
+      </div>
+
+      <div class="social-media d-flex flex-column align-items-center mt-10">
+        <p>Suivez nos nouveautés sur les réseaux sociaux</p>
+        <div class="social-links d-flex justify-content-center">
+          <a href="https://www.facebook.com" target="_blank" class="social-icon mx-3">
+            <img src="/assets/img/facebook-green.png" alt="Facebook">
+          </a>
+          <a href="https://www.instagram.com" target="_blank" class="social-icon mx-3">
+            <img src="/assets/img/instagram-green.png" alt="Instagram">
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-4 workshop-box">
+      <div class="workshop-card mt-md-0 mt-6 col-12">
+        <div class="price">
+          <ng-container *ngIf="hasReferralPromo; else normalPrice">
+            <span class="price-old" style="text-decoration: line-through; opacity: 0.6;">
+              {{ w.pricePerPerson | number:'1.2-2' }} €
+            </span>
+            <span class="price-value">{{ discountedPricePerPerson | number:'1.2-2' }} €</span>
+            <span class="price-label">par personne</span>
+
+            <div class="promo-badge mt-3">
+              Code promo appliqué : -{{ referralDiscountPercent }} %
+            </div>
+          </ng-container>
+
+          <ng-template #normalPrice>
+            <span class="price-value">{{ w.pricePerPerson | number:'1.2-2' }} €</span>
+            <span class="price-label">par personne</span>
+          </ng-template>
+        </div>
+
+        <button class="btn btn-reserve w-100 mt-5" type="button" (click)="openAvailabilities()">
+          Voir les disponibilités <i class="fa fa-calendar"></i>
+        </button>
+
+        <div class="divider-or my-5">
+          <span>OU</span>
+        </div>
+
+        <button class="btn btn-gift w-100" type="button" (click)="giftWorkshop()">
+          Offrir l’atelier <i class="fa fa-gift"></i>
+        </button>
+
+        <button class="btn btn-outline-privatize w-100 mt-4" type="button" (click)="privatizeWorkshop()">
+          Privatiser l’atelier <i class="fa fa-key"></i>
+        </button>
+
+        <div class="extra-infos mt-6" *ngIf="w.extraInfos?.length">
+          <h4>Informations complémentaires</h4>
+          <div class="extra-row" *ngFor="let info of w.extraInfos">
+            <span class="extra-label">{{ info.label }}</span>
+            <span class="extra-value">{{ info.value }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

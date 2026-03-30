@@ -13,5 +13,7 @@ export interface ProductData {
         default_quantity: number;
         product_category: ProductCategory[];
     };
-    quantity?: number; 
+    quantity?: number;
 }
+
+

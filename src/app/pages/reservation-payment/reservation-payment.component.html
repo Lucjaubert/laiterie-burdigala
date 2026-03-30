@@ -1,0 +1,124 @@
+<div class="reservation-page" *ngIf="draft as d">
+  <div class="reservation-container">
+    <div class="steps">
+      <div class="step done">1. Détails réservation</div>
+      <div class="step done">2. Connexion</div>
+      <div class="step done">3. Informations</div>
+      <div class="step active">4. Paiement</div>
+    </div>
+
+    <div class="reservation-layout">
+      <div class="left-col">
+        <h1 class="page-title">Finalisation</h1>
+
+        <div class="product-table">
+          <div class="table-head">
+            <div></div>
+            <div>Produit</div>
+            <div>Montant</div>
+            <div>Prix unitaire</div>
+            <div>Quantité</div>
+          </div>
+
+          <div class="table-row">
+            <div class="product-thumb">
+              <img src="assets/workshops/mozzarella-burrata.webp" alt="Atelier">
+            </div>
+
+            <div class="product-info">
+              <div class="product-title">{{ d.workshopTitle }}</div>
+              <div class="product-meta">📅 {{ d.startAt | date:'fullDate':'':'fr' }}</div>
+              <div class="product-meta">🕒 {{ d.startAt | date:'HH:mm' }} - {{ d.endAt | date:'HH:mm' }}</div>
+              <div class="product-meta">📍 Bordeaux, Les Capucins</div>
+
+              <div class="promo-badge" *ngIf="hasAppliedPromo">
+                <ng-container *ngIf="appliedDiscountPercent > 0; else fixedPromoBadge">
+                  Code appliqué : -{{ appliedDiscountPercent }} %
+                </ng-container>
+                <ng-template #fixedPromoBadge>
+                  Code appliqué : -{{ appliedDiscountAmount | number:'1.2-2' }} €
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="cell-amount">{{ finalTotal | number:'1.2-2' }} €</div>
+            <div class="cell-unit">{{ d.unitPrice | number:'1.2-2' }} €</div>
+            <div class="cell-qty">{{ d.qty }}</div>
+          </div>
+
+          <div class="table-total">
+            <span>Total TTC</span>
+            <strong>{{ finalTotal | number:'1.2-2' }} €</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div class="pay-card">
+          <label class="cgv-row">
+            <input
+              type="checkbox"
+              [(ngModel)]="cgvAccepted"
+              (ngModelChange)="onCgvChange()"
+            >
+            <span>
+              J’accepte les
+              <a routerLink="/conditions-generales-de-vente">CGV</a>
+            </span>
+          </label>
+
+          <div class="promo-feedback error" *ngIf="paymentError">
+            {{ paymentError }}
+          </div>
+
+          <button
+            class="btn-pay"
+            type="button"
+            [disabled]="!cgvAccepted || isPaying"
+            (click)="pay()"
+          >
+            {{ isPaying ? 'Redirection en cours...' : ('Payer ' + (finalTotal | number:'1.2-2') + ' €') }}
+          </button>
+
+          <button class="btn-link" type="button" (click)="goBack()" [disabled]="isPaying">
+            Je reviens à l’étape précédente
+          </button>
+        </div>
+
+        <div class="promo-card">
+          <div class="promo-field">
+            <input
+              type="text"
+              [(ngModel)]="promoCode"
+              placeholder="Code cadeau ou promo"
+              [disabled]="isApplyingPromo || isPaying"
+            >
+            <button
+              type="button"
+              (click)="applyPromoCode()"
+              [disabled]="isApplyingPromo || isPaying"
+            >
+              {{ isApplyingPromo ? 'Vérification...' : 'Appliquer' }}
+            </button>
+          </div>
+
+          <div class="promo-feedback success" *ngIf="promoMessage">
+            {{ promoMessage }}
+          </div>
+
+          <div class="promo-feedback error" *ngIf="promoError">
+            {{ promoError }}
+          </div>
+        </div>
+
+        <div class="cards-row">
+          <span class="card-chip">Mastercard</span>
+          <span class="card-chip">Visa</span>
+          <span class="card-chip">Amex</span>
+          <span class="card-chip">Apple Pay</span>
+          <span class="card-chip">G Pay</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class WordpressService {
-  private apiUrl = 'https://laiterieburdigala.fr/wp-json/laiterie-burdigala/v1';
+  private apiUrl = `/wp-json/laiterie-burdigala/v1`;
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient) {}
 
   getHomepage(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/homepage`);
@@ -55,6 +55,6 @@ export class WordpressService {
   }
 
   getPageContent(): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/pages/62`); 
+    return this.http.get<any>(`${this.apiUrl}/pages/62`);
   }
 }

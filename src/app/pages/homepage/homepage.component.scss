@@ -125,7 +125,7 @@
         transform: translate(-50%, -50%);
 
         .logo-homepage-mobile {
-          width: 55vw;
+          width: 75vw;
           height: auto;
           transition: width 0.5s ease;
         }
@@ -154,10 +154,19 @@
         text-align: center !important;
 
         .map iframe {
-          height: 150px !important;
-          width: 300px !important;
+          height: 200px !important;
+          width: 350px !important;
         }
       }
     }
   }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: 'Playfair Display', serif;
+  color: map-get($theme-colors, "white-yellow") !important;
 }

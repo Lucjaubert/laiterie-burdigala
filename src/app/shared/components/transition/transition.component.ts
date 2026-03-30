@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { TransitionService } from 'src/app/services/transition.service';
 import { gsap } from 'gsap';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { Router, NavigationEnd, NavigationStart, Route } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -24,45 +24,99 @@ export class TransitionComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        const url = event.url;
-        if ((this.previousUrl === '/' || this.previousUrl === '') && url === '/accueil') {
-          this.shouldRender = false;
-        } else if (url === '/' || url === '') {
-          this.shouldRender = false;
-        } else {
-          this.shouldRender = true;
-          this.cdr.detectChanges();
-          this.transitionService.startTransition();
+    this.subscription.add(
+      this.router.events.subscribe(event => {
+        if (event instanceof NavigationStart) {
+          const nextUrl = event.url;
+
+          const disableForNext = this.shouldDisableTransition(nextUrl);
+          const disableForPrevious = this.shouldDisableTransition(this.previousUrl);
+
+          if (
+            disableForNext ||
+            disableForPrevious ||
+            (this.previousUrl === '/' || this.previousUrl === '') && nextUrl === '/accueil' ||
+            nextUrl === '/' ||
+            nextUrl === ''
+          ) {
+            this.shouldRender = false;
+          } else {
+            this.shouldRender = true;
+            this.cdr.detectChanges();
+            this.transitionService.startTransition();
+          }
+
+          this.previousUrl = nextUrl;
         }
-        this.previousUrl = url;
-      }
-      if (event instanceof NavigationEnd) {
-        this.previousUrl = event.urlAfterRedirects;
-      }
-    });
+
+        if (event instanceof NavigationEnd) {
+          this.previousUrl = event.urlAfterRedirects;
+        }
+      })
+    );
 
     this.subscription.add(
       this.transitionService.showTransition$.subscribe(show => {
-        if (this.shouldRender) {
-          setTimeout(() => {
-            if (show) {
-              this.animateIn();
-            } else {
-              this.animateOut();
-            }
-          }, 100);
-        }
+        if (!this.shouldRender) return;
+
+        setTimeout(() => {
+          if (show) {
+            this.animateIn();
+          } else {
+            this.animateOut();
+          }
+        }, 100);
       })
     );
   }
 
-  animateIn(): void {
-    const transitionContainer = document.querySelector('.transition-container') as HTMLElement;
-    const backgroundBlur = document.querySelector('.background-blur') as HTMLElement;
+  private shouldDisableTransition(url: string): boolean {
+    if (!url) return false;
 
-    if (transitionContainer && backgroundBlur) {
+    const cleanUrl = url.split('?')[0].split('#')[0];
+
+    return this.matchesDisabledRoute(cleanUrl, this.router.config);
+  }
+
+  private matchesDisabledRoute(url: string, routes: Route[]): boolean {
+    const normalizedUrl = url.startsWith('/') ? url.slice(1) : url;
+
+    for (const route of routes) {
+      if (!route.path) continue;
+
+      const routePath = route.path;
+
+      // Match simple exact
+      if (!routePath.includes(':') && normalizedUrl === routePath) {
+        if (route.data?.['disableTransition']) return true;
+      }
+
+      // Match avec paramètre : ex nos-ateliers/:slug
+      if (routePath.includes(':')) {
+        const routeSegments = routePath.split('/');
+        const urlSegments = normalizedUrl.split('/');
+
+        if (routeSegments.length === urlSegments.length) {
+          const isMatch = routeSegments.every((segment, index) => {
+            return segment.startsWith(':') || segment === urlSegments[index];
+          });
+
+          if (isMatch && route.data?.['disableTransition']) {
+            return true;
+          }
+        }
+      }
+    }
+
+    return false;
+  }
+
+  animateIn(): void {
+    const transitionContainer = document.querySelector('.transition-container') as HTMLElement | null;
+    const backgroundBlur = document.querySelector('.background-blur') as HTMLElement | null;
+    const logoIntro = document.querySelector('.logo-intro') as HTMLElement | null;
+
+    if (transitionContainer && backgroundBlur && logoIntro) {
       backgroundBlur.style.display = 'block';
 
       const tl = gsap.timeline();
@@ -83,7 +137,7 @@ export class TransitionComponent implements OnInit, OnDestroy {
         ease: 'power2.out'
       }, 'start');
 
-      tl.to('.logo-intro', {
+      tl.to(logoIntro, {
         opacity: 1,
         duration: 2.5,
         ease: 'power2.out'
@@ -100,8 +154,11 @@ export class TransitionComponent implements OnInit, OnDestroy {
   }
 
   animateOut(): void {
-    if (document.querySelector('.transition-container') && document.querySelector('.logo-intro')) {
-      gsap.to('.transition-container', {
+    const transitionContainer = document.querySelector('.transition-container') as HTMLElement | null;
+    const logoIntro = document.querySelector('.logo-intro') as HTMLElement | null;
+
+    if (transitionContainer && logoIntro) {
+      gsap.to(transitionContainer, {
         x: '-100%',
         duration: 2,
         ease: 'power2.in',
@@ -112,13 +169,12 @@ export class TransitionComponent implements OnInit, OnDestroy {
           }, 100);
         }
       });
-      gsap.to('.logo-intro', {
+
+      gsap.to(logoIntro, {
         opacity: 0,
         duration: 1.6,
         ease: 'power2.in'
       });
-    } else {
-      console.warn('GSAP targets not found');
     }
   }
 

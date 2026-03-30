@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /intro
+Disallow: /404
+Disallow: /wp-admin/
+Allow: /
+
+Sitemap: https://laiterieburdigala.fr/sitemap.xml
+
+
+

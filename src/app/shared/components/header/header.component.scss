@@ -9,33 +9,73 @@
 
 .cart-icon {
   position: absolute;
-  display: flex;
+  right: 120px;
+  top: 95px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  right: 120px;
-  top: 35px;
-  font-size: 24px;
+  text-decoration: none !important;
+  border-bottom: none !important;
+  outline: none;
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+  z-index: 1002;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 2px;
+    width: 18px;
+    height: 2px;
+    background: #fff;
+    border-radius: 999px;
+  }
+
+  &.other-page-line::after {
+    background: map-get($theme-colors, "green");
+  }
+
+  .cart-symbol {
+    font-size: 24px;
+    line-height: 1;
+    display: block;
+  }
 
   .material-symbols-outlined {
-    font-size: 24px;
     &.homepage-cart {
-      color: map-get($theme-colors, "white-yellow");
+      color: #fff;
     }
+
     &.other-page-cart {
       color: map-get($theme-colors, "green");
     }
   }
+}
 
-  .cart-notification {
-    position: absolute;
-    top: -17px;
-    right: -14px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    padding: 3px 8px;
-    font-size: 14px;
-  }
+.cart-notification {
+  position: absolute;
+  top: -4px;
+  right: -10px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 4px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: map-get($theme-colors, "green");
+  color: #fff;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: 0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  border: 1.5px solid #fff;
 }
 
 .header-container {
@@ -169,7 +209,7 @@
 @media (max-width: 767px) {
 
   .otherpage-height {
-    height: 15vh !important;
+    height: 10vh !important;
   }
 
   .homepage-height {
@@ -188,7 +228,7 @@
     transition: transform 0.5s ease;
     z-index: -100;
     width: 100%;
-    max-width: 380px !important;
+    max-width: 100% !important;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -293,7 +333,16 @@
     position: absolute;
     right: 20px;
     top: 45px;
-    display: flex;
+    width: 32px;
+    height: 32px;
+  }
+
+  .cart-notification {
+    top: -3px;
+    right: -8px;
+    min-width: 15px;
+    height: 15px;
+    font-size: 9px;
   }
 }
 

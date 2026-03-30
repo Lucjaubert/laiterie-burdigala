@@ -1,0 +1,245 @@
+<div class="reservation-page" *ngIf="draft as d">
+  <div class="reservation-container">
+    <div class="steps">
+      <div class="step done">1. Détails réservation</div>
+      <div class="step active">2. Connexion</div>
+      <div class="step">3. Informations</div>
+      <div class="step">4. Paiement</div>
+    </div>
+
+    <div class="reservation-layout">
+      <div class="left-col">
+        <h1 class="page-title">Vos informations</h1>
+
+        <div class="form-grid">
+          <div class="form-block">
+            <label class="field-label" for="firstName">Prénom</label>
+            <div class="field-card">
+              <input
+                id="firstName"
+                type="text"
+                class="field-input"
+                [(ngModel)]="firstName"
+                placeholder="Prénom"
+              >
+            </div>
+          </div>
+
+          <div class="form-block">
+            <label class="field-label" for="lastName">Nom</label>
+            <div class="field-card">
+              <input
+                id="lastName"
+                type="text"
+                class="field-input"
+                [(ngModel)]="lastName"
+                placeholder="Nom"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form-block">
+          <label class="field-label" for="email">Email</label>
+          <div class="field-card">
+            <input
+              id="email"
+              type="email"
+              class="field-input"
+              [(ngModel)]="email"
+              placeholder="email@exemple.com"
+            >
+          </div>
+        </div>
+
+        <h3 class="section-title">Adresse de facturation</h3>
+
+        <div class="form-block">
+          <label class="field-label" for="billingAddress1">Adresse</label>
+          <div class="field-card">
+            <input
+              id="billingAddress1"
+              type="text"
+              class="field-input"
+              [(ngModel)]="billingAddress1"
+              placeholder="Numéro et voie"
+            >
+          </div>
+        </div>
+
+        <div class="form-block">
+          <label class="field-label" for="billingAddress2">Complément d’adresse</label>
+          <div class="field-card">
+            <input
+              id="billingAddress2"
+              type="text"
+              class="field-input"
+              [(ngModel)]="billingAddress2"
+              placeholder="Bâtiment, étage, etc."
+            >
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-block">
+            <label class="field-label" for="billingPostalCode">Code postal</label>
+            <div class="field-card">
+              <input
+                id="billingPostalCode"
+                type="text"
+                class="field-input"
+                [(ngModel)]="billingPostalCode"
+                placeholder="33000"
+              >
+            </div>
+          </div>
+
+          <div class="form-block">
+            <label class="field-label" for="billingCity">Ville</label>
+            <div class="field-card">
+              <input
+                id="billingCity"
+                type="text"
+                class="field-input"
+                [(ngModel)]="billingCity"
+                placeholder="Bordeaux"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-section" *ngIf="isGift">
+          <h3 class="section-title">Informations du bénéficiaire</h3>
+
+          <div class="gift-intro">
+            Cette personne recevra un email cadeau séparé après le paiement, sans affichage du prix.
+          </div>
+
+          <div class="form-grid">
+            <div class="form-block">
+              <label class="field-label" for="giftRecipientFirstName">Prénom du bénéficiaire</label>
+              <div class="field-card">
+                <input
+                  id="giftRecipientFirstName"
+                  type="text"
+                  class="field-input"
+                  [(ngModel)]="giftRecipientFirstName"
+                  placeholder="Prénom"
+                >
+              </div>
+            </div>
+
+            <div class="form-block">
+              <label class="field-label" for="giftRecipientLastName">Nom du bénéficiaire</label>
+              <div class="field-card">
+                <input
+                  id="giftRecipientLastName"
+                  type="text"
+                  class="field-input"
+                  [(ngModel)]="giftRecipientLastName"
+                  placeholder="Nom"
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <label class="field-label" for="giftRecipientEmail">Email du bénéficiaire</label>
+            <div class="field-card">
+              <input
+                id="giftRecipientEmail"
+                type="email"
+                class="field-input"
+                [(ngModel)]="giftRecipientEmail"
+                placeholder="beneficiaire@exemple.com"
+              >
+            </div>
+          </div>
+
+          <div class="form-block">
+            <label class="field-label" for="giftMessage">Message personnalisé (optionnel)</label>
+            <div class="field-card field-card-textarea">
+              <textarea
+                id="giftMessage"
+                class="field-input field-textarea"
+                [(ngModel)]="giftMessage"
+                rows="4"
+                placeholder="Exemple : Je t’offre cet atelier avec plaisir, profite bien !"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-error" *ngIf="formError">
+          {{ formError }}
+        </div>
+
+        <div class="actions">
+          <button class="btn-secondary" type="button" (click)="goBack()">Retour</button>
+          <button class="btn-primary" type="button" (click)="continue()">Continuer</button>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div class="summary-card">
+          <div class="summary-header">
+            <div class="summary-thumb">
+              <img src="/assets/img/placeholder.jpg" alt="Atelier">
+            </div>
+
+            <div class="summary-title">
+              {{ d.workshopTitle }}
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">👥</span>
+            <span>{{ d.qty }} place<span *ngIf="d.qty > 1">s</span></span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">📅</span>
+            <span>{{ d.startAt | date:'fullDate':'':'fr' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">🕒</span>
+            <span>{{ d.startAt | date:'HH:mm' }} - {{ d.endAt | date:'HH:mm' }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">📍</span>
+            <span>Bordeaux, Les Capucins</span>
+          </div>
+
+          <div class="summary-row" *ngIf="d.isGift">
+            <span class="summary-icon">🎁</span>
+            <span>Cette réservation est un cadeau</span>
+          </div>
+
+          <div class="summary-row" *ngIf="hasAppliedPromo">
+            <span class="summary-icon">🏷️</span>
+            <span>Code promo appliqué : -{{ d.discountPercent || 0 }} %</span>
+          </div>
+
+          <div class="amount-box" *ngIf="hasAppliedPromo; else normalAmount">
+            <span>Montant</span>
+            <div class="amount-values">
+              <small class="amount-old">
+                {{ d.totalPrice | number:'1.2-2' }} €
+              </small>
+              <strong>{{ displayedFinalTotal | number:'1.2-2' }} €</strong>
+            </div>
+          </div>
+
+          <ng-template #normalAmount>
+            <div class="amount-box">
+              <span>Montant</span>
+              <strong>{{ d.totalPrice | number:'1.2-2' }} €</strong>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

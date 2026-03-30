@@ -1,20 +1,52 @@
-<div class="container container-workshops pb-15" *ngIf="workshopsData$ | async as workshopsDataArray">
-  <section *ngFor="let workshopData of workshopsDataArray">
-    <div class="row workshop-container">
-      <div class="col-md-5 px-8">
-        <h2 class="mb-5">{{ workshopData.acf_fields.title }}</h2>
-        <div *ngIf="workshopData?.acf_fields" [innerHTML]="workshopData.acf_fields.texte"></div>
-        <button class="btn btn-reserve w-100 mt-5" (click)="openWecandooSite()">
-          Réserver un atelier <i class="fa fa-shopping-cart"></i>
-        </button>        
+<div class="container container-workshops pb-15">
+  <h2 class="page-title">Les ateliers de Claire</h2>
+
+  <p class="page-intro">
+    Découvrez nos ateliers de fabrication de fromages italiens à pâte filée, animés par Claire au cœur de Bordeaux.
+    Réservez votre expérience (solo, duo ou en groupe) et repartez avec vos créations.
+  </p>
+
+  <div class="workshops-grid">
+    <a
+      class="workshop-card"
+      *ngFor="let w of workshops"
+      [routerLink]="['/nos-ateliers', w.slug]"
+    >
+      <div class="card-image">
+        <img
+          class="card-img"
+          [src]="w.media.cardImage || '/assets/img/placeholder.jpg'"
+          alt="Atelier"
+        />
+
+        <div class="logo-overlay"></div>
+
+        <span class="badge-group" *ngIf="w.isGroupSpecial">Spécial groupe</span>
       </div>
-      <div class="col-md-7 pt-md-0 pt-7">
-        <div class="image-logo-container">
-          <img *ngIf="workshopData.acf_fields['image-2']" [src]="workshopData.acf_fields['image-2']" alt="Atelier Image" class="img-fluid-2">
-          <img *ngIf="workshopData.acf_fields['image-1']" [src]="workshopData.acf_fields['image-1']" alt="Atelier Image" class="img-fluid-1">
-          <div class="logo-overlay"></div>
+
+      <div class="card-body">
+        <div class="category">{{ w.categoryLabel }}</div>
+
+        <h3 class="title">
+          {{ w.cardTitle }}
+        </h3>
+
+        <div class="price">{{ w.pricePerPerson }} €</div>
+
+        <div class="meta">
+          <span class="meta-item">
+            <i class="fa fa-clock-o"></i> {{ w.durationLabel }}
+          </span>
+
+          <span class="meta-item">
+            <i class="fa fa-map-marker"></i> {{ w.cityLabel }}
+          </span>
         </div>
+
+        <button class="btn btn-reserve w-100 mt-4" type="button">
+          Réserver <i class="fa fa-shopping-cart"></i>
+        </button>
       </div>
-    </div>
-  </section>
+    </a>
+  </div>
 </div>
