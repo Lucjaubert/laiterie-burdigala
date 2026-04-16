@@ -8,6 +8,7 @@ import { ReservationDetailsComponent } from './pages/reservation-details/reserva
 import { ReservationInformationsComponent } from './pages/reservation-informations/reservation-informations.component';
 import { ReservationPaymentComponent } from './pages/reservation-payment/reservation-payment.component';
 import { ReservationConfirmationComponent } from './pages/reservation-confirmation/reservation-confirmation.component';
+import { PrivatizationRequestComponent } from './pages/privatization-request/privatization-request.component';
 import { BrunchComponent } from './pages/brunch/brunch.component';
 import { SuppliersComponent } from './pages/suppliers/suppliers.component';
 import { AboutUsComponent } from './pages/about-us/about-us.component';
@@ -29,7 +30,7 @@ export const routes = [
   { path: 'reservation/informations', component: ReservationInformationsComponent, title: 'Informations de réservation', data: { hideHeaderFooter: false, disableTransition: true } },
   { path: 'reservation/paiement', component: ReservationPaymentComponent, title: 'Paiement', data: { hideHeaderFooter: false, disableTransition: true } },
   { path: 'reservation/confirmation', component: ReservationConfirmationComponent, title: 'Confirmation de réservation', data: { hideHeaderFooter: false, disableTransition: true } },
-
+  { path: 'privatisation', component: PrivatizationRequestComponent, title: 'Privatisation', data: { hideHeaderFooter: false, disableTransition: true } },
   { path: 'notre-brunch', component: BrunchComponent, title: 'Notre Brunch', data: { hideHeaderFooter: false } },
   { path: 'nos-fournisseurs', component: SuppliersComponent, title: 'Nos Fournisseurs', data: { hideHeaderFooter: false } },
   { path: 'a-propos-de-nous', component: AboutUsComponent, title: 'À Propos de Nous', data: { hideHeaderFooter: false } },

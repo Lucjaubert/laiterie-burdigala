@@ -189,8 +189,13 @@ export class ReservationPaymentComponent implements OnInit {
       return;
     }
 
+    if (!this.draft.phone?.trim()) {
+      this.paymentError = "Votre numéro de téléphone est manquant. Veuillez revenir à l’étape précédente.";
+      return;
+    }
+
     if (this.draft.isGift && !this.draft.giftRecipientEmail?.trim()) {
-      this.paymentError = 'L’email du bénéficiaire est obligatoire pour un atelier offert.';
+      this.paymentError = "L’email du bénéficiaire est obligatoire pour un atelier offert.";
       return;
     }
 
@@ -223,6 +228,7 @@ export class ReservationPaymentComponent implements OnInit {
       billingCity: updatedDraft.billingCity || '',
 
       isGift: !!updatedDraft.isGift,
+      isBookLater: !!updatedDraft.isBookLater,
       giftRecipientFirstName: updatedDraft.giftRecipientFirstName || '',
       giftRecipientLastName: updatedDraft.giftRecipientLastName || '',
       giftRecipientEmail: updatedDraft.giftRecipientEmail || '',

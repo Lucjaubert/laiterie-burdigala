@@ -1,38 +1,65 @@
-export interface ReservationDraft {
-  workshopSlug: string;
-  workshopTitle: string;
-  sessionId: string;
-  startAt: string;
-  endAt: string;
-  qty: number;
-  unitPrice: number;
-  totalPrice: number;
-  seatsLeft: number;
-  capacity?: number;
-  booked?: number;
-  summary?: string;
+  export interface ProposedPrivatizationSlot {
+    date: string;
+    startTime: string;
+    endTime: string;
+  }
 
-  phone?: string;
-  isGift?: boolean;
+  export type CustomerType = 'particulier' | 'entreprise' | '';
 
-  giftRecipientFirstName?: string;
-  giftRecipientLastName?: string;
-  giftRecipientEmail?: string;
-  giftMessage?: string;
-  giftSenderName?: string;
+  export interface ReservationDraft {
+    workshopSlug: string;
+    workshopTitle: string;
+    sessionId: string;
+    startAt: string;
+    endAt: string;
 
-  firstName?: string;
-  lastName?: string;
-  email?: string;
+    qty: number;
+    unitPrice: number;
+    totalPrice: number;
+    seatsLeft: number;
+    capacity?: number;
+    booked?: number;
+    summary?: string;
 
-  billingAddress1?: string;
-  billingAddress2?: string;
-  billingPostalCode?: string;
-  billingCity?: string;
+    phone?: string;
+    isGift?: boolean;
+    isPrivatized?: boolean;
+    isBookLater?: boolean;
 
-  promoCode?: string;
-  discountPercent?: number;
-  discountAmount?: number;
-  finalTotal?: number;
-  cgvAccepted?: boolean;
-}
+    customerType?: CustomerType;
+
+    participantsCount?: number;
+    privatizationBasePrice?: number;
+    privatizationIncludedParticipants?: number;
+    privatizationExtraPricePerPerson?: number;
+    proposedSlots?: ProposedPrivatizationSlot[];
+
+    giftRecipientFirstName?: string;
+    giftRecipientLastName?: string;
+    giftRecipientEmail?: string;
+    giftMessage?: string;
+    giftSenderName?: string;
+
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+
+    billingAddress1?: string;
+    billingAddress2?: string;
+    billingPostalCode?: string;
+    billingCity?: string;
+
+    companyName?: string;
+    companyVatNumber?: string;
+    companySiret?: string;
+
+    wantsInvoice?: boolean;
+    invoiceEmail?: string;
+
+    promoCode?: string;
+    discountPercent?: number;
+    discountAmount?: number;
+    finalTotal?: number;
+
+    cgvAccepted?: boolean;
+  }

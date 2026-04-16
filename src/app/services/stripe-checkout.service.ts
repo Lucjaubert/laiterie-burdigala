@@ -27,11 +27,18 @@ export interface StripeCheckoutRequest {
   billingCity: string;
 
   isGift?: boolean;
+  isBookLater?: boolean;
   giftRecipientFirstName?: string;
   giftRecipientLastName?: string;
   giftRecipientEmail?: string;
   giftMessage?: string;
   giftSenderName?: string;
+
+  customerType?: 'particulier' | 'entreprise' | '';
+  companyName?: string;
+  wantsInvoice?: boolean;
+  invoiceEmail?: string;
+  isPrivatized?: boolean;
 }
 
 export interface StripeCheckoutResponse {

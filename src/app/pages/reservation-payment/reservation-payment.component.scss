@@ -6,7 +6,7 @@
 
 .reservation-page {
   min-height: 100vh;
-  padding: 40px 20px 60px 150px;
+  padding: 70px 50px 60px 350px;
 }
 
 .reservation-container {
@@ -15,27 +15,34 @@
 }
 
 .steps {
-  display: inline-flex;
-  align-items: center;
+  display: inline-grid;
+  grid-template-columns: repeat(4, max-content);
   gap: 10px;
+  align-items: center;
   background: #ffffff;
   border: 1px solid #ded8ce;
   border-radius: 999px;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 36px;
-  flex-wrap: wrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
 
   .step {
+    min-width: 150px;
     padding: 12px 18px;
     border-radius: 999px;
     font-weight: 700;
     font-size: 14px;
+    text-align: center;
     color: #7a746b;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: 0.25s ease;
 
     &.active,
     &.done {
       background: #dfe1ff;
       color: #59775b;
+      border-color: rgba(89, 119, 91, 0.08);
     }
   }
 }
@@ -97,6 +104,10 @@
 }
 
 .product-thumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   img {
     width: 72px;
     height: 72px;
@@ -164,7 +175,8 @@
 }
 
 .pay-card,
-.promo-card {
+.promo-card,
+.payment-methods-box {
   background: #fff;
   border: 1px solid #ddd6ca;
   border-radius: 10px;
@@ -181,8 +193,30 @@
   font-weight: 700;
   color: #2d2d2d;
 
+  input {
+    margin-top: 3px;
+  }
+
   a {
     color: #1010b5;
+    text-decoration: underline;
+  }
+}
+
+.booking-help {
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid #ddd6ca;
+  border-radius: 10px;
+  background: #faf7f2;
+  color: #3f3a34;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 600;
+
+  a {
+    color: #59775b;
+    font-weight: 800;
     text-decoration: underline;
   }
 }
@@ -197,6 +231,12 @@
   font-size: 18px;
   padding: 16px 20px;
   cursor: pointer;
+  transition: background 0.25s ease, transform 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: #4f6c51;
+    transform: translateY(-1px);
+  }
 
   &:disabled {
     background: #719673;
@@ -226,6 +266,12 @@
     padding: 12px 14px;
     font-size: 15px;
     outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+    &:focus {
+      border-color: #59775b;
+      box-shadow: 0 0 0 3px rgba(89, 119, 91, 0.12);
+    }
   }
 
   button {
@@ -236,23 +282,82 @@
     font-weight: 800;
     padding: 12px 18px;
     cursor: pointer;
+    transition: background 0.25s ease;
+
+    &:hover:not(:disabled) {
+      background: #4f6c51;
+    }
+
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
   }
 }
 
-.cards-row {
+.payment-methods-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: #5a554e;
+  margin-bottom: 12px;
+}
+
+.payment-methods {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  align-items: center;
 }
 
-.card-chip {
+.payment-method {
+  width: 38px;
+  height: 38px;
   background: #fff;
   border: 1px solid #ddd6ca;
   border-radius: 8px;
-  padding: 10px 12px;
-  font-weight: 800;
-  font-size: 13px;
-  color: #404040;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 6px;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  img {
+    max-width: 120%;
+    max-height: 20px;
+    object-fit: contain;
+    display: block;
+  }
+
+  &:hover {
+    transform: translateY(-1px);
+    border-color: #cfc5b6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  }
+}
+
+.payment-method--cb img {
+  max-height: 22px;
+}
+
+.payment-method--visa img {
+  max-height: 22px;
+}
+
+.payment-method--mastercard img {
+  max-height: 22px;
+}
+
+.payment-method--amex img {
+  max-height: 22px;
+}
+
+.payment-method--apple img {
+  max-height: 22px;
+}
+
+.payment-method--gpay img {
+  max-height: 22px;
 }
 
 .promo-feedback {
@@ -271,6 +376,10 @@
 }
 
 @media (max-width: 992px) {
+  .reservation-page {
+    padding: 32px 20px 48px;
+  }
+
   .reservation-layout {
     grid-template-columns: 1fr;
   }
@@ -290,5 +399,91 @@
 
   .table-row > div {
     border-right: none;
+  }
+
+  .product-thumb {
+    justify-content: flex-start;
+  }
+
+  .cell-amount,
+  .cell-unit,
+  .cell-qty {
+    justify-content: flex-start;
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    border-radius: 28px;
+
+    .step {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .payment-methods {
+    gap: 8px;
+  }
+
+  .payment-method {
+    width: 54px;
+    height: 34px;
+
+    img {
+      max-height: 16px;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .reservation-page {
+    padding: 24px 14px 40px;
+  }
+
+  .page-title {
+    font-size: 28px;
+    margin-bottom: 22px;
+  }
+
+  .product-title {
+    font-size: 16px;
+  }
+
+  .product-meta {
+    font-size: 14px;
+  }
+
+  .table-total {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .promo-field {
+    grid-template-columns: 1fr;
+  }
+
+  .payment-methods-title {
+    text-align: center;
+  }
+
+  .payment-methods {
+    justify-content: center;
+  }
+
+  .steps {
+    grid-template-columns: 1fr;
+    border-radius: 24px;
+
+    .step {
+      font-size: 13px;
+      padding: 11px 14px;
+    }
   }
 }

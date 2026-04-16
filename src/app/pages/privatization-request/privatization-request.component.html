@@ -1,0 +1,246 @@
+<div class="container reservation-page" *ngIf="draft as d">
+  <div class="reservation-container">
+    <div class="steps">
+      <div class="step active">1. Privatisation</div>
+      <div class="step">2. Informations</div>
+      <div class="step">3. Paiement</div>
+    </div>
+
+    <div class="reservation-layout">
+      <div class="left-col">
+        <h2 class="page-title">Privatiser l’atelier</h2>
+
+        <div class="intro-card">
+          <div class="intro-title">{{ d.workshopTitle }}</div>
+          <div class="intro-text">
+            Tarif atelier : <span class="text-green">50 € TTC par personne</span>.<br>
+            Pour un groupe de <span class="text-green">5 à 7 participants</span>, un
+            <span class="text-green">forfait privatisation de 200 €</span> s’applique.<br>
+            À partir de <span class="text-green">8 participants</span>, aucun supplément de privatisation.
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">Vous êtes :</div>
+
+          <div class="type-switch">
+            <button
+              type="button"
+              class="type-btn"
+              [class.active]="customerType === 'particulier'"
+              (click)="setCustomerType('particulier')"
+            >
+              Particulier
+            </button>
+
+            <button
+              type="button"
+              class="type-btn"
+              [class.active]="customerType === 'entreprise'"
+              (click)="setCustomerType('entreprise')"
+            >
+              Entreprise
+            </button>
+          </div>
+        </div>
+
+        <div class="form-block" *ngIf="customerType === 'entreprise'">
+          <label class="field-label" for="companyName">Nom de l’entreprise</label>
+          <div class="field-card">
+            <input
+              id="companyName"
+              type="text"
+              class="field-input"
+              [(ngModel)]="companyName"
+              placeholder="Nom de l’entreprise"
+            >
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-block">
+            <label class="field-label" for="firstName">Prénom</label>
+            <div class="field-card">
+              <input
+                id="firstName"
+                type="text"
+                class="field-input"
+                [(ngModel)]="firstName"
+                placeholder="Prénom"
+              >
+            </div>
+          </div>
+
+          <div class="form-block">
+            <label class="field-label" for="lastName">Nom</label>
+            <div class="field-card">
+              <input
+                id="lastName"
+                type="text"
+                class="field-input"
+                [(ngModel)]="lastName"
+                placeholder="Nom"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-block">
+            <label class="field-label" for="phone">Téléphone</label>
+            <div class="field-card">
+              <input
+                id="phone"
+                type="tel"
+                class="field-input"
+                [(ngModel)]="phone"
+                placeholder="Téléphone"
+              >
+            </div>
+          </div>
+
+          <div class="form-block">
+            <label class="field-label" for="email">Email</label>
+            <div class="field-card">
+              <input
+                id="email"
+                type="email"
+                class="field-input"
+                [(ngModel)]="email"
+                placeholder="email@exemple.com"
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="gift-card">
+          <div class="gift-icon">🧾</div>
+
+          <div class="gift-content">
+            <div class="gift-title">Je souhaite une facture</div>
+            <div class="gift-text">
+              Une facture sera envoyée par email après le paiement.
+            </div>
+          </div>
+
+          <label class="gift-checkbox">
+            <input type="checkbox" [(ngModel)]="wantsInvoice">
+            <span></span>
+          </label>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">Nombre de participants</div>
+
+          <div class="participants-row">
+            <button type="button" class="circle-btn" (click)="decreaseParticipants()">−</button>
+
+            <div class="participants-value">
+              {{ participantsCount }}
+            </div>
+
+            <button type="button" class="circle-btn" (click)="increaseParticipants()">+</button>
+          </div>
+
+          <div class="field-help">
+            Minimum 5 participants. De 5 à 7 participants, un forfait privatisation de 200 € s’applique.
+            À partir de 8 participants, aucun supplément de privatisation.
+          </div>
+        </div>
+
+        <div class="section-card">
+          <div class="section-title">Créneaux souhaités et précisions</div>
+
+          <div class="section-help">
+            Indiquez dans votre message vos souhaits de jours, horaires, durée ou contraintes.
+          </div>
+
+          <div class="preset-row">
+            <button type="button" class="btn-secondary" (click)="fillSuggestedMessage()">
+              Préremplir un message type
+            </button>
+          </div>
+        </div>
+
+        <div class="form-block">
+          <label class="field-label" for="requestMessage">Votre message</label>
+          <div class="field-card field-card-textarea">
+            <textarea
+              id="requestMessage"
+              class="field-input field-textarea"
+              rows="8"
+              [(ngModel)]="requestMessage"
+              placeholder="Exemple : nous souhaiterions privatiser l’atelier un samedi après-midi, pour 6 personnes, avec une durée similaire aux ateliers classiques..."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-error" *ngIf="formError">
+          {{ formError }}
+        </div>
+
+        <div class="actions">
+          <button class="btn-secondary" type="button" (click)="goBack()">
+            Retour
+          </button>
+
+          <button class="btn-primary" type="button" (click)="continue()">
+            Continuer
+          </button>
+        </div>
+      </div>
+
+      <div class="right-col">
+        <div class="summary-card">
+          <div class="summary-header">
+            <div class="summary-thumb">
+              <img src="assets/workshops/atelier-5.webp" alt="Atelier">
+            </div>
+
+            <div class="summary-title">
+              {{ d.workshopTitle }}
+            </div>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">🏷️</span>
+            <span>{{ displayCustomerType }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">👥</span>
+            <span>{{ participantsText }}</span>
+          </div>
+
+          <div class="summary-row">
+            <span class="summary-icon">💶</span>
+            <span>{{ participantsCount }} × 50.00 €</span>
+          </div>
+
+          <div class="summary-row" *ngIf="privatizationFee > 0">
+            <span class="summary-icon">➕</span>
+            <span>Forfait privatisation : {{ privatizationFee | number:'1.2-2' }} €</span>
+          </div>
+
+          <div class="summary-row" *ngIf="wantsInvoice">
+            <span class="summary-icon">🧾</span>
+            <span>Facture demandée</span>
+          </div>
+
+          <div class="amount-box">
+            <span>Montant estimé</span>
+            <strong>{{ computedTotal | number:'1.2-2' }} €</strong>
+          </div>
+        </div>
+
+        <div class="conditions-card">
+          <h3>Organisation de la privatisation</h3>
+          <p>
+            La date, l’horaire et la durée seront confirmés selon les disponibilités du labo,
+            la saison et le niveau d’occupation. Votre demande sera étudiée avant validation finale.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,148 @@
+:host {
+  display: block;
+}
+
+.review-dialog {
+  padding: 24px;
+  background: #fff;
+  min-width: min(640px, 90vw);
+}
+
+.dialog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 900;
+    color: #202020;
+  }
+}
+
+.close-btn {
+  border: none;
+  background: transparent;
+  font-size: 30px;
+  cursor: pointer;
+  color: #202020;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-block {
+  margin-bottom: 22px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 800;
+  font-size: 18px;
+  color: #3e3a35;
+}
+
+.field-card {
+  background: #ffffff;
+  border: 1px solid #ddd6ca;
+  border-radius: 999px;
+  padding: 0 18px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+}
+
+.field-card-textarea {
+  border-radius: 20px;
+  padding: 14px 18px;
+  align-items: flex-start;
+}
+
+.field-input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 18px;
+  color: #202020;
+  font-family: inherit;
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.5;
+}
+
+.rating-row {
+  display: flex;
+  gap: 10px;
+}
+
+.star-btn {
+  border: none;
+  background: transparent;
+  font-size: 30px;
+  cursor: pointer;
+  color: #202020;
+  padding: 0;
+}
+
+.form-error {
+  margin-top: 10px;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #b42318;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 999px;
+  padding: 14px 22px;
+  font-weight: 900;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.btn-primary {
+  background: #7ea27f;
+  color: #fff;
+}
+
+.btn-secondary {
+  background: #e8ebff;
+  color: #1a1ab5;
+}
+
+@media (max-width: 768px) {
+  .review-dialog {
+    min-width: auto;
+    width: 100%;
+    padding: 18px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+}

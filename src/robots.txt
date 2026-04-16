@@ -1,10 +1,12 @@
 User-agent: *
-Disallow: /intro
-Disallow: /404
-Disallow: /wp-admin/
 Allow: /
 
+Disallow: /wp-admin/
+Disallow: /finaliser-commande
+Disallow: /reservation/details
+Disallow: /reservation/informations
+Disallow: /reservation/paiement
+Disallow: /reservation/confirmation
+Disallow: /privatisation
+
 Sitemap: https://laiterieburdigala.fr/sitemap.xml
-
-
-

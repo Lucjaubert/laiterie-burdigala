@@ -9,7 +9,7 @@
 
     <div class="reservation-layout">
       <div class="left-col">
-        <h1 class="page-title">Finalisation</h1>
+        <h2 class="page-title">Finalisation</h2>
 
         <div class="product-table">
           <div class="table-head">
@@ -67,6 +67,11 @@
             </span>
           </label>
 
+          <div class="booking-help">
+            Si vous n'arrivez pas à réserver un créneau, appelez-nous directement au
+            <a href="tel:0665492642">06 65 49 26 42</a>.
+          </div>
+
           <div class="promo-feedback error" *ngIf="paymentError">
             {{ paymentError }}
           </div>
@@ -111,12 +116,34 @@
           </div>
         </div>
 
-        <div class="cards-row">
-          <span class="card-chip">Mastercard</span>
-          <span class="card-chip">Visa</span>
-          <span class="card-chip">Amex</span>
-          <span class="card-chip">Apple Pay</span>
-          <span class="card-chip">G Pay</span>
+        <div class="payment-methods-box">
+          <div class="payment-methods-title">Moyens de paiement acceptés</div>
+
+          <div class="payment-methods">
+            <span class="payment-method payment-method--cb" aria-label="Cartes Bancaires">
+              <img src="assets/payment/cb.svg" alt="Cartes Bancaires">
+            </span>
+
+            <span class="payment-method payment-method--visa" aria-label="Visa">
+              <img src="assets/payment/Visa_Inc.png" alt="Visa">
+            </span>
+
+            <span class="payment-method payment-method--mastercard" aria-label="Mastercard">
+              <img src="assets/payment/Mastercard.png" alt="Mastercard">
+            </span>
+
+            <span class="payment-method payment-method--amex" aria-label="American Express">
+              <img src="assets/payment/American_Express.png" alt="American Express">
+            </span>
+
+            <span class="payment-method payment-method--apple" aria-label="Apple Pay">
+              <img src="assets/payment/apple-pay.webp" alt="Apple Pay">
+            </span>
+
+            <span class="payment-method payment-method--gpay" aria-label="Google Pay">
+              <img src="assets/payment/google-pay.svg" alt="Google Pay">
+            </span>
+          </div>
         </div>
       </div>
     </div>

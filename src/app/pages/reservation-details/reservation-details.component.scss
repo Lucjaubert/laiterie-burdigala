@@ -6,7 +6,7 @@
 
 .reservation-page {
   min-height: 100vh;
-  padding: 40px 20px 60px 150px;
+  padding: 70px 50px 60px 350px;
 }
 
 .reservation-container {
@@ -15,26 +15,33 @@
 }
 
 .steps {
-  display: inline-flex;
-  align-items: center;
+  display: inline-grid;
+  grid-template-columns: repeat(4, max-content);
   gap: 10px;
+  align-items: center;
   background: #ffffff;
   border: 1px solid #ded8ce;
   border-radius: 999px;
-  padding: 10px;
+  padding: 20px;
   margin-bottom: 36px;
-  flex-wrap: wrap;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
 
   .step {
+    min-width: 150px;
     padding: 12px 18px;
     border-radius: 999px;
     font-weight: 700;
     font-size: 14px;
+    text-align: center;
     color: #7a746b;
+    background: transparent;
+    border: 1px solid transparent;
+    transition: 0.25s ease;
 
     &.active {
       background: #dfe1ff;
       color: #1515b8;
+      border-color: rgba(21, 21, 184, 0.08);
     }
   }
 }
@@ -298,6 +305,10 @@
 }
 
 @media (max-width: 992px) {
+  .reservation-page {
+    padding: 24px 16px 40px;
+  }
+
   .reservation-layout {
     grid-template-columns: 1fr;
   }
@@ -312,5 +323,29 @@
 
   .actions {
     flex-direction: column;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    border-radius: 28px;
+
+    .step {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .steps {
+    grid-template-columns: 1fr;
+    border-radius: 24px;
+
+    .step {
+      font-size: 13px;
+      padding: 11px 14px;
+    }
   }
 }

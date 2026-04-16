@@ -21,7 +21,7 @@
               <ng-template #heroImg>
                 <img
                   class="img-fluid"
-                  [src]="w.media.gallery[0] || '/assets/img/placeholder.jpg'"
+                  [src]="w.media.gallery[0] || '/assets/workshops/atelier-8.webp'"
                   alt="Atelier - visuel principal"
                 >
               </ng-template>
@@ -35,7 +35,7 @@
               </div>
 
               <div class="thumb" *ngIf="w.media.gallery.length <= 1">
-                <img class="img-fluid" src="/assets/img/placeholder.jpg" alt="Atelier - photo">
+                <img class="img-fluid" src="assets/workshops/atelier-5.webp" alt="Atelier - photo">
               </div>
             </div>
           </div>
@@ -48,7 +48,7 @@
       </div>
 
       <div class="workshop-section mt-7">
-        <h3>L’atelier en détail</h3>
+        <h3>L'atelier en détail</h3>
 
         <div class="meta-row section-box">
           <div class="meta-item">
@@ -65,7 +65,7 @@
           </div>
           <div class="meta-item">
             <span class="meta-label">Privatisation</span>
-            <span class="meta-value">jusqu’à {{ w.privatizationMax }} personnes</span>
+            <span class="meta-value">jusqu'à {{ w.privatizationMax }} personnes</span>
           </div>
         </div>
 
@@ -109,14 +109,23 @@
       <div class="workshop-section mt-7">
         <h3>Commentaires</h3>
 
-        <div class="section-box" *ngIf="reviews.length; else noReviews">
-          <div class="review-item" *ngFor="let r of reviews">
+        <div class="section-box reviews-box" *ngIf="displayedReviews.length; else noReviews">
+          <div class="review-item" *ngFor="let r of displayedReviews; let last = last">
             <div class="review-header">
-              <div class="avatar">{{ r.author[0] || 'A' }}</div>
+              <div class="review-left">
+                <div class="avatar">{{ getInitial(r.author) }}</div>
 
-              <div class="review-meta">
-                <div class="review-author">{{ r.author }}</div>
-                <div class="review-date">{{ r.date }}</div>
+                <div class="review-meta">
+                  <div class="review-author">{{ r.author }}</div>
+
+                  <div class="review-submeta">
+                    <div class="review-date">{{ r.displayDate }}</div>
+
+                    <span class="review-source" *ngIf="r.source === 'wecandoo'">
+                      Avis laissé sur le site Wecandoo
+                    </span>
+                  </div>
+                </div>
               </div>
 
               <div class="review-rating" *ngIf="r.rating">
@@ -127,6 +136,8 @@
             </div>
 
             <p class="review-text mb-0">{{ r.text }}</p>
+
+            <div class="review-divider" *ngIf="!last"></div>
           </div>
         </div>
 
@@ -136,7 +147,11 @@
           </div>
         </ng-template>
 
-        <div class="mt-4 text-center">
+        <div class="mt-4 text-center review-actions">
+          <button class="btn btn-outline-primary btn-review me-3" type="button" (click)="toggleReviews()">
+            {{ showAllReviews ? 'Voir moins d'avis' : 'Voir les derniers avis' }}
+          </button>
+
           <button class="btn btn-outline-primary btn-review" type="button" (click)="leaveReview()">
             Laisser un avis
           </button>
@@ -186,12 +201,30 @@
           <span>OU</span>
         </div>
 
-        <button class="btn btn-gift w-100" type="button" (click)="giftWorkshop()">
-          Offrir l’atelier <i class="fa fa-gift"></i>
-        </button>
+        <div class="btn-book-later-wrapper">
+          <button class="btn btn-book-later w-100" type="button" (click)="bookLaterWorkshop()">
+            Acheter maintenant <i class="fa fa-credit-card"></i>
+          </button>
+          <p class="btn-book-later-hint">
+            Vous achetez l'atelier maintenant et choisissez la date plus tard.
+          </p>
+        </div>
+
+        <div class="btn-book-later-wrapper mt-4">
+          <button class="btn btn-gift w-100" type="button" (click)="giftWorkshop()">
+            Offrir l'atelier <i class="fa fa-gift"></i>
+          </button>
+          <p class="btn-book-later-hint">
+            Vous offrez l'atelier maintenant, et la date pourra être choisie plus tard.
+          </p>
+        </div>
 
         <button class="btn btn-outline-privatize w-100 mt-4" type="button" (click)="privatizeWorkshop()">
-          Privatiser l’atelier <i class="fa fa-key"></i>
+          Privatiser l'atelier <i class="fa fa-key"></i>
+        </button>
+
+        <button class="btn btn-outline-back w-100 mt-4" type="button" routerLink="/nos-ateliers">
+          Revenir aux ateliers <i class="fa fa-arrow-left"></i>
         </button>
 
         <div class="extra-infos mt-6" *ngIf="w.extraInfos?.length">

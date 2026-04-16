@@ -30,7 +30,15 @@
   </div>
 
   <div class="right">
-    <ng-container *ngIf="sessionsForSelectedDate.length; else empty">
+    <ng-container *ngIf="hasNoSessions; else sessionsContent">
+      <div class="empty-box">
+        <h4>Aucune disponibilite pour l'instant</h4>
+        <p>Il n'y a aucune disponibilite pour l'instant. Veuillez nous contacter directement au 06 65 49 26 42 pour convenir d'un prochain atelier avec vous.</p>
+      </div>
+    </ng-container>
+
+    <ng-template #sessionsContent>
+      <ng-container *ngIf="sessionsForSelectedDate.length; else empty">
       <div class="session-card" *ngFor="let s of sessionsForSelectedDate">
         <div class="session-left">
           <div class="time">
@@ -54,7 +62,8 @@
           Réserver
         </button>
       </div>
-    </ng-container>
+      </ng-container>
+    </ng-template>
 
     <ng-template #empty>
       <div class="empty-box">

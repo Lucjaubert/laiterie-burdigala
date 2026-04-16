@@ -12,7 +12,7 @@ import { WORKSHOPS, WorkshopHardcoded } from 'src/app/config/workshops.config';
 @Component({
   selector: 'app-workshops',
   standalone: true,
-  imports: [CommonModule, HeaderComponent, RouterModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './workshops.component.html',
   styleUrls: ['./workshops.component.scss'],
 })
