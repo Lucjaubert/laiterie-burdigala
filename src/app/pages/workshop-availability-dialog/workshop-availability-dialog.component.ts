@@ -89,6 +89,10 @@ export class WorkshopAvailabilityDialogComponent implements OnInit {
     this.selectedDate = date;
   }
 
+  get hasNoSessions(): boolean {
+    return this.sessions.length === 0;
+  }
+
   get sessionsForSelectedDate(): WorkshopSession[] {
     if (!this.selectedDate) return [];
 

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-
+import { environment } from 'src/environments/environment';
 import { ReservationDraftService } from 'src/app/services/reservation-draft.service';
 import { ReferralPromoService } from 'src/app/services/referral-promo.service';
 import { BookingDetails, BookingService } from 'src/app/services/booking.service';
@@ -13,7 +13,7 @@ import { BookingDetails, BookingService } from 'src/app/services/booking.service
   templateUrl: './reservation-confirmation.component.html',
   styleUrls: ['./reservation-confirmation.component.scss']
 })
-export class ReservationConfirmationComponent implements OnInit {
+export class ReservationConfirmationComponent implements OnInit, OnDestroy {
   stripeSessionId: string | null = null;
   bookingId: string | null = null;
 
@@ -25,7 +25,11 @@ export class ReservationConfirmationComponent implements OnInit {
   shareSuccess = false;
   shareError: string | null = null;
 
-  private readonly referralLandingUrl = 'http://localhost:4200/nos-ateliers';
+  private readonly referralLandingUrl = `${environment.appBaseUrl}/nos-ateliers`;
+  private readonly maxRetries = 8;
+  private readonly retryDelayMs = 2000;
+  private retryCount = 0;
+  private retryTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -42,8 +46,19 @@ export class ReservationConfirmationComponent implements OnInit {
     this.reservationDraftService.clearDraft();
     this.referralPromoService.clearCode();
 
-    if (this.stripeSessionId) {
-      this.loadBooking(this.stripeSessionId);
+    if (!this.stripeSessionId) {
+      this.errorMessage = 'Session Stripe manquante.';
+      return;
+    }
+
+    this.retryCount = 0;
+    this.loadBookingWithRetry(this.stripeSessionId);
+  }
+
+  ngOnDestroy(): void {
+    if (this.retryTimeout) {
+      clearTimeout(this.retryTimeout);
+      this.retryTimeout = null;
     }
   }
 
@@ -79,28 +94,62 @@ export class ReservationConfirmationComponent implements OnInit {
     return `Profite de -10 % sur ton atelier avec mon code ${this.referralCode} : ${this.referralShareUrl}`;
   }
 
-  private loadBooking(sessionId: string): void {
+  private loadBookingWithRetry(sessionId: string): void {
     this.isLoading = true;
     this.errorMessage = null;
 
     this.bookingService.getBookingByStripeSession(sessionId).subscribe({
       next: (response) => {
-        this.isLoading = false;
-
         if (!response.success || !response.booking) {
-          this.errorMessage = response.message || 'Impossible de récupérer les détails de réservation.';
+          this.handleRetryOrFail(response.message || 'Impossible de récupérer les détails de réservation.');
           return;
         }
 
         this.booking = response.booking;
         this.bookingId = String(response.booking.id);
+        this.isLoading = false;
+        this.errorMessage = null;
+        this.retryCount = 0;
       },
       error: (error) => {
+        const status = error?.status;
+        const message = error?.error?.message || 'Impossible de charger la réservation.';
+
+        if (status === 404) {
+          this.handleRetryOrFail('Réservation introuvable pour cette session Stripe.');
+          return;
+        }
+
         this.isLoading = false;
         console.error('Erreur récupération booking confirmation :', error);
-        this.errorMessage = error?.error?.message || 'Impossible de charger la réservation.';
+        this.errorMessage = message;
       }
     });
+  }
+
+  private handleRetryOrFail(finalMessage: string): void {
+    if (!this.stripeSessionId) {
+      this.isLoading = false;
+      this.errorMessage = finalMessage;
+      return;
+    }
+
+    if (this.retryCount < this.maxRetries) {
+      this.retryCount++;
+
+      this.retryTimeout = setTimeout(() => {
+        if (!this.stripeSessionId) {
+          return;
+        }
+
+        this.loadBookingWithRetry(this.stripeSessionId);
+      }, this.retryDelayMs);
+
+      return;
+    }
+
+    this.isLoading = false;
+    this.errorMessage = finalMessage;
   }
 
   async copyReferralCode(): Promise<void> {

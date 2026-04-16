@@ -1,7 +1,7 @@
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 @import "./_variables.scss";
 @import "../../../node_modules/bootstrap/scss/bootstrap";
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap');
 
 html,
 body {
@@ -31,14 +31,27 @@ body {
   }
 }
 
+/* -------------------- */
+/* TITRES PRINCIPAUX    */
+/* -------------------- */
+
 h1,
-h2,
+h2 {
+  font-family: 'Josefin Sans', sans-serif;
+  color: map-get($theme-colors, "green");
+  text-transform: none;
+}
+
 h3,
 h4,
 h5 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   color: map-get($theme-colors, "green");
 }
+
+/* -------------------- */
+/* TEXTE COURANT        */
+/* -------------------- */
 
 p,
 a,
@@ -47,49 +60,56 @@ button,
 input,
 textarea,
 select,
-label {
-  font-family: 'Inter', sans-serif;
+label,
+span {
+  font-family: "Josefin Sans", sans-serif;
 }
 
+/* -------------------- */
+/* ÉCHELLE TYPO         */
+/* -------------------- */
+
 h1 {
-  font-weight: 700;
+  font-weight: 500;
+  font-size: map-get($font-size, "80");
+  line-height: 1.2;
+  letter-spacing: 0.04em;
+
+  @media (max-width: 1025px) {
+    font-size: map-get($font-size, "60") !important;
+  }
+}
+
+h2 {
+  font-weight: 600;
+  font-size: map-get($font-size, "70");
+  line-height: 1.2;
+  letter-spacing: 0.035em;
+}
+
+h3 {
   font-size: map-get($font-size, "60");
-  line-height: 1.75;
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
 
   @media (max-width: 1025px) {
     font-size: map-get($font-size, "50") !important;
   }
 }
 
-h2 {
-  font-weight: 700;
-  font-size: map-get($font-size, "60");
-  line-height: 1.75;
-  letter-spacing: -0.02em;
-}
-
-h3 {
-  font-size: map-get($font-size, "50");
-  font-weight: 600;
-  line-height: 1.75;
-  letter-spacing: -0.015em;
-
-  @media (max-width: 1025px) {
-    font-size: map-get($font-size, "30") !important;
-  }
-}
-
 h4 {
   font-weight: 600;
-  font-size: map-get($font-size, "40");
-  line-height: 1.75;
+  font-size: map-get($font-size, "50");
+  line-height: 1.3;
+  letter-spacing: 0.01em;
 }
 
 h5 {
   font-weight: 600;
   font-size: map-get($font-size, "40");
-  line-height: 1.75;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
 }
 
 a,
@@ -97,6 +117,40 @@ p {
   font-size: map-get($font-size, "30");
   line-height: 1.5;
 }
+
+/* -------------------- */
+/* CLASSES UTILITAIRES  */
+/* -------------------- */
+
+.font-josefin {
+  font-family: 'Josefin Sans', sans-serif !important;
+}
+
+.font-cormorant {
+  font-family: 'Cormorant Garamond', serif !important;
+}
+
+.font-inter {
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* Pour reproduire un rendu proche du logo */
+.logo-main-text {
+  font-family: 'Josefin Sans', sans-serif !important;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.logo-sub-text {
+  font-family: 'Cormorant Garamond', serif !important;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* -------------------- */
+/* LAYOUT GLOBAL        */
+/* -------------------- */
 
 .container {
   padding-left: 18rem;
@@ -118,6 +172,10 @@ router-outlet {
   display: none !important;
 }
 
+/* -------------------- */
+/* COULEURS UTILITAIRES */
+/* -------------------- */
+
 @each $color-name, $color-value in $theme-colors {
   .text-#{$color-name} {
     color: $color-value;
@@ -128,11 +186,19 @@ router-outlet {
   }
 }
 
+/* -------------------- */
+/* TAILLES UTILITAIRES  */
+/* -------------------- */
+
 @each $name, $value in $font-size {
   .text-fs-#{$name} {
     font-size: $value;
   }
 }
+
+/* -------------------- */
+/* MATERIAL ICONS       */
+/* -------------------- */
 
 .material-symbols-outlined {
   font-variation-settings:
@@ -142,6 +208,10 @@ router-outlet {
     'opsz' 24;
   font-family: 'Material Symbols Outlined';
 }
+
+/* -------------------- */
+/* SNACKBAR             */
+/* -------------------- */
 
 .mat-mdc-snack-bar-container {
   position: fixed !important;
@@ -164,17 +234,54 @@ router-outlet {
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* -------------------- */
+/* FOOTER               */
+/* -------------------- */
+
 .footer {
   z-index: 1400;
   flex-shrink: 0;
   width: 100%;
 }
 
+/* -------------------- */
+/* HOMEPAGE LOCATION    */
+/* -------------------- */
+
+.homepage-container .location-container .location-title,
+.homepage-container .location-container .location-title h1,
+.homepage-container .location-container .location-title h2,
+.homepage-container .location-container .location-title h3,
+.homepage-container .location-container .location-title h4,
+.homepage-container .location-container .location-title h5,
+.homepage-container .location-container .location-title p,
+.homepage-container .location-container .location-title span,
+.homepage-container .location-container .location-title div {
+  color: map-get($theme-colors, "white") !important;
+}
+
+/* Si tu veux que cette zone ressemble encore plus au logo */
+.homepage-container .location-container .location-title h1,
+.homepage-container .location-container .location-title h2 {
+  font-family: 'Josefin Sans', sans-serif !important;
+  letter-spacing: 0.06em;
+}
+
+.homepage-container .location-container .location-title h3,
+.homepage-container .location-container .location-title h4,
+.homepage-container .location-container .location-title h5 {
+  font-family: 'Cormorant Garamond', serif !important;
+}
+
+/* -------------------- */
+/* RESPONSIVE           */
+/* -------------------- */
+
 @media (max-width: 767px) {
   .container {
     padding-left: 20px !important;
     padding-right: 20px !important;
-    padding-top: 0 !important;
+    padding-top: 25px !important;
   }
 
   .app-container {
@@ -193,15 +300,25 @@ router-outlet {
 
   h4 {
     font-weight: 600;
-    font-size: map-get($font-size, "30");
+    font-size: map-get($font-size, "50");
   }
 
   h5 {
     font-weight: 600;
-    font-size: map-get($font-size, "20");
+    font-size: map-get($font-size, "40");
   }
 
   .mat-mdc-snack-bar-container {
     width: 95vw !important;
+  }
+
+  a,
+  p {
+    line-height: 1.45;
+  }
+
+  h1,
+  h2 {
+    letter-spacing: 0.02em;
   }
 }

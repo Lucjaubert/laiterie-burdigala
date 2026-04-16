@@ -1,7 +1,7 @@
 @import "../../styles/_variables.scss";
 
 .supplier-container {
-  padding-left: 38rem;
+  padding-left: 18rem;
   padding-top: 5rem;
 
   .supplier-section {
@@ -21,7 +21,7 @@
     }
 
     .supplier-1-logo {
-      width: 50vw; 
+      width: 50vw;
       top: -12vw;
       left: 2vw;
       opacity: 0.05 !important;
@@ -49,7 +49,7 @@
       opacity: 0.05 !important;
     }
   }
-  
+
   .image-container {
     width: 60%;
     position: relative;
@@ -82,13 +82,13 @@
       position: absolute;
       top: 3vw;
       left: 12vw;
-      width: 50%; 
+      width: 50%;
     }
     img:nth-child(3).medium-image {
       position: absolute;
       top: -7vw;
       left: 37vw;
-      width: 60%; 
+      width: 60%;
     }
   }
 
@@ -136,7 +136,7 @@
         width: 60%;
     }
   }
-  
+
   // images section Alba
   .supplier-4 .image-container {
     img:nth-child(1).small-image {
@@ -158,7 +158,7 @@
         width: 60%;
     }
   }
-  
+
   // images section Riz Bio
   .supplier-5 .image-container {
     img:nth-child(1).large-image {
@@ -236,7 +236,7 @@
 
     .image-container {
       display: none;
-    }  
+    }
 
     .supplier-section {
       .logo-container {
@@ -246,14 +246,14 @@
         justify-content: center;
         margin-top: 20px;
       }
-  
+
       img.supplier-logo {
         position: absolute;
         height: auto;
         opacity: 0.1;
         z-index: -1;
       }
-  
+
       .supplier-1-logo {
         width: 60vw;
         top: -12vw;
@@ -284,5 +284,5 @@
         opacity: 0.05 !important;
       }
     }
-  } 
+  }
 }

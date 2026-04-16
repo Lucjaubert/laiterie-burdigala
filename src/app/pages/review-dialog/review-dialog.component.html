@@ -1,0 +1,70 @@
+<div class="review-dialog">
+  <div class="dialog-header">
+    <h2>Laisser un avis</h2>
+    <button type="button" class="close-btn" (click)="close()">×</button>
+  </div>
+
+  <div class="form-grid">
+    <div class="form-block">
+      <label class="field-label" for="firstName">Prénom</label>
+      <div class="field-card">
+        <input
+          id="firstName"
+          type="text"
+          class="field-input"
+          [(ngModel)]="firstName"
+          placeholder="Prénom"
+        >
+      </div>
+    </div>
+
+    <div class="form-block">
+      <label class="field-label" for="lastName">Nom</label>
+      <div class="field-card">
+        <input
+          id="lastName"
+          type="text"
+          class="field-input"
+          [(ngModel)]="lastName"
+          placeholder="Nom"
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="form-block">
+    <label class="field-label">Note</label>
+    <div class="rating-row">
+      <button
+        type="button"
+        class="star-btn"
+        *ngFor="let star of stars"
+        (click)="setRating(star)"
+      >
+        {{ star <= rating ? '★' : '☆' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="form-block">
+    <label class="field-label" for="reviewText">Votre avis</label>
+    <div class="field-card field-card-textarea">
+      <textarea
+        id="reviewText"
+        class="field-input field-textarea"
+        rows="5"
+        [(ngModel)]="text"
+        placeholder="Décrivez votre expérience..."
+      ></textarea>
+    </div>
+  </div>
+
+  <div class="form-error" *ngIf="formError">
+    {{ formError }}
+  </div>
+
+  <div class="actions">
+    <button type="button" class="btn-secondary" (click)="close()">Annuler</button>
+    <button type="button" class="btn-primary" (click)="submit()">Publier l’avis</button>
+  </div>
+</div>

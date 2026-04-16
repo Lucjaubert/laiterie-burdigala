@@ -9,7 +9,7 @@
 
     <div class="reservation-layout">
       <div class="left-col">
-        <h1 class="page-title">Détails de la réservation</h1>
+        <h2 class="page-title">Détails de la réservation</h2>
 
         <div class="form-block">
           <label class="field-label" for="qty">Nombre de places</label>
@@ -27,7 +27,7 @@
             </select>
           </div>
 
-          <div class="field-help" *ngIf="d.seatsLeft > 0">
+          <div class="field-help" *ngIf="d.seatsLeft > 0 && !d.isBookLater">
             Il reste actuellement {{ d.seatsLeft }} place<span *ngIf="d.seatsLeft > 1">s</span> disponible<span *ngIf="d.seatsLeft > 1">s</span>.
           </div>
         </div>
@@ -62,6 +62,10 @@
           </label>
         </div>
 
+        <div class="form-error" *ngIf="formError">
+          {{ formError }}
+        </div>
+
         <div class="actions">
           <button class="btn-secondary" type="button" (click)="goBack()">
             Retour
@@ -90,14 +94,19 @@
             <span>{{ qty }} place<span *ngIf="qty > 1">s</span></span>
           </div>
 
-          <div class="summary-row">
+          <div class="summary-row" *ngIf="!d.isBookLater">
             <span class="summary-icon">📅</span>
             <span>{{ d.startAt | date:'fullDate':'':'fr' }}</span>
           </div>
 
-          <div class="summary-row">
+          <div class="summary-row" *ngIf="!d.isBookLater">
             <span class="summary-icon">🕒</span>
             <span>{{ d.startAt | date:'HH:mm' }} - {{ d.endAt | date:'HH:mm' }}</span>
+          </div>
+
+          <div class="summary-row" *ngIf="d.isBookLater">
+            <span class="summary-icon">📅</span>
+            <span>Date à choisir ultérieurement</span>
           </div>
 
           <div class="summary-row">
@@ -105,49 +114,17 @@
             <span>Bordeaux, Les Capucins</span>
           </div>
 
-          <div class="summary-row" *ngIf="hasAppliedPromo">
-            <span class="summary-icon">🏷️</span>
-            <span>
-              <ng-container *ngIf="appliedDiscountPercent > 0; else fixedPromoLabel">
-                Code promo appliqué : -{{ appliedDiscountPercent }} %
-              </ng-container>
-              <ng-template #fixedPromoLabel>
-                Code promo appliqué : -{{ appliedDiscountAmount | number:'1.2-2' }} €
-              </ng-template>
-            </span>
-          </div>
-
-          <div class="amount-box" *ngIf="hasAppliedPromo; else normalAmount">
+          <div class="amount-box">
             <span>Montant</span>
-            <div style="display:flex; flex-direction:column; align-items:flex-end; gap:4px;">
-              <small style="text-decoration:line-through; opacity:.65;">
-                {{ totalPrice | number:'1.2-2' }} €
-              </small>
-              <strong>{{ finalTotal | number:'1.2-2' }} €</strong>
-            </div>
-          </div>
-
-          <ng-template #normalAmount>
-            <div class="amount-box">
-              <span>Montant</span>
-              <strong>{{ totalPrice | number:'1.2-2' }} €</strong>
-            </div>
-          </ng-template>
-
-          <div class="promo-feedback success mt-3" *ngIf="promoMessage">
-            {{ promoMessage }}
-          </div>
-
-          <div class="promo-feedback error mt-3" *ngIf="promoError">
-            {{ promoError }}
+            <strong>{{ totalPrice | number:'1.2-2' }} €</strong>
           </div>
         </div>
 
         <div class="conditions-card">
-          <h3>Conditions d’utilisation et d’annulation</h3>
+          <h3>Conditions d'utilisation et d'annulation</h3>
           <p>
-            Votre réservation est annulable jusqu’à 4 jours avant la date prévue
-            de l’atelier. Passé ce délai, elle ne sera plus remboursable.
+            Votre réservation est annulable jusqu'à 4 jours avant la date prévue
+            de l'atelier. Passé ce délai, elle ne sera plus remboursable.
           </p>
         </div>
       </div>

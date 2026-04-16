@@ -6,7 +6,6 @@
   .workshop-title {
     text-align: left;
     margin: 20px 0 30px;
-    font-weight: 700;
   }
 
   /* HERO */
@@ -15,9 +14,8 @@
     border: 1px solid #e0e0e0;
     padding: 16px;
 
-    // ✅ On fixe une hauteur commune aux 2 colonnes
     .hero-row {
-      --heroH: 360px; // hauteur desktop
+      --heroH: 360px;
       display: flex;
       gap: 12px;
       align-items: stretch;
@@ -44,7 +42,7 @@
 
       @media (max-width: 768px) {
         flex: 1 1 auto;
-        height: auto; // en mobile, on laisse respirer
+        height: auto;
       }
     }
 
@@ -57,16 +55,16 @@
 
       img {
         width: 100%;
-        height: 100%;       // ✅ prend toute la hauteur
-        object-fit: cover;  // ✅ recadrage
+        height: 100%;
+        object-fit: cover;
         display: block;
       }
 
       .video-wrapper {
         position: relative;
         width: 100%;
-        height: 100%;       // ✅ prend toute la hauteur
-        padding-top: 0;     // ✅ on n’utilise plus le ratio 16/9 ici
+        height: 100%;
+        padding-top: 0;
 
         iframe {
           position: absolute;
@@ -78,10 +76,10 @@
     }
 
     .thumbs {
-      height: 100%;              // ✅ même hauteur que le hero
+      height: 100%;
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr 1fr; // ✅ 2 lignes égales
+      grid-template-rows: 1fr 1fr;
       gap: 12px;
 
       @media (max-width: 768px) {
@@ -221,63 +219,120 @@
   }
 
   /* REVIEWS */
-  .review-item {
-    padding: 16px 0;
-    border-bottom: 1px solid #e0e0e0;
-
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .review-header {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 10px;
-    }
-
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background-color: map-get($theme-colors, "green-light");
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: 700;
-    }
-
-    .review-meta {
-      flex: 1;
-
-      .review-author {
-        font-weight: 700;
-        color: #4a4a4a;
-      }
-
-      .review-date {
-        font-size: 13px;
-        color: #9b9b9b;
-      }
-    }
-
-    .review-rating {
-      white-space: nowrap;
-
-      .star {
-        font-size: 15px;
-        margin-left: 2px;
-        color: #4a4a4a;
-      }
-    }
-
-    .review-text {
-      color: #4a4a4a;
-      margin: 0;
-    }
+  .reviews-box {
+    padding: 0 !important;
+    border: 1px solid #ddd6ca !important;
+    border-radius: 0;
+    background: #fff !important;
   }
+
+  .review-item {
+    padding: 30px 26px;
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .review-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #b7cbb5;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 700;
+    flex: 0 0 45px;
+  }
+
+  .review-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .review-author {
+    font-size: 15px;
+    font-weight: 800;
+    color: #2c2c2c;
+    line-height: 1.2;
+  }
+
+  .review-date {
+    font-size: 14px;
+    color: #9a9a9a;
+    font-weight: 500;
+  }
+
+  .review-rating {
+    display: flex;
+    gap: 4px;
+    font-size: 20px;
+    color: #4a4a4a;
+    white-space: nowrap;
+  }
+
+  .star {
+    font-size: 20px;
+    line-height: 1;
+  }
+
+  .review-text {
+    margin-top: 18px;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #3a3a3a;
+  }
+
+  .review-divider {
+    height: 1px;
+    background: #e6e1d9;
+    margin-top: 28px;
+  }
+
+  .review-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .btn-review {
+    min-width: 220px;
+  }
+
+
+  .review-submeta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.review-source {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #eef3ee;
+  color: #6f8c70;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+}
 
   /* RIGHT STICKY CARD */
   .workshop-box {
@@ -316,6 +371,8 @@
           padding: 0 12px;
           color: #9b9b9b;
           font-weight: 700;
+          position: relative;
+          z-index: 1;
         }
 
         &:before {
@@ -331,7 +388,7 @@
       }
 
       .btn-reserve {
-        background-color: map-get($theme-colors, "green-light");
+        background-color: map-get($theme-colors, "green");
         color: white;
         border: none;
         padding: 0.75rem 1.5rem;
@@ -340,7 +397,7 @@
         transition: background-color 0.3s ease;
 
         &:hover {
-          background-color: darken(map-get($theme-colors, "green-light"), 20%);
+          background-color: map-get($theme-colors, "green-light");
         }
 
         i {
@@ -348,16 +405,46 @@
         }
       }
 
+      .btn-book-later-wrapper {
+        .btn-book-later {
+          background-color: map-get($theme-colors, "green");
+          color: white;
+          border: none;
+          padding: 0.75rem 1.5rem;
+          font-size: 1rem;
+          border-radius: 0.375rem;
+          transition: background-color 0.3s ease;
+
+          &:hover {
+            background-color: map-get($theme-colors, "green-light");
+          }
+
+          i {
+            margin-left: 0.5rem;
+          }
+        }
+
+        .btn-book-later-hint {
+          margin: 8px 4px 0;
+          font-size: 12px;
+          color: #9b9b9b;
+          line-height: 1.4;
+          text-align: center;
+        }
+      }
+
       .btn-gift {
         background: #e9eefc;
         border: none;
         color: #223;
-        padding: 0.8rem 1.2rem;
-        border-radius: 999px;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
         font-weight: 700;
+        transition: background-color 0.3s ease;
 
         &:hover {
-          filter: brightness(0.98);
+          background: #d6e0fb;
         }
 
         i {
@@ -369,12 +456,35 @@
         background: transparent;
         border: 2px solid #223;
         color: #223;
-        padding: 0.8rem 1.2rem;
-        border-radius: 999px;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
         font-weight: 700;
+        transition: background-color 0.3s ease, color 0.3s ease;
 
         &:hover {
           background: #223;
+          color: #fff;
+        }
+
+        i {
+          margin-left: 0.5rem;
+        }
+      }
+
+      .btn-outline-back {
+        background: transparent;
+        border: 1px solid #d7d1c7;
+        color: #5a554e;
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 0.375rem;
+        font-weight: 700;
+        transition: background-color 0.3s ease, color 0.3s ease;
+
+        &:hover {
+          background: map-get($theme-colors, "green-light");
+          border-color: map-get($theme-colors, "green-light");
           color: #fff;
         }
 
@@ -469,6 +579,28 @@
           object-fit: contain;
         }
       }
+    }
+
+    .review-item {
+      padding: 22px 18px;
+    }
+
+    .review-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .review-rating {
+      margin-left: 68px;
+    }
+
+    .review-actions {
+      flex-direction: column;
+    }
+
+    .btn-review {
+      width: 100%;
+      max-width: 320px;
     }
   }
 }
